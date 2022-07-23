@@ -1,21 +1,60 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
+import { useFonts } from 'expo-font';
+
+import AppLoading from 'expo-app-loading';
+import TelaInicio from './telas/TelaInicio';
+import TelaLogin from './telas/TelaLogin';
+import TelaCadastro from './telas/TelaCadastro'
+import TelaRecuperacaoLink from './telas/TelaRecuperacaoLink';
+import TelaMudarSenha from './telas/TelaMudarSenha';
+import TelaCodigoRecuperacao from './telas/TelaCodigoRecuperacao';
+import TelaDinheiroMoeda from './telas/TelaDinheiroMoeda';
+import Header from './componentes/Header';
+import Footer from './componentes/Footer';
+import TelaInicioLogadoSAssinatura from './telas/TelaInicioLogadoSAssinatura';
+import TelaSenhaLogin from './telas/TelaSenhaLogin';
+import TelaInicioLogadoCAssinatura from './telas/TelaInicioLogadoCAssinatura';
+import TelaLogadoSelecionarGraficosExclusivosPG from './telas/TelaLogadoSelecionarGraficosExclusivosPG';
+import TelaLogadoSelecionarGraficosExclusivos from './telas/TelaLogadoSelecionarGraficosExclusivos';
 
 export default function App() {
+
+  const [fontsLoaded] = useFonts({
+    'roboto-bold': require('./assets/fonts/Roboto-Bold.ttf'),
+    'roboto-italic': require('./assets/fonts/Roboto-Italic.ttf'),
+    'roboto-regular': require('./assets/fonts/Roboto-Regular.ttf'),
+    'Nunito-Light': require('./assets/fonts/Nunito-Light.ttf'),
+    'Nunito-SemiBold': require('./assets/fonts/Nunito-SemiBold.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
+  // let screen = <TelaInicio />;
+  // let screen = <TelaLogin />;
+  // let screen = <TelaCadastro />;
+  // let screen = <TelaRecuperacaoLink />
+  // let screen = <TelaMudarSenha />
+  // let screen = <TelaCodigoRecuperacao />
+  // let screen = <TelaDinheiroMoeda />
+  // let screen = <Header />
+  // let screen = <Footer />
+  // let screen = <TelaInicioLogadoSAssinatura />
+  // let screen = <TelaSenhaLogin />
+  // let screen = <TelaInicioLogadoCAssinatura />
+  let screen = <TelaLogadoSelecionarGraficosExclusivosPG />
+  // let screen = <TelaLogadoSelecionarGraficosExclusivos />
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.rootScreen}>
+      {screen}
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  rootScreen: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  }
 });
