@@ -18,6 +18,9 @@ import TelaLogadoSelecionarGraficosExclusivosPG from './telas/TelaLogadoSelecion
 import TelaLogadoSelecionarGraficosExclusivos from './telas/TelaLogadoSelecionarGraficosExclusivos';
 import TelaControleGastos from './telas/TelaControleGastos';
 import CadastrarDespesa from './componentes/CadastrarDespesa';
+import CadastrarReceita from './componentes/CadastrarReceita';
+import DetalhesDespesa from './componentes/DetalhesDespesa';
+import DetalhesReceita from './componentes/DetalhesReceita';
 
 export default function App() {
 
@@ -48,7 +51,10 @@ export default function App() {
   // let screen = <TelaLogadoSelecionarGraficosExclusivosPG />
   // let screen = <TelaLogadoSelecionarGraficosExclusivos />
   // let screen = <TelaControleGastos />
-  let screen = <CadastrarDespesa />
+  // let screen = <CadastrarDespesa />
+  // let screen = <CadastrarReceita />
+  // let screen = <DetalhesDespesa />
+  let screen = <DetalhesReceita />
 
   return (
     <SafeAreaView style={styles.rootScreen}>

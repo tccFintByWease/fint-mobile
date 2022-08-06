@@ -5,11 +5,11 @@ import Colors from '../constantes/colors'
 import BotaoInicio from './BotaoInicio';
 import patternStyle from '../constantes/style';
 
-function CadastrarDespesa() {
+function CadastrarReceita() {
 
     return <View style={{ marginTop: 30, flex: 1 }}>
         <View style={styles.viewTopo}>
-            <Text style={styles.textoTopo}> Cadastrar Despesa</Text>
+            <Text style={styles.textoTopo}> Cadastrar Receita</Text>
             <View style={{ position: 'absolute', right: 0, paddingRight: 10 }}>
                 <Text style={styles.textoXTopo}> X </Text>
             </View>
@@ -17,8 +17,8 @@ function CadastrarDespesa() {
         <View style={{ top: 0 }}>
             <View style={styles.viewAdjacente}>
                 <Text style={styles.textoCinza}>Categoria</Text>
-                <View style={{ backgroundColor: Colors.vermelhoGoogle, paddingHorizontal: 10, color: Colors.branco, fontSize: 16, paddingVertical: 1, marginVertical: 6, width: 120 }}>
-                    <Text>X Conta de Luz</Text>
+                <View style={{ backgroundColor: Colors.verdePrincipal, paddingHorizontal: 10, color: Colors.branco, fontSize: 16, paddingVertical: 1, marginVertical: 6, width: 80 }}>
+                    <Text>X Salário</Text>
                 </View>
                 <View style={{ position: 'absolute', right: 0, paddingRight: 2 }}>
                     <Text style={styles.textoTracoCat}> &gt; </Text>
@@ -26,7 +26,7 @@ function CadastrarDespesa() {
             </View>
             <View style={styles.viewAdjacente}>
                 <Text style={styles.textoCinza}>Nome</Text>
-                <TextInput style={styles.textoPretoDentro} defaultValue={'Nome da Despesa'} />
+                <TextInput style={styles.textoPretoDentro} defaultValue={'Nome da Receita'} />
             </View>
             <View style={styles.viewAdjacente}>
                 <Text style={styles.textoCinza}>Descrição</Text>
@@ -54,7 +54,7 @@ function CadastrarDespesa() {
     </View>
 }
 
-export default CadastrarDespesa;
+export default CadastrarReceita;
 
 const styles = StyleSheet.create({
     viewTopo: {

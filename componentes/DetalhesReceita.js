@@ -5,32 +5,24 @@ import Colors from '../constantes/colors'
 import BotaoInicio from './BotaoInicio';
 import patternStyle from '../constantes/style';
 
-function CadastrarDespesa() {
+function DetalhesReceita() {
 
     return <View style={{ marginTop: 30, flex: 1 }}>
         <View style={styles.viewTopo}>
-            <Text style={styles.textoTopo}> Cadastrar Despesa</Text>
-            <View style={{ position: 'absolute', right: 0, paddingRight: 10 }}>
-                <Text style={styles.textoXTopo}> X </Text>
+            <Text style={styles.textoTopo}> Nome Receita</Text>
+            <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                <View style={{ backgroundColor: Colors.vermelhoGoogle, paddingHorizontal: 10, paddingVertical: 3, marginVertical: 6, width: 80 }}>
+                    <Text style={{ color: Colors.branco, fontSize: 14, }}>X Salário</Text>
+                </View>
+                <View style={{ backgroundColor: Colors.cinzaContorno, marginLeft: 6, paddingLeft: 6, borderRadius: 20, marginVertical: 8, width: 20 }}>
+                    <Text style={{ color: Colors.branco, fontSize: 14, }}>+</Text>
+                </View>
             </View>
         </View>
-        <View style={{ top: 0 }}>
-            <View style={styles.viewAdjacente}>
-                <Text style={styles.textoCinza}>Categoria</Text>
-                <View style={{ backgroundColor: Colors.vermelhoGoogle, paddingHorizontal: 10, color: Colors.branco, fontSize: 16, paddingVertical: 1, marginVertical: 6, width: 120 }}>
-                    <Text>X Conta de Luz</Text>
-                </View>
-                <View style={{ position: 'absolute', right: 0, paddingRight: 2 }}>
-                    <Text style={styles.textoTracoCat}> &gt; </Text>
-                </View>
-            </View>
-            <View style={styles.viewAdjacente}>
-                <Text style={styles.textoCinza}>Nome</Text>
-                <TextInput style={styles.textoPretoDentro} defaultValue={'Nome da Despesa'} />
-            </View>
+        <View>
             <View style={styles.viewAdjacente}>
                 <Text style={styles.textoCinza}>Descrição</Text>
-                <TextInput style={styles.textoPretoDentro} defaultValue={'Descrição opcional da receita'} />
+                <TextInput style={styles.textoPretoDentro} defaultValue={'Descrição opcional da despesa'} />
             </View>
             <View style={styles.viewAdjacente}>
                 <Text style={styles.textoCinza}>Data</Text>
@@ -44,22 +36,23 @@ function CadastrarDespesa() {
                 <Text style={styles.textoCinza}>Valor</Text>
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={styles.textoPretoDentro}>R$</Text>
-                    <TextInput style={styles.textoPretoDentro} defaultValue={'0,00'} keyboardType='numeric' />
+                    <TextInput style={styles.textoPretoDentro} defaultValue={'142,54'} keyboardType='numeric' />
                 </View>
             </View>
             <View style={{ alignItems: 'center', padding: 6 }}>
-                <BotaoInicio styleExterno={patternStyle.botaoExterno} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Ver Mais</BotaoInicio>
+                <BotaoInicio styleExterno={patternStyle.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}>Excluir Receita</BotaoInicio>
             </View>
         </View>
-    </View>
+    </View >
 }
 
-export default CadastrarDespesa;
+export default DetalhesReceita;
 
 const styles = StyleSheet.create({
     viewTopo: {
-        flexDirection: 'row',
-        paddingVertical: 24,
+        flexDirection: 'column',
+        paddingTop: 24,
+        paddingBottom: 10,
         borderBottomColor: Colors.cinzaContorno,
         borderBottomWidth: 1,
         paddingHorizontal: 6,
@@ -79,12 +72,17 @@ const styles = StyleSheet.create({
         fontSize: 40,
         color: Colors.preto,
     },
+    botaoInterno: {
+        backgroundColor: Colors.vermelhoGoogle,
+        paddingVertical: 10
+    },
     viewAdjacente: {
         paddingHorizontal: 6,
         paddingTop: 2,
         borderBottomColor: Colors.cinzaContorno,
         borderBottomWidth: 1,
         width: '100%',
+        paddingBottom: 4
     },
     textoCinza: {
         fontSize: 15,
