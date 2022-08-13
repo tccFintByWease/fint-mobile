@@ -22,7 +22,7 @@ function DetalhesDespesa() {
         <View>
             <View style={styles.viewAdjacente}>
                 <Text style={styles.textoCinza}>Descrição</Text>
-                <TextInput style={styles.textoPretoDentro} defaultValue={'Descrição opcional da receita'} />
+                <TextInput style={styles.textoPretoDentro} defaultValue={'Descrição opcional da despesa'} />
             </View>
             <View style={styles.viewAdjacente}>
                 <Text style={styles.textoCinza}>Data</Text>

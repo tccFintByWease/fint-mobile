@@ -21,6 +21,10 @@ import CadastrarDespesa from './componentes/CadastrarDespesa';
 import CadastrarReceita from './componentes/CadastrarReceita';
 import DetalhesDespesa from './componentes/DetalhesDespesa';
 import DetalhesReceita from './componentes/DetalhesReceita';
+import AlterarCategoriaDespesa from './componentes/AlterarCategoriaDespesa';
+import FiltrosDespesa from './componentes/FiltrosDespesa';
+import FiltrosReceita from './componentes/FiltrosReceita';
+import ConfirmMPDespesa from './componentes/ConfirMPDespesa';
 
 export default function App() {
 
@@ -49,12 +53,16 @@ export default function App() {
   // let screen = <TelaSenhaLogin />
   // let screen = <TelaInicioLogadoCAssinatura />
   // let screen = <TelaLogadoSelecionarGraficosExclusivosPG />
-   let screen = <TelaLogadoSelecionarGraficosExclusivos />
+  // let screen = <TelaLogadoSelecionarGraficosExclusivos />
   // let screen = <TelaControleGastos />
   // let screen = <CadastrarDespesa />
   // let screen = <CadastrarReceita />
   // let screen = <DetalhesDespesa />
   // let screen = <DetalhesReceita />
+  // let screen = <AlterarCategoriaDespesa />
+  // let screen = <FiltrosDespesa />
+  // let screen = <FiltrosReceita />
+  let screen = <ConfirmMPDespesa/>
 
   return (
     <SafeAreaView style={styles.rootScreen}>

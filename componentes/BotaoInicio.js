@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
     botaoInterno:{
         paddingVertical: 15,
         paddingHorizontal: 25,
-        elevation: 8
     },
     textoBotao:{
         color: Colors.branco,

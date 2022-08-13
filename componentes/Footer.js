@@ -30,13 +30,13 @@ function Footer() {
                     <Text style={{ fontSize: 12, fontFamily: 'roboto-regular', letterSpacing: 2 }}>Gastos</Text>
                 </Pressable>
             </View>
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1.2 }}>
                 <Pressable style={styles.viewCaixas} onPress={simuladorReturn}>
                     <Image style={styles.imgs} source={require('../assets/icons/money-bill-1-wave-solid.png')} />
                     <Text style={{ fontSize: 12, fontFamily: 'roboto-regular', letterSpacing: 1.1 }}>Simulador</Text>
                 </Pressable>
             </View>
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1.2 }}>
                 <Pressable style={styles.viewCaixas} onPress={investimentosReturn}>
                     <Image style={styles.imgs} source={require('../assets/icons/chart-line-solid.png')} />
                     <Text style={{ fontSize: 12, fontFamily: 'roboto-regular', }}>Investimentos</Text>

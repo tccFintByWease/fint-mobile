@@ -58,7 +58,6 @@ function TelaLogadoSelecionarGraficosExclusivos() {
                             <View style={{ marginTop: 30 }}>
                                 <Text style={styles.textoGrande}> TESTE AAAAAA </Text>
                             </View>
-
                             <BotaoInicio styleExterno={styles.botaoFora} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}>Desativar</BotaoInicio>
                         </View>
                     </View>
@@ -71,7 +70,6 @@ function TelaLogadoSelecionarGraficosExclusivos() {
                             <View style={{ marginTop: 30 }}>
                                 <Text style={styles.textoGrande}> TESTE AAAAAA </Text>
                             </View>
-
                             <BotaoInicio styleExterno={styles.botaoFora} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Ativar</BotaoInicio>
                         </View>
                     </View>
@@ -120,7 +118,7 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontFamily: 'roboto-regular',
         letterSpacing: 1.6,
-        paddingHorizontal: 10,
+        paddingHorizontal: 6,
         paddingVertical: 4,
     },
     textoNovo: {

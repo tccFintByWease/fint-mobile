@@ -11,7 +11,7 @@ function DetalhesReceita() {
         <View style={styles.viewTopo}>
             <Text style={styles.textoTopo}> Nome Receita</Text>
             <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-                <View style={{ backgroundColor: Colors.vermelhoGoogle, paddingHorizontal: 10, paddingVertical: 3, marginVertical: 6, width: 80 }}>
+                <View style={{ backgroundColor: Colors.verdePrincipal, paddingHorizontal: 10, paddingVertical: 3, marginVertical: 6, width: 80 }}>
                     <Text style={{ color: Colors.branco, fontSize: 14, }}>X Salário</Text>
                 </View>
                 <View style={{ backgroundColor: Colors.cinzaContorno, marginLeft: 6, paddingLeft: 6, borderRadius: 20, marginVertical: 8, width: 20 }}>
@@ -22,7 +22,7 @@ function DetalhesReceita() {
         <View>
             <View style={styles.viewAdjacente}>
                 <Text style={styles.textoCinza}>Descrição</Text>
-                <TextInput style={styles.textoPretoDentro} defaultValue={'Descrição opcional da despesa'} />
+                <TextInput style={styles.textoPretoDentro} defaultValue={'Descrição opcional da receita'} />
             </View>
             <View style={styles.viewAdjacente}>
                 <Text style={styles.textoCinza}>Data</Text>
