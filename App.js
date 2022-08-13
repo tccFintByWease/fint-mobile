@@ -49,12 +49,12 @@ export default function App() {
   // let screen = <TelaSenhaLogin />
   // let screen = <TelaInicioLogadoCAssinatura />
   // let screen = <TelaLogadoSelecionarGraficosExclusivosPG />
-  // let screen = <TelaLogadoSelecionarGraficosExclusivos />
+   let screen = <TelaLogadoSelecionarGraficosExclusivos />
   // let screen = <TelaControleGastos />
   // let screen = <CadastrarDespesa />
   // let screen = <CadastrarReceita />
   // let screen = <DetalhesDespesa />
-  let screen = <DetalhesReceita />
+  // let screen = <DetalhesReceita />
 
   return (
     <SafeAreaView style={styles.rootScreen}>
