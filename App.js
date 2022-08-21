@@ -1,33 +1,23 @@
 import { StyleSheet, SafeAreaView } from 'react-native';
-import { useFonts } from 'expo-font';
+import {NavigationContainer} from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { StatusBar } from 'expo-status-bar';
+import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
+
 import TelaInicio from './telas/TelaInicio';
 import TelaLogin from './telas/TelaLogin';
-import TelaCadastro from './telas/TelaCadastro'
+import TelaCadastro from './telas/TelaCadastro'; 
 import TelaRecuperacaoLink from './telas/TelaRecuperacaoLink';
-import TelaMudarSenha from './telas/TelaMudarSenha';
-import TelaCodigoRecuperacao from './telas/TelaCodigoRecuperacao';
-import TelaDinheiroMoeda from './telas/TelaDinheiroMoeda';
-import Header from './componentes/Header';
-import Footer from './componentes/Footer';
-import TelaInicioLogadoSAssinatura from './telas/TelaInicioLogadoSAssinatura';
-import TelaSenhaLogin from './telas/TelaSenhaLogin';
-import TelaInicioLogadoCAssinatura from './telas/TelaInicioLogadoCAssinatura';
-import TelaLogadoSelecionarGraficosExclusivosPG from './telas/TelaLogadoSelecionarGraficosExclusivosPG';
-import TelaLogadoSelecionarGraficosExclusivos from './telas/TelaLogadoSelecionarGraficosExclusivos';
-import TelaControleGastos from './telas/TelaControleGastos';
-import CadastrarDespesa from './componentes/CadastrarDespesa';
-import CadastrarReceita from './componentes/CadastrarReceita';
-import DetalhesDespesa from './componentes/DetalhesDespesa';
-import DetalhesReceita from './componentes/DetalhesReceita';
-import AlterarCategoriaDespesa from './componentes/AlterarCategoriaDespesa';
-import FiltrosDespesa from './componentes/FiltrosDespesa';
-import FiltrosReceita from './componentes/FiltrosReceita';
-import ConfirmMPDespesa from './componentes/ConfirMPDespesa';
+
+const BottomTab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
-
+  // Carregamento de Fontes
   const [fontsLoaded] = useFonts({
     'roboto-bold': require('./assets/fonts/Roboto-Bold.ttf'),
     'roboto-italic': require('./assets/fonts/Roboto-Italic.ttf'),
@@ -35,38 +25,24 @@ export default function App() {
     'Nunito-Light': require('./assets/fonts/Nunito-Light.ttf'),
     'Nunito-SemiBold': require('./assets/fonts/Nunito-SemiBold.ttf'),
   });
-
   if (!fontsLoaded) {
     return <AppLoading />;
   }
 
-  // let screen = <TelaInicio />;
-  // let screen = <TelaLogin />;
-  // let screen = <TelaCadastro />;
-  // let screen = <TelaRecuperacaoLink />
-  // let screen = <TelaMudarSenha />
-  // let screen = <TelaCodigoRecuperacao />
-  // let screen = <TelaDinheiroMoeda />
-  // let screen = <Header />
-  // let screen = <Footer />
-  // let screen = <TelaInicioLogadoSAssinatura />
-  // let screen = <TelaSenhaLogin />
-  // let screen = <TelaInicioLogadoCAssinatura />
-  // let screen = <TelaLogadoSelecionarGraficosExclusivosPG />
-  // let screen = <TelaLogadoSelecionarGraficosExclusivos />
-  // let screen = <TelaControleGastos />
-  // let screen = <CadastrarDespesa />
-  // let screen = <CadastrarReceita />
-  // let screen = <DetalhesDespesa />
-  // let screen = <DetalhesReceita />
-  // let screen = <AlterarCategoriaDespesa />
-  // let screen = <FiltrosDespesa />
-  // let screen = <FiltrosReceita />
-  let screen = <ConfirmMPDespesa/>
-
   return (
     <SafeAreaView style={styles.rootScreen}>
-      {screen}
+      <StatusBar style='light'/>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{
+          headerShown: false,
+          cardStyle:{backgroundColor: 'white'}
+        }}>
+          <Stack.Screen name='inicio' component={TelaInicio}/>
+          <Stack.Screen name='login' component={TelaLogin}/>
+          <Stack.Screen name='cadastro' component={TelaCadastro}/>
+          <Stack.Screen name='linkRecuperacao' component={TelaRecuperacaoLink}/>
+        </Stack.Navigator>
+      </NavigationContainer>
     </SafeAreaView>
   );
 }

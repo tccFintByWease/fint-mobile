@@ -1,16 +1,24 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { View, StyleSheet, Image } from "react-native";
-import { StatusBar } from 'expo-status-bar';
 
 import BotaoInicio from "../componentes/BotaoInicio";
 import Subtitulo from "../componentes/Subtitulo";
 import Colors from '../constantes/colors';
 import patternStyle from "../constantes/style";
 
-function TelaInicio() {
+function TelaInicio({navigation}) {
+    //Botão 'Conectar-se'
+    function buttonHandler1() {
+        navigation.navigate('login');
+    }
+
+    //Botão 'Criar uma Conta'
+    function buttonHandler2() {
+        navigation.navigate('cadastro');
+    }
+
     return (
         <LinearGradient colors={[Colors.verdePrincipal, Colors.verdeSecundario]} style={styles.rootContainer}>
-            <StatusBar style="light" />
             <View style={styles.caixaLogo}>
                 <Image
                     style={styles.image}
@@ -20,10 +28,10 @@ function TelaInicio() {
             </View>
             <View style={styles.caixaBotoes}>
                 <View>
-                    <BotaoInicio styleCorpo={styles.botao} styleTexto={styles.textoBotao}>Conectar-se</BotaoInicio>
+                    <BotaoInicio onPress={buttonHandler1} styleCorpo={styles.botao} styleTexto={styles.textoBotao}>Conectar-se</BotaoInicio>
                 </View>
                 <View>
-                    <BotaoInicio>Criar uma Conta</BotaoInicio>
+                    <BotaoInicio onPress={buttonHandler2}>Criar uma Conta</BotaoInicio>
                 </View>
             </View>
             <View style={patternStyle.rodapeLogin}>
@@ -39,9 +47,7 @@ const styles = StyleSheet.create({
     rootContainer: {
         flex: 1,
         alignItems: 'center',
-        padding: 10,
-        borderColor: Colors.preto,
-        borderWidth: 1
+        padding: 10
     },
     caixaLogo: {
         alignItems: 'center',
@@ -58,7 +64,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         marginHorizontal: 20,
         width: '80%',
-        marginTop: 275
+        marginTop: 350
     },
     botao: {
         backgroundColor: Colors.branco,

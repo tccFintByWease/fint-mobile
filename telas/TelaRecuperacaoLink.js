@@ -4,9 +4,18 @@ import BotaoInicio from '../componentes/BotaoInicio';
 import Subtitulo from '../componentes/Subtitulo';
 import patternStyle from '../constantes/style';
 import Header from '../componentes/Header';
-import Footer from '../componentes/Footer';
 
-function TelaRecuperacaoLink() {
+function TelaRecuperacaoLink({navigation}) {
+    //Texto 'Criar uma nova Conta'
+    function buttonHandler1(){
+        navigation.navigate('cadastro');
+    }
+
+    //Texto 'Conectar-se'
+    function buttonHandler2(){
+        navigation.navigate('login');
+    }
+
     return (
         <View style={{ flex: 1 }}>
             <View style={patternStyle.rootContainer}>
@@ -30,7 +39,9 @@ function TelaRecuperacaoLink() {
                     <Text style={patternStyle.texto}>Verifique seu email e acesse o link enviado para recuperar sua conta </Text>
                 </View>
                 <View style={patternStyle.caixaTexto}>
-                    <Text style={patternStyle.texto}>Criar uma nova conta ou Conectar-se</Text>
+                    <Text onPress={buttonHandler1} style={patternStyle.texto}>Criar uma nova conta ou 
+                    <Text onPress={buttonHandler2} style={patternStyle.texto}> Conectar-se</Text>
+                    </Text>
                 </View>
                 <View style={patternStyle.rodapeLogin}>
                     <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>

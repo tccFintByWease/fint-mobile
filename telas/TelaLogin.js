@@ -1,11 +1,22 @@
-import { View, StyleSheet, TextInput, Text, Image } from "react-native";
+import { View, StyleSheet, TextInput, Text, Image, TouchableOpacity } from "react-native";
+import {Ionicons} from '@expo/vector-icons';
 import BotaoInicio from "../componentes/BotaoInicio";
-
 import Subtitulo from "../componentes/Subtitulo";
 import Colors from "../constantes/colors";
 import patternStyle from '../constantes/style';
+import InputSenha from "../componentes/InputSenha";
 
-function TelaLogin() {
+function TelaLogin({navigation}) {
+    //Texto 'Esqueceu a senha?'
+    function buttonHandler1(){
+        navigation.navigate('linkRecuperacao');
+    }
+
+    //Texto 'Criar uma nova conta'
+    function buttonHandler2(){
+        navigation.navigate('cadastro');
+    }
+
     return (
         <View style={patternStyle.rootContainer}>
             <View style={patternStyle.caixaLogo}>
@@ -23,21 +34,24 @@ function TelaLogin() {
                     autoCorrect={false}
                     placeholder='Email'
                 />
-                <TextInput
-                    style={patternStyle.input}
-                    maxLength={50}
-                    keyboardType='visible-password'
-                    autoCapitalize='none'
-                    autoCorrect={false}
-                    placeholder='Senha'
-                />
+                <InputSenha placeholder="Senha"/>
                 <BotaoInicio styleExterno={patternStyle.botaoExterno} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Entrar</BotaoInicio>
-                <Text style={patternStyle.texto}>Esqueceu a senha?</Text>
+                <Text onPress={buttonHandler1} style={patternStyle.texto}>Esqueceu a senha?</Text>
             </View>
             <View style={[patternStyle.inputContainer, styles.inputContainer2]}>
-                <BotaoInicio styleExterno={patternStyle.botaoExterno} styleCorpo={styles.botaoInternoG} styleTexto={styles.textoBotao2}>Entrar com sua conta Google</BotaoInicio>
-                <BotaoInicio styleExterno={patternStyle.botaoExterno} styleCorpo={styles.botaoInternoF} styleTexto={styles.textoBotao2}>Entrar com sua conta Facebook</BotaoInicio>
-                <Text style={patternStyle.texto}>Crie uma nova conta</Text>
+                <BotaoInicio 
+                styleExterno={patternStyle.botaoExterno} 
+                styleCorpo={styles.botaoInternoG} 
+                styleTexto={styles.textoBotao2}>
+                    <Ionicons name="logo-google" size={20} />  Entrar com sua conta Google
+                </BotaoInicio>
+                <BotaoInicio 
+                styleExterno={patternStyle.botaoExterno} 
+                styleCorpo={styles.botaoInternoF} 
+                styleTexto={styles.textoBotao2}>
+                    <Ionicons name="logo-facebook" size={20} />   Entrar com sua conta Facebook
+                </BotaoInicio>
+                <Text onPress={buttonHandler2} style={patternStyle.texto}>Crie uma nova conta</Text>
             </View>
             <View style={patternStyle.rodapeLogin}>
                 <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>
