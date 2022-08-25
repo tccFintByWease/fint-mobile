@@ -13,6 +13,8 @@ function TelaCadastro({navigation}) {
     const [estaHabilitado, setEstaHabilitado] = useState(false);
     const mexerBotao = () => setEstaHabilitado(previousState => !previousState);
 
+    
+
     //Botão de Cadastro
     const [modalVisible, setModalVisible] = useState(false);
     function Aviso(){
