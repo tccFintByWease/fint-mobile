@@ -2,12 +2,10 @@ import { StyleSheet, SafeAreaView } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
-
 import TelaInicio from './telas/TelaInicio';
 import TelaLogin from './telas/TelaLogin';
 import TelaCadastro from './telas/TelaCadastro'; 

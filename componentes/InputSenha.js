@@ -5,7 +5,7 @@ import {Ionicons} from '@expo/vector-icons';
 import patternStyle from '../constantes/style';
 import Colors from '../constantes/colors';
 
-function InputSenha({placeholder}){
+function InputSenha({placeholder, onChangeText}){
     const [hidePassword, setHidePassword] = useState(true);
     
     return(
@@ -17,6 +17,7 @@ function InputSenha({placeholder}){
                 autoCorrect={false}
                 placeholder={placeholder}
                 secureTextEntry={hidePassword}
+                onChangeText={onChangeText}
             />
             <TouchableOpacity style={styles.icon} onPress={() => setHidePassword(!hidePassword)}>
                 {hidePassword ?
