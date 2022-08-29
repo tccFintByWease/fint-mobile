@@ -1,12 +1,11 @@
 import React from 'react';
-import { View, Button, TextInput, Text, Image, StyleSheet } from "react-native";
+import { View, TextInput, Text, Image, StyleSheet } from "react-native";
 import patternStyle from '../constantes/style';
 import InputSenha from '../componentes/InputSenha';
 import Subtitulo from '../componentes/Subtitulo';
 import BotaoInicio from '../componentes/BotaoInicio';
 import Colors from '../constantes/colors';
 import {Ionicons} from '@expo/vector-icons';
-
 
 class TelaLogin extends React.Component {
 
@@ -85,7 +84,7 @@ class TelaLogin extends React.Component {
                         onChangeText={(text) => { this.setState({password:text})} }
                     />
                     <BotaoInicio onPress={() => { this.submit() }} styleExterno={patternStyle.botaoExterno} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Entrar</BotaoInicio>
-                    <Text style={patternStyle.texto}>Esqueceu a senha?</Text>
+                    <Text onPress={() => this.props.navigation.navigate('recuperacaoLink')} style={patternStyle.texto}>Esqueceu a senha?</Text>
                 </View>
                 <View style={[patternStyle.inputContainer, styles.inputContainer2]}>
                     <BotaoInicio 
@@ -100,7 +99,7 @@ class TelaLogin extends React.Component {
                     styleTexto={styles.textoBotao2}>
                         <Ionicons name="logo-facebook" size={20} />   Entrar com sua conta Facebook
                     </BotaoInicio>
-                    <Text style={patternStyle.texto}>Crie uma nova conta</Text>
+                    <Text onPress={() => this.props.navigation.navigate('cadastro')} style={patternStyle.texto}>Crie uma nova conta</Text>
                 </View>
                 <View style={patternStyle.rodapeLogin}>
                     <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>
@@ -110,7 +109,7 @@ class TelaLogin extends React.Component {
     }
 }
 
-export default TelaLogin
+export default TelaLogin;
 
 const styles = StyleSheet.create({
     inputContainer2: {

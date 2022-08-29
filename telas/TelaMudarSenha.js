@@ -4,62 +4,65 @@ import BotaoInicio from '../componentes/BotaoInicio';
 import Subtitulo from '../componentes/Subtitulo';
 import patternStyle from '../constantes/style';
 import Colors from '../constantes/colors';
+import React from 'react';
 
-function TelaMudarSenha() {
-    return (
-        <View style={patternStyle.rootContainer}>
-            <View style={patternStyle.caixaLogo}>
-                <Image
-                    style={patternStyle.image}
-                    source={require('../assets/images/logo_preto.png')}
-                />
-            </View>
-            <View style={patternStyle.inputContainer}>
-                <View style={styles.inputButton}>
-                    <View style={{ flex: 6 }}>
-                        <TextInput
-                            style={styles.input}
-                            maxLength={50}
-                            keyboardType='visible-password'
-                            autoCapitalize='none'
-                            autoCorrect={false}
-                            placeholder='Senha'
-                        />
-                    </View>
-                    <View style={{ flex: 1 }}>
-                        <Pressable>
-                            <View>
-                                <Image source={require('../assets/icons/eye-solid.png')} style={{ width: 26, height: 23, marginLeft: 5 }}></Image>
-                            </View>
-                        </Pressable>
-                    </View>
+class TelaMudarSenha extends React.Component {
+    render(){
+        return (
+            <View style={patternStyle.rootContainer}>
+                <View style={patternStyle.caixaLogo}>
+                    <Image
+                        style={patternStyle.image}
+                        source={require('../assets/images/logo_preto.png')}
+                    />
                 </View>
-                <View style={styles.inputButton}>
-                    <View style={{ flex: 6 }}>
-                        <TextInput
-                            style={styles.input}
-                            maxLength={50}
-                            keyboardType='visible-password'
-                            autoCapitalize='none'
-                            autoCorrect={false}
-                            placeholder='Confirme a senha'
-                        />
+                <View style={patternStyle.inputContainer}>
+                    <View style={styles.inputButton}>
+                        <View style={{ flex: 6 }}>
+                            <TextInput
+                                style={styles.input}
+                                maxLength={50}
+                                keyboardType='visible-password'
+                                autoCapitalize='none'
+                                autoCorrect={false}
+                                placeholder='Senha'
+                            />
+                        </View>
+                        <View style={{ flex: 1 }}>
+                            <Pressable>
+                                <View>
+                                    <Image source={require('../assets/icons/eye-solid.png')} style={{ width: 26, height: 23, marginLeft: 5 }}></Image>
+                                </View>
+                            </Pressable>
+                        </View>
                     </View>
-                    <View style={{ flex: 1 }}>
-                        <Pressable>
-                            <View>
-                                <Image source={require('../assets/icons/eye-solid.png')} style={{ width: 40, height: 34, marginLeft: 15 }}></Image>
-                            </View>
-                        </Pressable>
+                    <View style={styles.inputButton}>
+                        <View style={{ flex: 6 }}>
+                            <TextInput
+                                style={styles.input}
+                                maxLength={50}
+                                keyboardType='visible-password'
+                                autoCapitalize='none'
+                                autoCorrect={false}
+                                placeholder='Confirme a senha'
+                            />
+                        </View>
+                        <View style={{ flex: 1 }}>
+                            <Pressable>
+                                <View>
+                                    <Image source={require('../assets/icons/eye-solid.png')} style={{ width: 40, height: 34, marginLeft: 15 }}></Image>
+                                </View>
+                            </Pressable>
+                        </View>
                     </View>
+                    <BotaoInicio styleExterno={patternStyle.botaoExterno} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Alterar Senha</BotaoInicio>
                 </View>
-                <BotaoInicio styleExterno={patternStyle.botaoExterno} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Alterar Senha</BotaoInicio>
+                <View style={patternStyle.rodapeLogin}>
+                    <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>
+                </View>
             </View>
-            <View style={patternStyle.rodapeLogin}>
-                <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>
-            </View>
-        </View>
-    );
+        );
+    }
 }
 
 const styles = StyleSheet.create({

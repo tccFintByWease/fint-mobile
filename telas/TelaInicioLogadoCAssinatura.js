@@ -1,212 +1,145 @@
 import { View, Image, Pressable, Text, ScrollView, StyleSheet } from 'react-native';
 
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 import patternStyle from '../constantes/style';
 import Header from '../componentes/Header';
-import Footer from '../componentes/Footer';
 import Colors from '../constantes/colors';
 import BotaoInicio from '../componentes/BotaoInicio';
+import CaixaInvestimento from '../componentes/CaixaInvestimento';
+import React from 'react';
 
-function TelaInicioLogadoCAssinatura() {
-
-    function verMaisReceiver() {
-        console.log('Ver mais');
-    };
-    function setinha1Receiver() {
-        console.log('>1');
-    };
-    function setinha2Receiver() {
-        console.log('>2');
-    };
-    function setinha3Receiver() {
-        console.log('>3');
-    };
-    function xReceiver() {
-        console.log('X');
-    };
-    function assinarReceiver() {
-        console.log('Assinar');
-    };
-    return (
-        <View style={{ flex: 1 }}>
-            <Header />
-            <ScrollView style={{ marginTop: 110, marginBottom: 76 }}>
-                <View style={patternStyle.rootContainer2}>
-                    <View style={styles.alertaBox}>
-                        <View style={{ position: 'absolute', right: 0, top: 0 }}>
-                            <Pressable onPress={xReceiver}>
-                                <View>
-                                    <Text style={styles.xButton} > X </Text>
-                                </View>
-                            </Pressable>
+class TelaInicioLogadoCAssinatura extends React.Component {
+    render(){
+        return (
+            <View style={{ flex: 1 }}>
+                <Header />
+                <ScrollView style={{ marginTop: 70}}>
+                    <View style={patternStyle.rootContainer2}>
+                        <View style={styles.alertaBox}>
+                            <View style={{ position: 'absolute', right: 0, top: 0 }}>
+                                <Pressable>
+                                    <View>
+                                        <Text style={styles.xButton} > X </Text>
+                                    </View>
+                                </Pressable>
+                            </View>
+                            <Text style={{ 
+                                width: '70%', 
+                                textAlign: 'center',
+                                fontFamily: 'roboto-bold', 
+                                letterSpacing: 1, 
+                                fontSize: 20, 
+                                color: Colors.branco, 
+                                marginBottom: 8
+                            }}>
+                                Gráficos Exclusivos
+                            </Text>
+                            <Text style={{ 
+                                marginLeft: 8,
+                                fontFamily: 'roboto-italic', 
+                                fontSize: 14, 
+                                color: Colors.branco, 
+                            }}>
+                                Sua assinatura possui gráficos especiais que podem ser exibidos na tela inicial.
+                            </Text>
+                            <View>
+                                <Pressable style={styles.botaoAlerta}>
+                                    <View>
+                                        <Text style={styles.txtBotaoAlerta}>Assinar</Text>
+                                    </View>
+                                </Pressable>
+                            </View>
                         </View>
-                        <Text style={{ width: '75%', fontFamily: 'roboto-regular', letterSpacing: 1.5, fontSize: 22, color: Colors.branco, paddingBottom: 8, fontWeight: '600' }}>
-                            Gráficos Exclusivos
+                        <View style={styles.viewGrafico}>
+                            <Text style={styles.textoGrafico}> Gráfico</Text>
+                        </View>
+                    </View>
+                    <View style={styles.boxTitle}>
+                        <Text style={styles.textTitle}>
+                            Últimos Investimentos
                         </Text>
-                        <Text style={{ fontFamily: 'roboto-regular', letterSpacing: 1.1, fontSize: 16, color: Colors.branco, fontWeight: '600' }}>
-                            Sua assinatura possui gráficos especiais que podem ser exibidos na tela inicial.
-                        </Text>
-                        <View style={styles.botaoAlerta}>
-                            <Pressable onPress={assinarReceiver}>
-                                <View>
-                                    <Text style={styles.txtBotaoAlerta}>Assinar</Text>
-                                </View>
-                            </Pressable>
+                    </View>
+                    <View >
+                        <CaixaInvestimento>(nome do investimento)</CaixaInvestimento>
+                        <CaixaInvestimento>(nome do investimento)</CaixaInvestimento>
+                        <CaixaInvestimento>(nome do investimento)</CaixaInvestimento>
+                        <View style={{
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}>
+                            <BotaoInicio onPress={() => this.props.navigation.navigate('Investimentos')} styleExterno={styles.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}> Ver Mais </BotaoInicio>
                         </View>
                     </View>
-                    <View style={styles.viewGrafico}>
-                        <Text style={styles.textoGrafico}> Gráfico</Text>
-                    </View>
-                </View>
-                <View style={styles.boxTitle}>
-                    <Text style={styles.textTitle}>
-                        Últimos Investimentos
-                    </Text>
-                </View>
-                <View>
-                    <View style={styles.boxList}>
-                        <Image source={require('../assets/icons/house-solid.png')} style={styles.imgBall} />
-                        <View style={{ flexDirection: 'column' }}>
-                            <Text style={styles.textoGrande}>Nome do Investimento</Text>
-                            <Text style={styles.textoPequeno}>Investimento: R$ 37,89</Text>
-                        </View>
-                        <View style={{ position: 'absolute', right: 0 }}>
-                            <Pressable onPress={setinha1Receiver}>
-                                <Text style={styles.textoEnorme}> &gt; </Text>
-                            </Pressable>
-                        </View>
-                    </View>
-                    <View style={styles.boxList}>
-                        <Image source={require('../assets/icons/house-solid.png')} style={styles.imgBall} />
-                        <View style={{ flexDirection: 'column' }}>
-                            <Text style={styles.textoGrande}>Nome do Investimento</Text>
-                            <Text style={styles.textoPequeno}>Investimento: R$ 37,89</Text>
-                        </View>
-                        <View style={{ position: 'absolute', right: 0 }}>
-                            <Pressable onPress={setinha2Receiver}>
-                                <Text style={styles.textoEnorme}> &gt; </Text>
-                            </Pressable>
-                        </View>
-                    </View>
-                    <View style={styles.boxList}>
-                        <Image source={require('../assets/icons/house-solid.png')} style={styles.imgBall} />
-                        <View style={{ flexDirection: 'column' }}>
-                            <Text style={styles.textoGrande}>Nome do Investimento</Text>
-                            <Text style={styles.textoPequeno}>Investimento: R$ 37,89</Text>
-                        </View>
-                        <View style={{ position: 'absolute', right: 0 }}>
-                            <Pressable onPress={setinha3Receiver}>
-                                <Text style={styles.textoEnorme}> &gt; </Text>
-                            </Pressable>
-                        </View>
-                    </View>
-                    <View style={{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}>
-                        <BotaoInicio onPress={verMaisReceiver} styleExterno={styles.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}> Ver Mais </BotaoInicio>
-                    </View>
-                </View>
-            </ScrollView >
-        </View >
-    );
+                </ScrollView >
+            </View >
+        );
+    }
 }
 
 export default TelaInicioLogadoCAssinatura;
 
 const styles = StyleSheet.create({
     alertaBox: {
-        width: '92%',
+        width: '90%',
         backgroundColor: Colors.verdePrincipal,
-        borderRadius: 20,
+        borderRadius: 30,
         marginTop: 20,
-        paddingHorizontal: 12,
+        paddingHorizontal: 15,
         paddingVertical: 20,
         elevation: 5
+    },
+    xButton: {
+        margin: 10,
+        color: Colors.branco,
+        fontSize: 20,
+        fontFamily: 'Nunito-SemiBold',
+    },
+    botaoAlerta: {
+        width: '40%',
+        borderRadius: 30,
+        backgroundColor: Colors.branco,
+        paddingVertical: 10,
+        marginTop: 15,
+        backgroundColor: Colors.verdeSecundario,
+    },
+    txtBotaoAlerta: {
+        fontFamily: 'roboto-bold',
+        fontSize: 15,
+        color: Colors.branco,
+        textAlign: 'center'
+    },
+    viewGrafico: {
+        backgroundColor: '#e3e1e1',
+        height: 260,
+        width: '92%',
+        marginTop: 15,
+        alignContent: 'center',
+        borderRadius: 30
+    },
+    textoGrafico: {
+        color: '#c0c0c0',
+        fontSize: 30,
+        fontFamily: 'roboto-italic',
+        textAlign: 'center',
+        marginTop: 110
+    },
+    boxTitle: {
+        marginTop: 30,
+        marginHorizontal: 10,
+        marginBottom: 5,
+    },
+    textTitle: {
+        fontSize: 23,
+        color: Colors.preto,
+        letterSpacing: 1.8,
+        fontFamily: 'roboto-bold',
+    },
+    botaoExterno: {
+        width: '40%',
     },
     botaoInterno: {
         backgroundColor: Colors.verdeSecundario,
         paddingVertical: 10
     },
-    viewGrafico: {
-        backgroundColor: '#F3F3F3',
-        height: 260,
-        width: '100%',
-        marginTop: 15,
-        alignContent: 'center'
-    },
-    textoGrafico: {
-        color: Colors.verdePrincipal,
-        fontSize: 40,
-        textAlign: 'center',
-        paddingTop: 96
-    },
-    boxTitle: {
-        marginTop: 42,
-        marginLeft: 10,
-        paddingBottom: 8
-    },
-    textTitle: {
-        fontSize: 28,
-        color: Colors.preto,
-        letterSpacing: 1.8,
-        fontFamily: 'roboto-regular',
-    },
-    imgBall: {
-        height: 60,
-        width: 60,
-        padding: 10
-    },
-    textoEnorme: {
-        fontSize: 34,
-        fontFamily: 'Nunito-SemiBold',
-        marginTop: 16
-    },
-    textoGrande: {
-        color: Colors.preto,
-        fontSize: 20,
-        marginLeft: 20,
-        marginTop: 4,
-        letterSpacing: 1.5,
-        fontFamily: 'roboto-regular',
-    },
-    textoPequeno: {
-        color: Colors.cinzaContorno,
-        fontSize: 16,
-        marginVertical: 8,
-        marginLeft: 20,
-        letterSpacing: 1.5,
-        fontFamily: 'roboto-regular',
-    },
-    boxList: {
-        flexDirection: 'row',
-        borderBottomColor: Colors.cinzaContorno,
-        borderBottomWidth: 1,
-        borderTopColor: Colors.cinzaContorno,
-        borderTopWidth: 1,
-        padding: 10
-    },
-    botaoExterno: {
-        width: '40%'
-    },
-    xButton: {
-        height: 50,
-        width: 40,
-        marginRight: 6,
-        color: Colors.branco,
-        fontSize: 35,
-        fontFamily: 'Nunito-SemiBold',
-    },
-    botaoAlerta: {
-        borderRadius: 30,
-        backgroundColor: Colors.branco,
-        width: 200,
-        height: 40,
-        marginTop: 12,
-        padding: 7
-    },
-    txtBotaoAlerta: {
-        fontFamily: 'roboto-regular',
-        fontSize: 20,
-        textAlign: 'center'
-    }
 })

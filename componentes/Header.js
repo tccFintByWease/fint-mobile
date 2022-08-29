@@ -1,46 +1,50 @@
-import { View, Image, Text, StyleSheet, SafeAreaView, Pressable } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, Pressable } from 'react-native';
+import { useState } from 'react';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 import Colors from '../constantes/colors';
 
 function Header() {
-    let olho = require('../assets/icons/eye-solid.png');
-
-    function imgReturn() {
+    function perfilResponse() {
         console.log('Perfil')
     };
-    function olhoReturn() {
-        console.log('olhozinho')
-    };
-    function notificReturn() {
+    function notificationResponse() {
         console.log('notific')
     };
 
-    let moeda = 'R$';
-    let dinheiro = '22,35';
+    const [hideSaldo, setHideSaldo] = useState(true);
 
-    return <SafeAreaView style={{ flex: 1, position: 'relative', maxHeight: 120 }}>
-        <View style={styles.viewTotal}>
-            <View>
-                <Pressable onPress={imgReturn}>
-                    <Image style={styles.imgPerfil} source={require('../assets/icons/user-solid.png')} />
+    return <SafeAreaView style={{ flex: 1, position: 'relative'}}>
+        <View style={styles.container}>
+            <View style={styles.caixaPessoa}>
+                <Pressable onPress={perfilResponse}>
+                    <Ionicons name='person' size={25}/>
                 </Pressable>
             </View>
-            <View>
-                <Text style={styles.txtDinheiroMoeda}>
+            <View style={styles.caixaDinheiro}>
+                <Text style={styles.txtSaldo}>
                     Saldo
                 </Text>
-                <View style={styles.viewTexto}>
-                    <Text style={styles.txtSuperior1}>
-                        {moeda} {dinheiro}
+                <View style={styles.caixaSaldo}>
+                    <Text style={styles.txtValor}>
+                        {hideSaldo ?
+                            "R$22,50"
+                            :
+                            "R$ - -, - -"
+                        }
                     </Text>
-                    <Pressable onPress={olhoReturn}>
-                        <Image style={styles.imgOlho} source={olho} />
-                    </Pressable>
+                    <TouchableOpacity style={styles.icon} onPress={() => setHideSaldo(!hideSaldo)}>
+                        {hideSaldo ?
+                            <Ionicons name="eye" color='#000' size={25}/>
+                            :
+                            <Ionicons name="eye-off" color='#000' size={25}/>
+                        }
+                    </TouchableOpacity>
                 </View>
             </View>
             <View style={styles.viewNotific}>
-                <Pressable onPress={notificReturn}>
-                    <Image style={styles.imgNotific} source={require('../assets/icons/bell-solid.png')} />
+                <Pressable onPress={notificationResponse}>
+                    <Ionicons name='notifications' size={35}/>
                 </Pressable>
             </View>
         </View >
@@ -50,63 +54,46 @@ function Header() {
 export default Header;
 
 const styles = StyleSheet.create({
-    viewTotal: {
+    container: {
         borderBottomWidth: 1,
         borderBottomColor: Colors.cinzaContorno,
-        height: 110,
+        height: 70,
         width: '100%',
         alignSelf: 'center',
-        paddingVertical: 16,
-        paddingHorizontal: 16,
+        paddingVertical: 12,
+        paddingHorizontal: 20,
         flexDirection: 'row',
     },
-    imgPerfil: {
-        width: 44,
-        height: 50,
-        alignSelf: 'center',
-        marginTop: 28,
+    caixaPessoa:{
+        borderColor: Colors.cinzaContorno,
+        borderWidth: 1,
+        padding: 10,
+        borderRadius: 35
     },
-    viewTexto: {
-        height: 30,
+    caixaSaldo: {
         flexDirection: 'row',
         marginLeft: 20,
+    },
+    txtSaldo: {
+        fontSize: 14,
+        fontFamily: 'roboto-bold',
+        color: Colors.verdeSecundario,
+        marginLeft: 20,
+    },
+    icon:{
+        justifyContent: 'center',
         alignItems: 'center',
+        marginLeft: 10
     },
-    imgOlho: {
-        width: 20,
-        height: 17,
-        marginLeft: 4,
-        marginTop: -8
-    },
-    txtDinheiroMoeda: {
-        height: 30,
-        fontSize: 15,
-        color: Colors.cinzaContorno,
-        margin: 0,
-        padding: 0,
-        marginLeft: 20,
-        marginTop: 26,
-    },
-    txtSuperior: {
+    txtValor: {
         color: Colors.preto,
-        height: 40,
-        fontSize: 25,
-    },
-    txtSuperior1: {
-        color: Colors.preto,
-        maxWidth: 100,
-        fontSize: 20,
-        marginTop: -9
+        fontSize: 16,
+        fontFamily: 'roboto-regular'
     },
     viewNotific: {
         alignSelf: 'center',
-        paddingTop: 30,
-        paddingRight: 20,
+        marginRight: 20,
         position: 'absolute',
         right: 0
     },
-    imgNotific: {
-        width: 28,
-        height: 33,
-    }
 })

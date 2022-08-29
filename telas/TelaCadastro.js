@@ -102,11 +102,7 @@ class TelaCadastro extends React.Component {
                         />
                     <InputSenha placeholder="Confirmar senha"/>
                     <View style={{flexDirection: 'row', width: '85%'}}>
-                        <Switch
-                            trackColor={{ false: Colors.cinzaContorno, true: Colors.verdeSecundario }}
-                            ios_backgroundColor="#3e3e3e"
-                            value="true"
-                            />
+                        <BotaoSwitch />
                         <Text 
                         style={[patternStyle.texto, {fontSize: 15}]}>
                             Concordo com os <Text onPress={() => {Linking.openURL('https://pt-br.reactjs.org/');}}>Termos de Uso</Text> e <Text onPress={() => {Linking.openURL('https://reactnative.dev/');}}> Políticas de Privacidade </Text>
@@ -119,7 +115,7 @@ class TelaCadastro extends React.Component {
                     </View>
                 </View>
                 <View style={patternStyle.caixaTexto}>
-                    <Text style={patternStyle.texto}>Já possui uma conta? Conecte-se</Text>
+                    <Text onPress={() => this.props.navigation.navigate('login')} style={patternStyle.texto}>Já possui uma conta? Conecte-se</Text>
                 </View>
                 <View style={patternStyle.rodapeLogin}>
                     <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>
@@ -131,6 +127,22 @@ class TelaCadastro extends React.Component {
 
 
 export default TelaCadastro;
+
+function BotaoSwitch(){
+    //Botão Switch
+    const [estaHabilitado, setEstaHabilitado] = useState(false);
+    const mexerBotao = () => setEstaHabilitado(previousState => !previousState);
+
+    return(
+        <Switch
+            trackColor={{ false: Colors.cinzaContorno, true: Colors.verdeSecundario }}
+            thumbColor={estaHabilitado ? Colors.verdePrincipal : Colors.branco}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={mexerBotao}
+            value={estaHabilitado}
+        />
+    );
+}
 
 function Aviso() {
     const [modalVisible, setModalVisible] = useState(false);
