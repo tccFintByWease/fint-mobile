@@ -48,12 +48,8 @@ class TelaLogin extends React.Component {
         .then((response) => response.json())
         .then((json) => {
             if (json.success == true) {
-                console.warn('vai fio, muda de tela', json.id)
-                // =========================================================================================================================================================
-                // COLOCAR AQUI A LINHA DE IR PRA TELAINICIOLOGADOCASSINATURA
-                // =========================================================================================================================================================
-
-
+                console.warn('Bem-Vindo a Fint!', json.id)
+                
                 // TO DO 
                 // Armazenar globalmente o json.id como App.UserId para em outras telas executar queries no banco
             } else {
@@ -88,7 +84,7 @@ class TelaLogin extends React.Component {
                         placeholder="Senha"
                         onChangeText={(text) => { this.setState({password:text})} }
                     />
-                    <BotaoInicio onPress={() => { this.submit() }} styleExterno={patternStyle.botaoExterno} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Entrar</BotaoInicio>
+                    <BotaoInicio onPress={() => {this.submit()}} styleExterno={patternStyle.botaoExterno} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Entrar</BotaoInicio>
                     <Text onPress={() => this.props.navigation.navigate('recuperacaoLink')} style={patternStyle.texto}>Esqueceu a senha?</Text>
                 </View>
                 <View style={[patternStyle.inputContainer, styles.inputContainer2]}>

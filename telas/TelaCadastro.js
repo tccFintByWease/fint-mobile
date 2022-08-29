@@ -10,6 +10,7 @@ import patternStyle from '../constantes/style';
 import InputSenha from "../componentes/InputSenha";
 import { LinearGradient } from "expo-linear-gradient";
 import App from "../App";
+import BottomTabNavigator from "../componentes/BottomTabNavigator";
 
 // Botão Switch
 // Tivemos de remover a funcionalidade do botão Switch e tirar a checagem no botão de submit, pois não conseguimos aplicar a constante / checagens no lugar correto.
@@ -57,11 +58,7 @@ class TelaCadastro extends React.Component {
         .then((response) => response.json())
         .then((json) => {
             if (json.success == true) {
-                console.warn('vai fio, muda de tela//cadastrado', json.id)
-                // =========================================================================================================================================================
-                // COLOCAR AQUI A LINHA DE IR PRA TELAINICIOLOGADOCASSINATURA
-                // =========================================================================================================================================================
-
+                console.warn('Cadastrado! Só fazer o login agora.', json.id)
                 
                 // TO DO 
                 // Armazenar globalmente o json.id como App.UserId para em outras telas executar queries no banco
@@ -72,6 +69,10 @@ class TelaCadastro extends React.Component {
         .catch((error) => {
             console.warn(error);
         });
+    }
+
+    _entrar = ({navigation}) => {
+        navigation.navigate('login');
     }
 
     render() {
@@ -110,18 +111,19 @@ class TelaCadastro extends React.Component {
                     <View style={{flexDirection: 'row', width: '85%'}}>
                         <BotaoSwitch />
                         <Text 
+                        onPress={() => {Linking.openURL('https://fint-48a30.web.app/documentacao');}}
                         style={[patternStyle.texto, {fontSize: 15}]}>
-                            Concordo com os <Text onPress={() => {Linking.openURL('https://pt-br.reactjs.org/');}}>Termos de Uso</Text> e <Text onPress={() => {Linking.openURL('https://reactnative.dev/');}}> Políticas de Privacidade </Text>
+                            Concordo com os Termos de Uso e Políticas de Privacidade 
                         </Text>
                     </View>
                     
-                    <BotaoInicio onPress={() => { this.submit() }} styleExterno={patternStyle.botaoExterno} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Cadastrar-se</BotaoInicio>
+                    <BotaoInicio onPress={() => {[this.submit(), this.props.navigation.navigate('login')]}} styleExterno={patternStyle.botaoExterno} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Cadastrar-se</BotaoInicio>
                     <View style={styles.centeredView}>
                         <Aviso />
                     </View>
                 </View>
                 <View style={patternStyle.caixaTexto}>
-                    <Text onPress={() => this.props.navigation.navigate('login')} style={patternStyle.texto}>Já possui uma conta? Conecte-se</Text>
+                    <Text onPress={() => {this.props.navigation.navigate('login')}} style={patternStyle.texto}>Já possui uma conta? Conecte-se</Text>
                 </View>
                 <View style={patternStyle.rodapeLogin}>
                     <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>

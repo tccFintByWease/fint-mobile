@@ -1,14 +1,12 @@
 // React
 import { StyleSheet, SafeAreaView } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 
 // Expo
 import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import Ionicons from '@expo/vector-icons/Ionicons';
 
 // Telas
 import TelaInicio from './telas/TelaInicio';
@@ -22,45 +20,12 @@ import TelaEmDesenvolvimento from './telas/TelaEmDesenvolvimento';
 
 //Constantes
 import Colors from './constantes/colors';
+import BottomTabNavigator from './componentes/BottomTabNavigator';
 
 // Navigation
-const BottomTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-function BottomTabNavigator(){
-  return(
-    <BottomTab.Navigator screenOptions={{
-      headerStyle: {backgroundColor: Colors.verdePrincipal, height: 40},
-      headerTitle: '',
-      tabBarActiveTintColor: Colors.verdePrincipal,
-      tabBarInactiveTintColor: Colors.verdeSecundario,
-      tabBarStyle: {backgroundColor: Colors.branco}
-    }}>
-      <BottomTab.Screen name='Home' component={TelaInicioLogadoCAssinatura} options={{
-        tabBarIcon:({color, size}) => (
-          <Ionicons name="home" color={color} size={size}/>
-        ),
-      }}/>
-      <BottomTab.Screen name='Gastos' component={TelaControleGastos} options={{
-        tabBarIcon:({color, size}) => (
-          <Ionicons name="wallet" color={color} size={size}/>
-        )
-      }}/>
-      <BottomTab.Screen name='Simulador' component={TelaEmDesenvolvimento} options={{
-        tabBarIcon:({color, size}) => (
-          <Ionicons name="cash" color={color} size={size}/>
-        )
-      }}/>
-      <BottomTab.Screen name='Investimentos' component={TelaEmDesenvolvimento} options={{
-        tabBarIcon:({color, size}) => (
-          <Ionicons name="analytics" color={color} size={size}/>
-        )
-      }}/>
-    </BottomTab.Navigator>
-  );
-}
-
-export default function App() {
+export default function App({routes}) {
   // Carregamento de Fontes
   const [fontsLoaded] = useFonts({
     'roboto-bold': require('./assets/fonts/Roboto-Bold.ttf'),
