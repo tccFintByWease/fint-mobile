@@ -81,11 +81,13 @@ export default function App() {
           headerShown: false,
           cardStyle:{backgroundColor: 'white'}
         }}>
-          <Stack.Screen name='inicio' component={BottomTabNavigator}/>
+          <Stack.Screen name='inicio' component={TelaInicio} />
           <Stack.Screen name='login' component={TelaLogin}/>
           <Stack.Screen name='cadastro' component={TelaCadastro}/>
           <Stack.Screen name='recuperacaoLink' component={TelaRecuperacaoLink}/>
           <Stack.Screen name='mudarSenha' component={TelaMudarSenha} />
+          <Stack.Screen name='telainiciologadocassinatura' component={TelaInicioLogadoCAssinatura} />
+          <Stack.Screen name='telacontrolegastos' component={TelaControleGastos} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

@@ -49,6 +49,11 @@ class TelaLogin extends React.Component {
         .then((json) => {
             if (json.success == true) {
                 console.warn('vai fio, muda de tela', json.id)
+                // =========================================================================================================================================================
+                // COLOCAR AQUI A LINHA DE IR PRA TELAINICIOLOGADOCASSINATURA
+                // =========================================================================================================================================================
+
+
                 // TO DO 
                 // Armazenar globalmente o json.id como App.UserId para em outras telas executar queries no banco
             } else {

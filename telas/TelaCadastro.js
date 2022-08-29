@@ -9,6 +9,7 @@ import Subtitulo from "../componentes/Subtitulo";
 import patternStyle from '../constantes/style';
 import InputSenha from "../componentes/InputSenha";
 import { LinearGradient } from "expo-linear-gradient";
+import App from "../App";
 
 // Botão Switch
 // Tivemos de remover a funcionalidade do botão Switch e tirar a checagem no botão de submit, pois não conseguimos aplicar a constante / checagens no lugar correto.
@@ -57,6 +58,11 @@ class TelaCadastro extends React.Component {
         .then((json) => {
             if (json.success == true) {
                 console.warn('vai fio, muda de tela//cadastrado', json.id)
+                // =========================================================================================================================================================
+                // COLOCAR AQUI A LINHA DE IR PRA TELAINICIOLOGADOCASSINATURA
+                // =========================================================================================================================================================
+
+                
                 // TO DO 
                 // Armazenar globalmente o json.id como App.UserId para em outras telas executar queries no banco
             } else {
