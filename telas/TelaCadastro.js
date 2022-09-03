@@ -16,7 +16,7 @@ import BottomTabNavigator from "../componentes/BottomTabNavigator";
 // Tivemos de remover a funcionalidade do botão Switch e tirar a checagem no botão de submit, pois não conseguimos aplicar a constante / checagens no lugar correto.
 
 class TelaCadastro extends React.Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -24,7 +24,7 @@ class TelaCadastro extends React.Component {
             nome: '',
             password: ''
         };
-    
+
         this.handleInputChange = this.handleInputChange.bind(this);
     }
 
@@ -32,20 +32,20 @@ class TelaCadastro extends React.Component {
         const target = event.target;
         const value = target.value;
         const name = target.name;
-    
+
         this.setState({
             [name]: value
         });
     }
-    
+
     submit() {
         // TO DO
         // esse é o IP da máquina que está rodando o uniserver, quando for rodar em outro computador, é preciso trocar isso.
         // quem sabe armazenar essa url em uma variável global App.urlApi ?
-        fetch('http://192.168.15.47/bdfint/api/cadastro.php', {
+        fetch('http://26.132.236.65/bdfint/api/cadastro.php', {
             method: 'POST',
             headers: {
-                Accept : 'application/json',
+                Accept: 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -55,23 +55,23 @@ class TelaCadastro extends React.Component {
                 password: this.state.password
             })
         })
-        .then((response) => response.json())
-        .then((json) => {
-            if (json.success == true) {
-                console.warn('Cadastrado! Só fazer o login agora.', json.id)
-                
-                // TO DO 
-                // Armazenar globalmente o json.id como App.UserId para em outras telas executar queries no banco
-            } else {
-                console.warn(json.message);
-            }
-        })
-        .catch((error) => {
-            console.warn(error);
-        });
+            .then((response) => response.json())
+            .then((json) => {
+                if (json.success == true) {
+                    console.warn('Cadastrado! Só fazer o login agora.', json.id)
+
+                    // TO DO 
+                    // Armazenar globalmente o json.id como App.UserId para em outras telas executar queries no banco
+                } else {
+                    console.warn(json.message);
+                }
+            })
+            .catch((error) => {
+                console.warn(error);
+            });
     }
 
-    _entrar = ({navigation}) => {
+    _entrar = ({ navigation }) => {
         navigation.navigate('login');
     }
 
@@ -82,7 +82,7 @@ class TelaCadastro extends React.Component {
                     <Image
                         style={patternStyle.image}
                         source={require('../assets/images/logo_preto.png')}
-                        />
+                    />
                 </View>
                 <View style={patternStyle.inputContainer}>
                     <TextInput
@@ -93,7 +93,7 @@ class TelaCadastro extends React.Component {
                         autoCorrect={false}
                         placeholder='Email'
                         onChangeText={(text) => { this.setState({ email: text }) }}
-                        />
+                    />
                     <TextInput
                         style={patternStyle.input}
                         maxLength={50}
@@ -102,28 +102,28 @@ class TelaCadastro extends React.Component {
                         autoCorrect={false}
                         placeholder='Nome Completo'
                         onChangeText={(text) => { this.setState({ nome: text }) }}
-                        />
+                    />
                     <InputSenha
                         placeholder="Senha"
                         onChangeText={(text) => { this.setState({ password: text }) }}
-                        />
-                    <InputSenha placeholder="Confirmar senha"/>
-                    <View style={{flexDirection: 'row', width: '85%'}}>
+                    />
+                    <InputSenha placeholder="Confirmar senha" />
+                    <View style={{ flexDirection: 'row', width: '85%' }}>
                         <BotaoSwitch />
-                        <Text 
-                        onPress={() => {Linking.openURL('https://fint-48a30.web.app/documentacao');}}
-                        style={[patternStyle.texto, {fontSize: 15}]}>
-                            Concordo com os Termos de Uso e Políticas de Privacidade 
+                        <Text
+                            onPress={() => { Linking.openURL('https://fint-48a30.web.app/documentacao'); }}
+                            style={[patternStyle.texto, { fontSize: 15 }]}>
+                            Concordo com os Termos de Uso e Políticas de Privacidade
                         </Text>
                     </View>
-                    
-                    <BotaoInicio onPress={() => {[this.submit(), this.props.navigation.navigate('login')]}} styleExterno={patternStyle.botaoExterno} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Cadastrar-se</BotaoInicio>
+
+                    <BotaoInicio onPress={() => { [this.submit(), this.props.navigation.navigate('login')] }} styleExterno={patternStyle.botaoExterno} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Cadastrar-se</BotaoInicio>
                     <View style={styles.centeredView}>
                         <Aviso />
                     </View>
                 </View>
                 <View style={patternStyle.caixaTexto}>
-                    <Text onPress={() => {this.props.navigation.navigate('login')}} style={patternStyle.texto}>Já possui uma conta? Conecte-se</Text>
+                    <Text onPress={() => { this.props.navigation.navigate('login') }} style={patternStyle.texto}>Já possui uma conta? Conecte-se</Text>
                 </View>
                 <View style={patternStyle.rodapeLogin}>
                     <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>
@@ -136,12 +136,12 @@ class TelaCadastro extends React.Component {
 
 export default TelaCadastro;
 
-function BotaoSwitch(){
+function BotaoSwitch() {
     //Botão Switch
     const [estaHabilitado, setEstaHabilitado] = useState(false);
     const mexerBotao = () => setEstaHabilitado(previousState => !previousState);
 
-    return(
+    return (
         <Switch
             trackColor={{ false: Colors.cinzaContorno, true: Colors.verdeSecundario }}
             thumbColor={estaHabilitado ? Colors.verdePrincipal : Colors.branco}
@@ -154,7 +154,7 @@ function BotaoSwitch(){
 
 function Aviso() {
     const [modalVisible, setModalVisible] = useState(false);
-    return(
+    return (
         <Modal
             animationType='slide'
             transparent={true}
@@ -168,8 +168,8 @@ function Aviso() {
                 <LinearGradient colors={[Colors.verdePrincipal, Colors.verdeSecundario]} style={styles.modalView}>
                     <Text style={styles.modalText}>Concorde com Termos de Uso e Políticas de Privacidade para concluir seu cadastro!</Text>
                     <Pressable
-                    style={[styles.button, styles.buttonClose]}
-                    onPress={() => setModalVisible(!modalVisible)}
+                        style={[styles.button, styles.buttonClose]}
+                        onPress={() => setModalVisible(!modalVisible)}
                     >
                         <Text style={styles.textStyle}>OK</Text>
                     </Pressable>

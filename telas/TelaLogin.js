@@ -5,7 +5,7 @@ import InputSenha from '../componentes/InputSenha';
 import Subtitulo from '../componentes/Subtitulo';
 import BotaoInicio from '../componentes/BotaoInicio';
 import Colors from '../constantes/colors';
-import {Ionicons} from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 class TelaLogin extends React.Component {
 
@@ -15,7 +15,7 @@ class TelaLogin extends React.Component {
             email: '',
             password: ''
         };
-    
+
         this.handleInputChange = this.handleInputChange.bind(this);
     }
 
@@ -23,7 +23,7 @@ class TelaLogin extends React.Component {
         const target = event.target;
         const value = target.value;
         const name = target.name;
-    
+
         this.setState({
             [name]: value
         });
@@ -33,10 +33,10 @@ class TelaLogin extends React.Component {
         // TO DO
         // esse é o IP da máquina que está rodando o uniserver, quando for rodar em outro computador, é preciso trocar isso.
         // quem sabe armazenar essa url em uma variável global App.urlApi ?
-        fetch('http://192.168.15.47/bdfint/api/login.php', {
+        fetch('http://192.168.15.12/bdfint/api/login.php', {
             method: 'POST',
             headers: {
-                Accept : 'application/json',
+                Accept: 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -45,20 +45,20 @@ class TelaLogin extends React.Component {
                 password: this.state.password
             })
         })
-        .then((response) => response.json())
-        .then((json) => {
-            if (json.success == true) {
-                console.warn('Bem-Vindo a Fint!', json.id)
-                
-                // TO DO 
-                // Armazenar globalmente o json.id como App.UserId para em outras telas executar queries no banco
-            } else {
-                console.warn(json.message);
-            }
-        })
-        .catch((error) => {
-            console.warn(error);
-        });
+            .then((response) => response.json())
+            .then((json) => {
+                if (json.success == true) {
+                    console.warn('Bem-Vindo a Fint!', json.id)
+
+                    // TO DO 
+                    // Armazenar globalmente o json.id como App.UserId para em outras telas executar queries no banco
+                } else {
+                    console.warn(json.message);
+                }
+            })
+            .catch((error) => {
+                console.warn(error);
+            });
     }
 
     render() {
@@ -82,22 +82,22 @@ class TelaLogin extends React.Component {
                     />
                     <InputSenha
                         placeholder="Senha"
-                        onChangeText={(text) => { this.setState({password:text})} }
+                        onChangeText={(text) => { this.setState({ password: text }) }}
                     />
-                    <BotaoInicio onPress={() => {this.submit()}} styleExterno={patternStyle.botaoExterno} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Entrar</BotaoInicio>
+                    <BotaoInicio onPress={() => { this.submit() }} styleExterno={patternStyle.botaoExterno} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Entrar</BotaoInicio>
                     <Text onPress={() => this.props.navigation.navigate('recuperacaoLink')} style={patternStyle.texto}>Esqueceu a senha?</Text>
                 </View>
                 <View style={[patternStyle.inputContainer, styles.inputContainer2]}>
-                    <BotaoInicio 
-                    styleExterno={patternStyle.botaoExterno} 
-                    styleCorpo={styles.botaoInternoG} 
-                    styleTexto={styles.textoBotao2}>
+                    <BotaoInicio
+                        styleExterno={patternStyle.botaoExterno}
+                        styleCorpo={styles.botaoInternoG}
+                        styleTexto={styles.textoBotao2}>
                         <Ionicons name="logo-google" size={20} />  Entrar com sua conta Google
                     </BotaoInicio>
-                    <BotaoInicio 
-                    styleExterno={patternStyle.botaoExterno} 
-                    styleCorpo={styles.botaoInternoF} 
-                    styleTexto={styles.textoBotao2}>
+                    <BotaoInicio
+                        styleExterno={patternStyle.botaoExterno}
+                        styleCorpo={styles.botaoInternoF}
+                        styleTexto={styles.textoBotao2}>
                         <Ionicons name="logo-facebook" size={20} />   Entrar com sua conta Facebook
                     </BotaoInicio>
                     <Text onPress={() => this.props.navigation.navigate('cadastro')} style={patternStyle.texto}>Crie uma nova conta</Text>
