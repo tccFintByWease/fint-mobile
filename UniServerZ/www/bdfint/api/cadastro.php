@@ -2,7 +2,7 @@
 header('Content-Type: application/json; charset=utf-8');
 
 if (isset($_GET) && !empty($_GET)){
-    // http://192.168.15.47/bdfint/api/login.php?data={%22email%22:%22arthurpercinoto@gmail.com%22,%22password%22:%224002%22}
+    // http://seu.ip/bdfint/api/login.php?data={%22email%22:%22arthurpercinoto@gmail.com%22,%22password%22:%224002%22}
     $infoUsuario = json_decode($_GET['data']);
 }
 elseif (isset($_POST) && !empty($_POST)){
