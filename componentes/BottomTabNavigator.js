@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-import TelaInicioLogadoCAssinatura from '../telas/TelaInicioLogadoCAssinatura';
+import TelaHome from '../telas/TelaHome';
 import TelaControleGastos from '../telas/TelaControleGastos';
 import TelaEmDesenvolvimento from '../telas/TelaEmDesenvolvimento';
 
@@ -18,7 +18,7 @@ function BottomTabNavigator(){
         tabBarInactiveTintColor: Colors.verdeSecundario,
         tabBarStyle: {backgroundColor: Colors.branco}
         }}>
-        <BottomTab.Screen name='Home' component={TelaInicioLogadoCAssinatura} options={{
+        <BottomTab.Screen name='Home' component={TelaHome} options={{
             tabBarIcon:({color, size}) => (
             <Ionicons name="home" color={color} size={size}/>
             ),

@@ -2,11 +2,10 @@ import { View, Pressable, Text, ScrollView, StyleSheet } from 'react-native';
 
 import patternStyle from '../constantes/style';
 import Header from '../componentes/Header';
-import Footer from '../componentes/Footer';
 import Colors from '../constantes/colors';
 import BotaoInicio from '../componentes/BotaoInicio';
 
-function TelaLogadoSelecionarGraficosExclusivos() {
+function TelaSelecionarGraficos() {
 
     function oReceiver() {
         console.log('owo');
@@ -81,7 +80,7 @@ function TelaLogadoSelecionarGraficosExclusivos() {
     );
 }
 
-export default TelaLogadoSelecionarGraficosExclusivos;
+export default TelaSelecionarGraficos;
 
 const styles = StyleSheet.create({
     alertaBox: {

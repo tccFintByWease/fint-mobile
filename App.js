@@ -1,5 +1,6 @@
 // React
 // https://sourceforge.net/projects/miniserver/files/
+import React, {useCallback} from 'react';
 import { StyleSheet, SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -7,7 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 // Expo
 import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
-import AppLoading from 'expo-app-loading';
+import * as SplashScreen from "expo-splash-screen";
 
 // Telas
 import TelaInicio from './telas/TelaInicio';
@@ -15,9 +16,9 @@ import TelaLogin from './telas/TelaLogin';
 import TelaCadastro from './telas/TelaCadastro';
 import TelaRecuperacaoLink from './telas/TelaRecuperacaoLink';
 import TelaMudarSenha from './telas/TelaMudarSenha';
-import TelaInicioLogadoCAssinatura from './telas/TelaInicioLogadoCAssinatura';
-import TelaControleGastos from './telas/TelaControleGastos';
+import TelaInicioLogadoCAssinatura from './telas/TelaHome';
 import TelaEmDesenvolvimento from './telas/TelaEmDesenvolvimento';
+import TelaDinheiroMoeda from './telas/TelaDinheiroMoeda';
 
 //Constantes
 import Colors from './constantes/colors';
@@ -25,6 +26,8 @@ import BottomTabNavigator from './componentes/BottomTabNavigator';
 
 // Navigation
 const Stack = createStackNavigator();
+
+SplashScreen.preventAutoHideAsync();
 
 export default function App({ routes }) {
   // Carregamento de Fontes
@@ -35,12 +38,17 @@ export default function App({ routes }) {
     'Nunito-Light': require('./assets/fonts/Nunito-Light.ttf'),
     'Nunito-SemiBold': require('./assets/fonts/Nunito-SemiBold.ttf'),
   });
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) return null;
 
   return (
-    <SafeAreaView style={styles.rootScreen}>
+    <SafeAreaView onLayout={onLayoutRootView} style={styles.rootScreen}>
       <StatusBar style='light' />
       <NavigationContainer>
         <Stack.Navigator initialRouteName='inicio' screenOptions={{
@@ -52,8 +60,7 @@ export default function App({ routes }) {
           <Stack.Screen name='cadastro' component={TelaCadastro} />
           <Stack.Screen name='recuperacaoLink' component={TelaRecuperacaoLink} />
           <Stack.Screen name='mudarSenha' component={TelaMudarSenha} />
-          <Stack.Screen name='telainiciologadocassinatura' component={TelaInicioLogadoCAssinatura} />
-          <Stack.Screen name='telacontrolegastos' component={TelaControleGastos} />
+          <Stack.Screen name='dinheiroMoeda' component={TelaDinheiroMoeda} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

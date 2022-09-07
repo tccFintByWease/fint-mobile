@@ -2,15 +2,12 @@ import React from "react";
 import { useState } from "react";
 import { View, Image, TextInput, Text, Switch, Linking, Modal, Alert, Pressable, StyleSheet } from "react-native";
 
-
 import Colors from "../constantes/colors";
 import BotaoInicio from "../componentes/BotaoInicio";
 import Subtitulo from "../componentes/Subtitulo";
 import patternStyle from '../constantes/style';
 import InputSenha from "../componentes/InputSenha";
 import { LinearGradient } from "expo-linear-gradient";
-import App from "../App";
-import BottomTabNavigator from "../componentes/BottomTabNavigator";
 
 // Botão Switch
 // Tivemos de remover a funcionalidade do botão Switch e tirar a checagem no botão de submit, pois não conseguimos aplicar a constante / checagens no lugar correto.
@@ -55,24 +52,20 @@ class TelaCadastro extends React.Component {
                 password: this.state.password
             })
         })
-            .then((response) => response.json())
-            .then((json) => {
-                if (json.success == true) {
-                    console.warn('Cadastrado! Só fazer o login agora.', json.id)
+        .then((response) => response.json())
+        .then((json) => {
+            if (json.success == true) {
+                console.warn('Cadastrado! Só fazer o login agora.', json.id)
 
-                    // TO DO 
-                    // Armazenar globalmente o json.id como App.UserId para em outras telas executar queries no banco
-                } else {
-                    console.warn(json.message);
-                }
-            })
-            .catch((error) => {
-                console.warn(error);
-            });
-    }
-
-    _entrar = ({ navigation }) => {
-        navigation.navigate('login');
+                // TO DO 
+                // Armazenar globalmente o json.id como App.UserId para em outras telas executar queries no banco
+            } else {
+                console.warn(json.message);
+            }
+        })
+        .catch((error) => {
+            console.warn(error);
+        });
     }
 
     render() {
@@ -108,19 +101,9 @@ class TelaCadastro extends React.Component {
                         onChangeText={(text) => { this.setState({ password: text }) }}
                     />
                     <InputSenha placeholder="Confirmar senha" />
-                    <View style={{ flexDirection: 'row', width: '85%' }}>
-                        <BotaoSwitch />
-                        <Text
-                            onPress={() => { Linking.openURL('https://fint-48a30.web.app/documentacao'); }}
-                            style={[patternStyle.texto, { fontSize: 15 }]}>
-                            Concordo com os Termos de Uso e Políticas de Privacidade
-                        </Text>
-                    </View>
-
-                    <BotaoInicio onPress={() => { [this.submit(), this.props.navigation.navigate('login')] }} styleExterno={patternStyle.botaoExterno} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Cadastrar-se</BotaoInicio>
-                    <View style={styles.centeredView}>
-                        <Aviso />
-                    </View>
+                    <TermosPoliticas />
+                    <BotaoInicio 
+                        onPress={() => [this.submit(), this.props.navigation.navigate('login')]} styleExterno={patternStyle.botaoExterno} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Cadastrar-se</BotaoInicio>
                 </View>
                 <View style={patternStyle.caixaTexto}>
                     <Text onPress={() => { this.props.navigation.navigate('login') }} style={patternStyle.texto}>Já possui uma conta? Conecte-se</Text>
@@ -133,51 +116,30 @@ class TelaCadastro extends React.Component {
     }
 }
 
-
-export default TelaCadastro;
-
-function BotaoSwitch() {
+function TermosPoliticas(){
     //Botão Switch
     const [estaHabilitado, setEstaHabilitado] = useState(false);
     const mexerBotao = () => setEstaHabilitado(previousState => !previousState);
 
-    return (
-        <Switch
-            trackColor={{ false: Colors.cinzaContorno, true: Colors.verdeSecundario }}
-            thumbColor={estaHabilitado ? Colors.verdePrincipal : Colors.branco}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={mexerBotao}
-            value={estaHabilitado}
-        />
+    return(
+        <View style={{ flexDirection: 'row', width: '85%' }}>
+            <Switch
+                trackColor={{ false: Colors.cinzaContorno, true: Colors.verdeSecundario }}
+                thumbColor={estaHabilitado ? Colors.verdePrincipal : Colors.branco}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={mexerBotao}
+                value={estaHabilitado}
+            />
+            <Text
+                onPress={() => { Linking.openURL('https://fint-48a30.web.app/documentacao'); }}
+                style={[patternStyle.texto, { fontSize: 15 }]}>
+                Concordo com os Termos de Uso e Políticas de Privacidade
+            </Text>
+        </View>
     );
 }
 
-function Aviso() {
-    const [modalVisible, setModalVisible] = useState(false);
-    return (
-        <Modal
-            animationType='slide'
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-                Alert.alert("Modal has been closed.");
-                setModalVisible(!modalVisible);
-            }}
-        >
-            <View style={styles.centeredView}>
-                <LinearGradient colors={[Colors.verdePrincipal, Colors.verdeSecundario]} style={styles.modalView}>
-                    <Text style={styles.modalText}>Concorde com Termos de Uso e Políticas de Privacidade para concluir seu cadastro!</Text>
-                    <Pressable
-                        style={[styles.button, styles.buttonClose]}
-                        onPress={() => setModalVisible(!modalVisible)}
-                    >
-                        <Text style={styles.textStyle}>OK</Text>
-                    </Pressable>
-                </LinearGradient>
-            </View>
-        </Modal>
-    );
-}
+export default TelaCadastro;
 
 const styles = StyleSheet.create({
     centeredView: {

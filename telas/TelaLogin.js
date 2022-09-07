@@ -84,7 +84,7 @@ class TelaLogin extends React.Component {
                         placeholder="Senha"
                         onChangeText={(text) => { this.setState({ password: text }) }}
                     />
-                    <BotaoInicio onPress={() => { this.submit() }} styleExterno={patternStyle.botaoExterno} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Entrar</BotaoInicio>
+                    <BotaoInicio onPress={() => { [this.submit(), this.props.navigation.navigate('dinheiroMoeda')] }} styleExterno={patternStyle.botaoExterno} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Entrar</BotaoInicio>
                     <Text onPress={() => this.props.navigation.navigate('recuperacaoLink')} style={patternStyle.texto}>Esqueceu a senha?</Text>
                 </View>
                 <View style={[patternStyle.inputContainer, styles.inputContainer2]}>

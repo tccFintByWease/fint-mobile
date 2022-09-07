@@ -72,7 +72,7 @@ const patternStyle = StyleSheet.create({
     },
     textorodapeLogin: {
         color: Colors.cinzaContorno,
-        fontSize: 18
+        fontSize: 18,
     }
 });
 

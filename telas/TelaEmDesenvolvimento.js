@@ -1,21 +1,20 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-function TelaSimulador() {
-    return (
+function TelaEmDesenvolvimento() {
+    return(
         <View style={styles.caixa}>
             <Text>Estou em Desenvolvimento!</Text>
         </View>
     );
 }
 
-export default TelaSimulador;
+export default TelaEmDesenvolvimento;
 
 const styles = StyleSheet.create({
     caixa:{
         flex: 1,
-        textAlign: 'center',
+        justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 350
-    }
+    },
 });

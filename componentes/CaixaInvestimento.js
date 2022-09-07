@@ -16,7 +16,7 @@ function CaixaInvestimento({children}) {
             </View>
             <View style={{ position: 'absolute', right: 0 }}>
                 <Pressable onPress={setinhaReceiver}>
-                    <Text style={styles.textoEnorme}> &gt; </Text>
+                    <Ionicons name='chevron-forward-outline' size={40} style={{margin: 15}}/>
                 </Pressable>
             </View>
         </View>

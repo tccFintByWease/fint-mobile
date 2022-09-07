@@ -8,49 +8,16 @@ import Colors from '../constantes/colors';
 import BotaoInicio from '../componentes/BotaoInicio';
 import CaixaInvestimento from '../componentes/CaixaInvestimento';
 import React from 'react';
+import CardHome from '../componentes/CardHome';
 
-class TelaInicioLogadoCAssinatura extends React.Component {
+class TelaHome extends React.Component {
     render(){
         return (
             <View style={{ flex: 1 }}>
                 <Header />
                 <ScrollView style={{ marginTop: 70}}>
+                    <CardHome />
                     <View style={patternStyle.rootContainer2}>
-                        <View style={styles.alertaBox}>
-                            <View style={{ position: 'absolute', right: 0, top: 0 }}>
-                                <Pressable>
-                                    <View>
-                                        <Text style={styles.xButton} > X </Text>
-                                    </View>
-                                </Pressable>
-                            </View>
-                            <Text style={{ 
-                                width: '70%', 
-                                textAlign: 'center',
-                                fontFamily: 'roboto-bold', 
-                                letterSpacing: 1, 
-                                fontSize: 20, 
-                                color: Colors.branco, 
-                                marginBottom: 8
-                            }}>
-                                Gráficos Exclusivos
-                            </Text>
-                            <Text style={{ 
-                                marginLeft: 8,
-                                fontFamily: 'roboto-italic', 
-                                fontSize: 14, 
-                                color: Colors.branco, 
-                            }}>
-                                Sua assinatura possui gráficos especiais que podem ser exibidos na tela inicial.
-                            </Text>
-                            <View>
-                                <Pressable style={styles.botaoAlerta}>
-                                    <View>
-                                        <Text style={styles.txtBotaoAlerta}>Assinar</Text>
-                                    </View>
-                                </Pressable>
-                            </View>
-                        </View>
                         <View style={styles.viewGrafico}>
                             <Text style={styles.textoGrafico}> Gráfico</Text>
                         </View>
@@ -77,7 +44,7 @@ class TelaInicioLogadoCAssinatura extends React.Component {
     }
 }
 
-export default TelaInicioLogadoCAssinatura;
+export default TelaHome;
 
 const styles = StyleSheet.create({
     alertaBox: {

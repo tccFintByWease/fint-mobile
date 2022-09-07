@@ -5,7 +5,7 @@ import Colors from '../constantes/colors'
 import BotaoInicio from './BotaoInicio';
 import patternStyle from '../constantes/style';
 
-function FiltrosReceita() {
+function FiltrosMovimentacao() {
 
     return <View style={{ marginTop: 30, flex: 1 }}>
         <View style={styles.viewTopo}>
@@ -64,7 +64,7 @@ function FiltrosReceita() {
     </View>
 }
 
-export default FiltrosReceita;
+export default FiltrosMovimentacao;
 
 const styles = StyleSheet.create({
     viewTopo: {
