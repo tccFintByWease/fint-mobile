@@ -7,57 +7,56 @@ import Colors from '../constantes/colors';
 import CaixaInvestimento from '../componentes/CaixaInvestimento';
 import BotaoInicio from '../componentes/BotaoInicio';
 
-class TelaControleGastos extends React.Component {
-    render(){
-        return (
-            <View style={{ flex: 1 }}>
-                <Header />
-                <ScrollView style={{ marginTop: 70}}>
-                    <View style={patternStyle.rootContainer2}>
-                        <View style={styles.viewGrafico}>
-                            <Text style={styles.textoGrafico}> Gráfico</Text>
-                        </View>
+function TelaControleGastos() {
+    return (
+        <View style={{ flex: 1 }}>
+            <Header />
+            <ScrollView style={{ marginTop: 70 }}>
+                <View style={patternStyle.rootContainer2}>
+                    <View style={styles.viewGrafico}>
+                        <Text style={styles.textoGrafico}> Gráfico</Text>
                     </View>
-                    <View style={{ flex: 1, flexDirection: 'row', marginTop: 15 }}>
-                        <View style={{ flex: 1, borderWidth: 1, borderColor: Colors.cinzaContorno, alignItems: 'center', padding: 10, margin: 5, borderRadius: 10 }}>
-                            <Text style={{ fontSize: 16, fontFamily: 'roboto-bold', color: Colors.preto, letterSpacing: 1.5, textAlign: 'center' }}>
-                                Receita Mensal
-                            </Text>
-                            <Text style={{ fontSize: 22, color: Colors.verdePrincipal, letterSpacing: 1.2, textAlign: 'center', marginTop: 10 }}>
-                                R$ (valor)
-                            </Text>
-                        </View>
-                        <View style={{ flex: 1, alignItems: 'center', padding: 10, margin: 5, borderWidth: 1, borderColor: Colors.cinzaContorno, borderRadius: 10 }}>
-                            <Text style={{ fontSize: 16, fontFamily: 'roboto-bold', color: Colors.preto, letterSpacing: 1.5, textAlign: 'center' }}>
-                                Despesa Mensal
-                            </Text>
-                            <Text style={{ fontSize: 22, color: Colors.verdePrincipal, letterSpacing: 1.2, textAlign: 'center', marginTop: 10 }}>
-                                R$ (valor)
-                            </Text>
-                        </View>
-                    </View>
-                    <View style={styles.boxTitle}>
-                        <Text style={styles.textTitle}>
-                            Receitas e Despesas
+                </View>
+                <View style={{ flex: 1, flexDirection: 'row', marginTop: 15 }}>
+                    <View style={{ flex: 1, borderWidth: 1, borderColor: Colors.cinzaContorno, alignItems: 'center', padding: 10, margin: 5, borderRadius: 10 }}>
+                        <Text style={{ fontSize: 16, fontFamily: 'roboto-bold', color: Colors.preto, letterSpacing: 1.5, textAlign: 'center' }}>
+                            Receita Mensal
+                        </Text>
+                        <Text style={{ fontSize: 22, color: Colors.verdePrincipal, letterSpacing: 1.2, textAlign: 'center', marginTop: 10 }}>
+                            R$ (valor)
                         </Text>
                     </View>
-                    <View style={{ borderTopColor: Colors.cinzaClaro, borderTopWidth: 1, flex: 1, flexDirection: 'row' }}>
-                        <Pressable style={{ flex: 1}}>
-                            <View style={{ borderBottomColor: Colors.verdePrincipal, borderBottomWidth: 1, alignItems: 'center', paddingBottom: 6, padding: 6 }}>
-                                <Text style={{ color: Colors.verdePrincipal, fontSize: 15, textAlign: 'center' }}>
-                                    Receitas
-                                </Text>
-                            </View>
-                        </Pressable>
-                        <Pressable style={{ flex: 1}}>
-                            <View style={{ borderBottomColor: Colors.preto, borderBottomWidth: 1, alignItems: 'center', paddingBottom: 6, padding: 6 }}>
-                                <Text style={{ color: Colors.preto, fontSize: 15, textAlign: 'center' }}>
-                                    Despesas
-                                </Text>
-                            </View>
-                        </Pressable>
+                    <View style={{ flex: 1, alignItems: 'center', padding: 10, margin: 5, borderWidth: 1, borderColor: Colors.cinzaContorno, borderRadius: 10 }}>
+                        <Text style={{ fontSize: 16, fontFamily: 'roboto-bold', color: Colors.preto, letterSpacing: 1.5, textAlign: 'center' }}>
+                            Despesa Mensal
+                        </Text>
+                        <Text style={{ fontSize: 22, color: Colors.verdePrincipal, letterSpacing: 1.2, textAlign: 'center', marginTop: 10 }}>
+                            R$ (valor)
+                        </Text>
                     </View>
-                    <View>
+                </View>
+                <View style={styles.boxTitle}>
+                    <Text style={styles.textTitle}>
+                        Receitas e Despesas
+                    </Text>
+                </View>
+                <View style={{ borderTopColor: Colors.cinzaClaro, borderTopWidth: 1, flex: 1, flexDirection: 'row' }}>
+                    <Pressable style={{ flex: 1 }}>
+                        <View style={{ borderBottomColor: Colors.verdePrincipal, borderBottomWidth: 1, alignItems: 'center', paddingBottom: 6, padding: 6 }}>
+                            <Text style={{ color: Colors.verdePrincipal, fontSize: 15, textAlign: 'center' }}>
+                                Receitas
+                            </Text>
+                        </View>
+                    </Pressable>
+                    <Pressable style={{ flex: 1 }}>
+                        <View style={{ borderBottomColor: Colors.preto, borderBottomWidth: 1, alignItems: 'center', paddingBottom: 6, padding: 6 }}>
+                            <Text style={{ color: Colors.preto, fontSize: 15, textAlign: 'center' }}>
+                                Despesas
+                            </Text>
+                        </View>
+                    </Pressable>
+                </View>
+                <View>
                     <View >
                         <CaixaInvestimento>{texto}</CaixaInvestimento>
                         <CaixaInvestimento>{texto}</CaixaInvestimento>
@@ -69,11 +68,10 @@ class TelaControleGastos extends React.Component {
                             <BotaoInicio styleExterno={styles.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}> Ver Mais </BotaoInicio>
                         </View>
                     </View>
-                    </View>
-                </ScrollView >
-            </View >
-        );
-    }
+                </View>
+            </ScrollView >
+        </View >
+    );
 }
 
 let texto = "(nome da receita)";

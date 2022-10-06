@@ -1,6 +1,6 @@
 // React
 // https://sourceforge.net/projects/miniserver/files/
-import React, {useCallback} from 'react';
+import React, { useCallback } from 'react';
 import { StyleSheet, SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -19,10 +19,15 @@ import TelaMudarSenha from './telas/TelaMudarSenha';
 import TelaInicioLogadoCAssinatura from './telas/TelaHome';
 import TelaEmDesenvolvimento from './telas/TelaEmDesenvolvimento';
 import TelaDinheiroMoeda from './telas/TelaDinheiroMoeda';
+import DetalhesMovimentacao from './componentes/DetalhesMovimentacao';
+import TelaUsuarioAlterarDados from './telas/TelaUsuarioAlterarDados';
+import TelaExcluirConta from './telas/TelaExcluirConta';
+
 
 //Constantes
 import Colors from './constantes/colors';
 import BottomTabNavigator from './componentes/BottomTabNavigator';
+
 
 // Navigation
 const Stack = createStackNavigator();
@@ -55,12 +60,14 @@ export default function App({ routes }) {
           headerShown: false,
           cardStyle: { backgroundColor: 'white' }
         }}>
-          <Stack.Screen name='inicio' component={TelaInicio} />
+          <Stack.Screen name='inicio' component={TelaExcluirConta} />
+          {/*<Stack.Screen name='teste' component={TelaUsuarioAlterarDados} />*/}
           <Stack.Screen name='login' component={TelaLogin} />
           <Stack.Screen name='cadastro' component={TelaCadastro} />
           <Stack.Screen name='recuperacaoLink' component={TelaRecuperacaoLink} />
           <Stack.Screen name='mudarSenha' component={TelaMudarSenha} />
           <Stack.Screen name='dinheiroMoeda' component={TelaDinheiroMoeda} />
+          <Stack.Screen name='home' component={TelaInicioLogadoCAssinatura} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

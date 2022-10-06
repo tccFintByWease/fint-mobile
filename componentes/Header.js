@@ -14,11 +14,11 @@ function Header() {
 
     const [hideSaldo, setHideSaldo] = useState(true);
 
-    return <SafeAreaView style={{ flex: 1, position: 'relative'}}>
+    return <SafeAreaView style={{ flex: 1, position: 'relative', height: 300 }}>
         <View style={styles.container}>
             <View style={styles.caixaPessoa}>
                 <Pressable onPress={perfilResponse}>
-                    <Ionicons name='person' size={25}/>
+                    <Ionicons name='person' size={25} />
                 </Pressable>
             </View>
             <View style={styles.caixaDinheiro}>
@@ -35,16 +35,16 @@ function Header() {
                     </Text>
                     <TouchableOpacity style={styles.icon} onPress={() => setHideSaldo(!hideSaldo)}>
                         {hideSaldo ?
-                            <Ionicons name="eye" color='#000' size={25}/>
+                            <Ionicons name="eye" color='#000' size={25} />
                             :
-                            <Ionicons name="eye-off" color='#000' size={25}/>
+                            <Ionicons name="eye-off" color='#000' size={25} />
                         }
                     </TouchableOpacity>
                 </View>
             </View>
             <View style={styles.viewNotific}>
                 <Pressable onPress={notificationResponse}>
-                    <Ionicons name='notifications' size={35}/>
+                    <Ionicons name='notifications' size={35} />
                 </Pressable>
             </View>
         </View >
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         flexDirection: 'row',
     },
-    caixaPessoa:{
+    caixaPessoa: {
         borderColor: Colors.cinzaContorno,
         borderWidth: 1,
         padding: 10,
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         color: Colors.verdeSecundario,
         marginLeft: 20,
     },
-    icon:{
+    icon: {
         justifyContent: 'center',
         alignItems: 'center',
         marginLeft: 10

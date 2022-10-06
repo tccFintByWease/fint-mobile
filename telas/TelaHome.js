@@ -1,4 +1,4 @@
-import { View, Image, Pressable, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Image, Pressable, Text, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
 
 import Ionicons from '@expo/vector-icons/Ionicons';
 
@@ -9,39 +9,39 @@ import BotaoInicio from '../componentes/BotaoInicio';
 import CaixaInvestimento from '../componentes/CaixaInvestimento';
 import React from 'react';
 import CardHome from '../componentes/CardHome';
+import BottomTabNavigator from '../componentes/BottomTabNavigator';
 
-class TelaHome extends React.Component {
-    render(){
-        return (
-            <View style={{ flex: 1 }}>
-                <Header />
-                <ScrollView style={{ marginTop: 70}}>
-                    <CardHome />
-                    <View style={patternStyle.rootContainer2}>
-                        <View style={styles.viewGrafico}>
-                            <Text style={styles.textoGrafico}> Gráfico</Text>
-                        </View>
+function TelaHome() {
+    return (
+        <SafeAreaView style={{ flex: 1 }}>
+            <Header />
+            <ScrollView style={{ marginTop: 70 }}>
+                <CardHome />
+                <View style={patternStyle.rootContainer2}>
+                    <View style={styles.viewGrafico}>
+                        <Text style={styles.textoGrafico}> Gráfico</Text>
                     </View>
-                    <View style={styles.boxTitle}>
-                        <Text style={styles.textTitle}>
-                            Últimos Investimentos
-                        </Text>
+                </View>
+                <View style={styles.boxTitle}>
+                    <Text style={styles.textTitle}>
+                        Últimos Investimentos
+                    </Text>
+                </View>
+                <View >
+                    <CaixaInvestimento>(nome do investimento)</CaixaInvestimento>
+                    <CaixaInvestimento>(nome do investimento)</CaixaInvestimento>
+                    <CaixaInvestimento>(nome do investimento)</CaixaInvestimento>
+                    <View style={{
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}>
+                        <BotaoInicio onPress={() => this.props.navigation.navigate('Investimentos')} styleExterno={styles.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}> Ver Mais </BotaoInicio>
                     </View>
-                    <View >
-                        <CaixaInvestimento>(nome do investimento)</CaixaInvestimento>
-                        <CaixaInvestimento>(nome do investimento)</CaixaInvestimento>
-                        <CaixaInvestimento>(nome do investimento)</CaixaInvestimento>
-                        <View style={{
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}>
-                            <BotaoInicio onPress={() => this.props.navigation.navigate('Investimentos')} styleExterno={styles.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}> Ver Mais </BotaoInicio>
-                        </View>
-                    </View>
-                </ScrollView >
-            </View >
-        );
-    }
+                </View>
+            </ScrollView >
+            {/*<BottomTabNavigator />*/}
+        </SafeAreaView >
+    );
 }
 
 export default TelaHome;

@@ -41,7 +41,7 @@ const patternStyle = StyleSheet.create({
     },
     botaoExterno: {
         width: '90%',
-        height: 50,
+        height: 48,
     },
     botaoInterno: {
         backgroundColor: Colors.verdePrincipal,

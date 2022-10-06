@@ -8,54 +8,53 @@ import patternStyle from '../constantes/style';
 import React from 'react';
 import BottomTabNavigator from '../componentes/BottomTabNavigator';
 
-class TelaDinheiroMoeda extends React.Component {
-    render(){
-        return (
-            <View style={patternStyle.rootContainer}>
-                <View style={patternStyle.caixaLogo}>
-                    <Image
-                        style={patternStyle.image}
-                        source={require('../assets/images/logo_preto.png')}
-                    />
-                </View>
-                <View style={styles.textoBox}>
-                    <Text style={styles.texto}>
-                        Cadastre seu saldo inicial e sua
-                        moeda padrão.
-                    </Text>
-                </View>
-                <View style={patternStyle.inputContainer}>
-                    <View style={styles.dropText}>
-                        <View style={styles.caixinha}>
-                            <TextInput
-                                style={styles.input}
-                                maxLength={10}
-                                keyboardType='decimal-pad'
-                                autoCapitalize='none'
-                                autoCorrect={false}
-                                placeholder='Quantia'
-                                placeholderTextColor={Colors.preto}
-                            />
-                        </View>
-                        <View style={[styles.caixinha, {marginTop: -10}]}>
-                            <Dropdown placeholder="Selecione"/>
-                        </View>
-                    </View>
-                    <Text style={patternStyle.texto}>Essas informações poderão ser alteradas há qualquer
-                        momento nas configurações do aplicativo. </Text>
-                    <BotaoInicio 
-                    styleExterno={[patternStyle.botaoExterno, styles.botao]} 
-                    styleCorpo={patternStyle.botaoInterno} 
-                    styleTexto={patternStyle.textoBotao}>
-                        Confirmar
-                    </BotaoInicio>
-                </View>
-                <View style={patternStyle.rodapeLogin}>
-                    <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>
-                </View>
+function TelaDinheiroMoeda() {
+    return (
+        <View style={patternStyle.rootContainer}>
+            <View style={patternStyle.caixaLogo}>
+                <Image
+                    style={patternStyle.image}
+                    source={require('../assets/images/logo_preto.png')}
+                />
             </View>
-        );
-    }
+            <View style={styles.textoBox}>
+                <Text style={styles.texto}>
+                    Cadastre seu saldo inicial e sua
+                    moeda padrão.
+                </Text>
+            </View>
+            <View style={patternStyle.inputContainer}>
+                <View style={styles.dropText}>
+                    <View style={styles.caixinha}>
+                        <TextInput
+                            style={styles.input}
+                            maxLength={10}
+                            keyboardType='decimal-pad'
+                            autoCapitalize='none'
+                            autoCorrect={false}
+                            placeholder='Quantia'
+                            placeholderTextColor={Colors.preto}
+                        />
+                    </View>
+                    <View style={[styles.caixinha, { marginTop: -10 }]}>
+                        <Dropdown placeholder="Selecione" />
+                    </View>
+                </View>
+                <Text style={patternStyle.texto}>Essas informações poderão ser alteradas há qualquer
+                    momento nas configurações do aplicativo. </Text>
+                <BotaoInicio
+                    styleExterno={[patternStyle.botaoExterno, styles.botao]}
+                    styleCorpo={patternStyle.botaoInterno}
+                    styleTexto={patternStyle.textoBotao}
+                    onPress={this.props.navigation.navigate('home')}>
+                    Confirmar
+                </BotaoInicio>
+            </View>
+            <View style={patternStyle.rodapeLogin}>
+                <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>
+            </View>
+        </View>
+    );
 }
 
 export default TelaDinheiroMoeda;
@@ -90,13 +89,13 @@ const styles = StyleSheet.create({
         marginTop: 30,
         paddingTop: 20
     },
-    caixinha:{
+    caixinha: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         marginHorizontal: 5,
     },
-    botao:{
+    botao: {
         marginTop: 25,
     }
 })

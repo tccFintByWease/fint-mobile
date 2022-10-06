@@ -5,8 +5,10 @@ import Subtitulo from '../componentes/Subtitulo';
 import patternStyle from '../constantes/style';
 import Colors from '../constantes/colors';
 import React from 'react';
+import InputSenha from '../componentes/InputSenha';
 
-function TelaMudarSenha() {
+
+function TelaExcluirConta() {
     return (
         <View style={patternStyle.rootContainer}>
             <View style={patternStyle.caixaLogo}>
@@ -24,7 +26,7 @@ function TelaMudarSenha() {
                     placeholder="Confirma Senha"
                     onChangeText={(text) => { this.setState({ password: text }) }}
                 />
-                <BotaoInicio styleExterno={patternStyle.botaoExterno} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Alterar Senha</BotaoInicio>
+                <BotaoInicio styleExterno={patternStyle.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}>Excluir Conta</BotaoInicio>
             </View>
             <View style={patternStyle.rodapeLogin}>
                 <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>
@@ -32,7 +34,6 @@ function TelaMudarSenha() {
         </View>
     );
 }
-
 
 const styles = StyleSheet.create({
     input: {
@@ -51,7 +52,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginHorizontal: 30,
-    }
+    },
+    botaoInterno: {
+        backgroundColor: Colors.vermelhoGoogle,
+        paddingVertical: 10
+    },
 })
 
-export default TelaMudarSenha;
+export default TelaExcluirConta;

@@ -1,5 +1,5 @@
 import { View, Image, TextInput, Text, StyleSheet } from 'react-native';
-
+import React from 'react';
 import Colors from '../constantes/colors';
 import BotaoInicio from '../componentes/BotaoInicio';
 import Subtitulo from '../componentes/Subtitulo';
@@ -79,6 +79,7 @@ function TelaCodigoRecuperacao() {
         </View>
     );
 }
+
 
 export default TelaCodigoRecuperacao;
 
