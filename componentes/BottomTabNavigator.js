@@ -18,25 +18,29 @@ function BottomTabNavigator(){
         tabBarInactiveTintColor: Colors.verdeSecundario,
         tabBarStyle: {backgroundColor: Colors.branco}
         }}>
-        <BottomTab.Screen name='Home' component={TelaHome} options={{
+        <BottomTab.Screen name='home' component={TelaHome} options={{
             tabBarIcon:({color, size}) => (
             <Ionicons name="home" color={color} size={size}/>
             ),
+            tabBarLabel: 'Home'
         }}/>
-        <BottomTab.Screen name='Gastos' component={TelaControleGastos} options={{
+        <BottomTab.Screen name='gastos' component={TelaControleGastos} options={{
             tabBarIcon:({color, size}) => (
             <Ionicons name="wallet" color={color} size={size}/>
-            )
+            ),
+            tabBarLabel: 'Gastos'
         }}/>
-        <BottomTab.Screen name='Simulador' component={TelaEmDesenvolvimento} options={{
+        <BottomTab.Screen name='simulador' component={TelaEmDesenvolvimento} options={{
             tabBarIcon:({color, size}) => (
             <Ionicons name="cash" color={color} size={size}/>
-            )
+            ),
+            tabBarLabel: 'Simulador'
         }}/>
-        <BottomTab.Screen name='Investimentos' component={TelaEmDesenvolvimento} options={{
+        <BottomTab.Screen name='investimentos' component={TelaEmDesenvolvimento} options={{
             tabBarIcon:({color, size}) => (
             <Ionicons name="analytics" color={color} size={size}/>
-            )
+            ),
+            tabBarLabel: 'Investimenrtos'
         }}/>
         </BottomTab.Navigator>
     );

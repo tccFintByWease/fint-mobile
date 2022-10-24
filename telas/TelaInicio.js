@@ -8,7 +8,15 @@ import Subtitulo from "../componentes/Subtitulo";
 import Colors from '../constantes/colors';
 import patternStyle from "../constantes/style";
 
-function TelaInicio() {
+function TelaInicio({navigation}) {
+    //Funções para abertura de telas
+    function abreLogin(){
+        navigation.navigate('login');
+    } 
+    function abreCadastro(){
+        navigation.navigate('cadastro');
+    }
+
     return (
         <LinearGradient colors={[Colors.verdePrincipal, Colors.verdeSecundario]} style={styles.rootContainer}>
             <View style={styles.caixaLogo}>
@@ -21,16 +29,16 @@ function TelaInicio() {
             <View style={styles.caixaBotoes}>
                 <View>
                     <BotaoInicio
-                        onPress={() => this.props.navigation.navigate('login')}
+                        onPress={abreLogin}
                         styleCorpo={styles.botao} styleTexto={styles.textoBotao}>
                         Conectar-se
                     </BotaoInicio>
                 </View>
                 <View>
-                    <BotaoInicio onPress={() => this.props.navigation.navigate('cadastro')}>Criar uma Conta</BotaoInicio>
+                    <BotaoInicio onPress={abreCadastro}>Criar uma Conta</BotaoInicio>
                 </View>
             </View>
-            <View style={patternStyle.rodapeLogin}>
+            <View style={[patternStyle.rodapeLogin, {marginTop: 40}]}>
                 <Subtitulo style={styles.textorodapeLogin}>Wease co.</Subtitulo>
             </View>
         </LinearGradient>

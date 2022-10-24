@@ -6,9 +6,13 @@ import Dropdown from '../componentes/Dropdown';
 import Colors from '../constantes/colors';
 import patternStyle from '../constantes/style';
 import React from 'react';
-import BottomTabNavigator from '../componentes/BottomTabNavigator';
 
-function TelaDinheiroMoeda() {
+function TelaDinheiroMoeda({navigation}) {
+    //Funções de abertura de tela
+    function abreHome(){
+        navigation.navigate('home');
+    }
+    
     return (
         <View style={patternStyle.rootContainer}>
             <View style={patternStyle.caixaLogo}>
@@ -36,8 +40,8 @@ function TelaDinheiroMoeda() {
                             placeholderTextColor={Colors.preto}
                         />
                     </View>
-                    <View style={[styles.caixinha, { marginTop: -10 }]}>
-                        <Dropdown placeholder="Selecione" />
+                    <View style={styles.caixinha}>
+                        {/* Espaço para Dropdown para escolha da moeda padrão */}
                     </View>
                 </View>
                 <Text style={patternStyle.texto}>Essas informações poderão ser alteradas há qualquer
@@ -46,11 +50,11 @@ function TelaDinheiroMoeda() {
                     styleExterno={[patternStyle.botaoExterno, styles.botao]}
                     styleCorpo={patternStyle.botaoInterno}
                     styleTexto={patternStyle.textoBotao}
-                    onPress={this.props.navigation.navigate('home')}>
-                    Confirmar
+                    onPress={abreHome}>
+                        Confirmar
                 </BotaoInicio>
             </View>
-            <View style={patternStyle.rodapeLogin}>
+            <View style={[patternStyle.rodapeLogin, {marginTop: 105}]}>
                 <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>
             </View>
         </View>

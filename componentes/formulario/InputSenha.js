@@ -2,8 +2,8 @@ import {View, TextInput, StyleSheet, TouchableOpacity} from 'react-native';
 import { useState } from "react";
 import {Ionicons} from '@expo/vector-icons';
 
-import patternStyle from '../constantes/style';
-import Colors from '../constantes/colors';
+import patternStyle from '../../constantes/style';
+import Colors from '../../constantes/colors';
 
 function InputSenha({placeholder, onChangeText}){
     const [hidePassword, setHidePassword] = useState(true);

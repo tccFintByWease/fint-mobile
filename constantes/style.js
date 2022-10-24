@@ -66,9 +66,7 @@ const patternStyle = StyleSheet.create({
         paddingTop: 20
     },
     rodapeLogin: {
-        position: 'absolute',
         bottom: 0,
-        marginBottom: 30,
     },
     textorodapeLogin: {
         color: Colors.cinzaContorno,

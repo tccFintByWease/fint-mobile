@@ -3,6 +3,7 @@ import { View, Image, TextInput, StyleSheet, Pressable, } from 'react-native';
 import BotaoInicio from '../componentes/BotaoInicio';
 import Subtitulo from '../componentes/Subtitulo';
 import patternStyle from '../constantes/style';
+import InputSenha from '../componentes/formulario/InputSenha';
 import Colors from '../constantes/colors';
 import React from 'react';
 
@@ -18,15 +19,13 @@ function TelaMudarSenha() {
             <View style={patternStyle.inputContainer}>
                 <InputSenha
                     placeholder="Senha"
-                    onChangeText={(text) => { this.setState({ password: text }) }}
                 />
                 <InputSenha
                     placeholder="Confirma Senha"
-                    onChangeText={(text) => { this.setState({ password: text }) }}
                 />
                 <BotaoInicio styleExterno={patternStyle.botaoExterno} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Alterar Senha</BotaoInicio>
             </View>
-            <View style={patternStyle.rodapeLogin}>
+            <View style={[patternStyle.rodapeLogin, {marginTop: 375}]}>
                 <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>
             </View>
         </View>
