@@ -18,6 +18,7 @@ import TelaDinheiroMoeda from './telas/TelaDinheiroMoeda';
 import TelaHome from './telas/TelaHome';
 import TelaCodigoRecuperacao from './telas/TelaCodigoRecuperacao';
 
+
 //Constantes
 import Colors from './constantes/colors';
 import BottomTabNavigator from './componentes/BottomTabNavigator';
