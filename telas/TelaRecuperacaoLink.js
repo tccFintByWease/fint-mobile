@@ -4,6 +4,14 @@ import { View, Image, TextInput, Text, Pressable } from 'react-native';
 import BotaoInicio from '../componentes/BotaoInicio';
 import Subtitulo from '../componentes/Subtitulo';
 import patternStyle from '../constantes/style';
+import {useForm, Controller} from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers/yup'; 
+import * as yup from 'yup';
+
+//Validações
+const schema = yup.object({
+    email: yup.string().email("Informe um email válido").required("Informe seu email"),
+})
 
 function TelaRecuperacaoLink({navigation}) {
     //Funções para a abertura de telas
@@ -20,6 +28,14 @@ function TelaRecuperacaoLink({navigation}) {
         navigation.navigate('recuperacaoCodigo');
     }
 
+    //Formulário de email
+    const {control, handleSubmit, formState: {errors}} = useForm({
+        resolver: yupResolver(schema)
+    })
+
+    function enviarEmail(data){
+        console.log(data); 
+    }
 
     return (
         <View style={{ flex: 1 }}>
@@ -33,16 +49,25 @@ function TelaRecuperacaoLink({navigation}) {
                     </View>
                 </Pressable>
                 <View style={patternStyle.inputContainer}>
-                    <TextInput
-                        style={patternStyle.input}
-                        maxLength={50}
-                        keyboardType='email-address'
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        placeholder='Email'
-                    />
+                    <View style={{width: '90%'}}>
+                        <Controller 
+                            name='email'
+                            control={control}
+                            render={({field: {onChange, onBlur, value}}) => (
+                                <TextInput 
+                                style={patternStyle.input}
+                                onChangeText={onChange}
+                                onBlur={onBlur}
+                                value={value}
+                                placeholder="Insira seu email"
+                                maxLength={100}
+                                />  
+                            )}
+                        />
+                        {errors.email && <Text style={patternStyle.labelError}>{errors.email?.message}</Text>}
+                    </View>
                     <BotaoInicio 
-                    onPress={abreCodigo}
+                    onPress={handleSubmit(enviarEmail)}
                     styleExterno={patternStyle.botaoExterno} 
                     styleCorpo={patternStyle.botaoInterno} 
                     styleTexto={patternStyle.textoBotao}>

@@ -6,6 +6,15 @@ import Subtitulo from '../componentes/Subtitulo';
 import BotaoInicio from '../componentes/BotaoInicio';
 import Colors from '../constantes/colors';
 import { Ionicons } from '@expo/vector-icons';
+import {useForm, Controller} from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers/yup'; 
+import * as yup from 'yup';
+
+//Validações
+const schema = yup.object({
+    email: yup.string().email("Informe um email válido").required("Informe seu email"),
+    senha: yup.string().min(8, "A senha deve conter pelo menos 8 dígitos").required("Informe sua senha"),
+})
 
 function TelaLogin({navigation}) {
     const [possuiConta, setPossuiConta] = useState(false);
@@ -26,6 +35,15 @@ function TelaLogin({navigation}) {
         navigation.navigate('home');
     }
 
+    //Formulário de Login
+    const {control, handleSubmit, formState: {errors}} = useForm({
+        resolver: yupResolver(schema)
+    })
+
+    function fazerLogin(data){
+        console.log(data); 
+    }
+
     return (
         <View style={patternStyle.rootContainer}>
             <View style={patternStyle.caixaLogo}>
@@ -37,8 +55,41 @@ function TelaLogin({navigation}) {
                 </Pressable>
             </View>
             <View style={patternStyle.inputContainer}>
+                <View style={{width: '90%'}}>
+                    <Controller 
+                        name='email'
+                        control={control}
+                        render={({field: {onChange, onBlur, value}}) => (
+                            <TextInput 
+                                style={patternStyle.input}
+                                onChangeText={onChange}
+                                onBlur={onBlur}
+                                value={value}
+                                placeholder="Email"
+                                maxLength={100}
+                            />  
+                        )}
+                    />
+                    {errors.email && <Text style={patternStyle.labelError}>{errors.email?.message}</Text>}
+                    <Controller 
+                        name='senha'
+                        control={control}
+                        render={({field: {onChange, onBlur, value}}) => (
+                            <TextInput 
+                                style={patternStyle.input}
+                                onChangeText={onChange}
+                                onBlur={onBlur}
+                                value={value}
+                                placeholder="Senha"
+                                maxLength={50}
+                                secureTextEntry={true}
+                            />  
+                        )}
+                    />
+                    {errors.senha && <Text style={patternStyle.labelError}>{errors.senha?.message}</Text>}
+                </View>
                 <BotaoInicio 
-                    onPress={possuiConta ? abreHome : abreMoeda} 
+                    onPress={handleSubmit(fazerLogin)} 
                     styleExterno={patternStyle.botaoExterno} 
                     styleCorpo={patternStyle.botaoInterno} 
                     styleTexto={patternStyle.textoBotao}>

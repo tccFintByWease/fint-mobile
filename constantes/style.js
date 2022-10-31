@@ -27,17 +27,22 @@ const patternStyle = StyleSheet.create({
         width: '100%',
     },
     input: {
-        height: 40,
-        width: '90%',
+        fontFamily: 'roboto-regular',
         fontSize: 18,
-        color: Colors.preto,
-        marginVertical: 5,
+        color: 'black',
         textAlign: 'left',
-        borderRadius: 30,
+        paddingHorizontal: 25,
+        paddingVertical: 8,
+        width: '100%',
+        marginVertical: 5,
         borderColor: Colors.cinzaContorno,
         borderWidth: 1,
-        paddingHorizontal: 20,
-        backgroundColor: Colors.branco,
+        borderRadius: 40
+    },
+    labelError:{
+        alignSelf: 'flex-start',
+        color: 'red',
+        marginBottom: 8
     },
     botaoExterno: {
         width: '90%',

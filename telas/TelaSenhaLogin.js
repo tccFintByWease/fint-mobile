@@ -4,6 +4,14 @@ import BotaoInicio from '../componentes/BotaoInicio';
 import Subtitulo from '../componentes/Subtitulo';
 import patternStyle from '../constantes/style';
 import Colors from '../constantes/colors';
+import {useForm, Controller} from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers/yup'; 
+import * as yup from 'yup';
+
+//Validações
+const schema = yup.object({
+    pin: yup.number().min(4, "O pin deve conter 4 dígitos").required("Informe o pin"),
+})
 
 function TelaSenhaLogin() {
     function olhoReceiver() {
@@ -14,6 +22,15 @@ function TelaSenhaLogin() {
     }
     function senhaReceiver() {
         console.log('senha')
+    }
+
+    //Formulário de pin
+    const {control, handleSubmit, formState: {errors}} = useForm({
+        resolver: yupResolver(schema)
+    })
+
+    function enviarPin(data){
+        console.log(data); 
     }
 
     return (
@@ -27,29 +44,29 @@ function TelaSenhaLogin() {
             <View style={patternStyle.inputContainer}>
                 <View style={styles.textoBox}>
                     <Text style={styles.text}>
-                        Insira sua senha para acessar o
+                        Insira o pin para acessar o
                         aplicativo.
                     </Text>
                 </View>
                 <View style={styles.inputButton}>
-                    <View style={{ flex: 6 }}>
-                        <TextInput
-                            style={styles.input}
-                            maxLength={50}
-                            keyboardType='visible-password'
-                            autoCapitalize='none'
-                            autoCorrect={false}
-                            placeholder='Senha'
-                        />
-                    </View>
-
-                    <View style={{ flex: 1 }}>
-                        <Pressable onPress={olhoReceiver}>
-                            <View>
-                                <Image source={require('../assets/icons/eye-solid.png')} style={{ width: 26, height: 23, marginLeft: 5 }}></Image>
-                            </View>
-                        </Pressable>
-                    </View>
+                    <Controller 
+                        name='pin'
+                        control={control}
+                        render={({field: {onChange, onBlur, value}}) => (
+                            <TextInput
+                                style={[patternStyle.input, {letterSpacing: 5, width: '50%', textAlign: 'center'}]}
+                                maxLength={4}
+                                keyboardType='number-pad'
+                                autoCapitalize='none'
+                                autoCorrect={false}
+                                placeholder='Pin'
+                                onChange={onChange}
+                                onBlur={onBlur}
+                                value={value}
+                            /> 
+                        )}
+                    />
+                    {errors.pin && <Text style={patternStyle.labelError}>{errors.pin?.message}</Text>}
                 </View>
                 <Text style={styles.texto}>É possível desativar a camada de proteção há qualquer
                     momento nas configurações do aplicativo. </Text>
@@ -58,7 +75,7 @@ function TelaSenhaLogin() {
                     <Text style={styles.texto}>Esqueceu a senha?</Text>
                 </Pressable>
             </View>
-            <View style={patternStyle.rodapeLogin}>
+            <View style={[patternStyle.rodapeLogin, {marginTop: 150}]}>
                 <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>
             </View>
         </View>
@@ -95,9 +112,6 @@ const styles = StyleSheet.create({
     },
     inputButton: {
         marginVertical: 5,
-        borderRadius: 30,
-        borderColor: Colors.cinzaContorno,
-        borderWidth: 1,
         flexDirection: 'row',
         alignItems: 'center',
         marginHorizontal: 30,

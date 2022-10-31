@@ -4,7 +4,14 @@ import Colors from '../constantes/colors';
 import BotaoInicio from '../componentes/BotaoInicio';
 import Subtitulo from '../componentes/Subtitulo';
 import patternStyle from '../constantes/style';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import {useForm, Controller} from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers/yup'; 
+import * as yup from 'yup';
+
+//Validações
+const schema = yup.object({
+    codigoRecuperacao: yup.number().min(6, "O código de conter no mínimo 6 dígitos")
+})
 
 function TelaCodigoRecuperacao({navigation}) {
     //Funções de abertura de telas
@@ -17,6 +24,15 @@ function TelaCodigoRecuperacao({navigation}) {
     function abreMudarSenha(){
         navigation.navigate('mudarSenha');
     }
+
+    //Formulário
+    const {control, handleSubmit, formState: {errors}} = useForm({
+        resolver: yupResolver(schema)
+    })
+
+    function enviarCodigo(data){
+        console.log(data); 
+    }
     
     return (
         <View style={patternStyle.rootContainer}>
@@ -28,17 +44,25 @@ function TelaCodigoRecuperacao({navigation}) {
             </View>
             <View style={patternStyle.inputContainer}>
                 <View style={styles.inputContainer}>
-                    <TextInput
-                        style={styles.input}
-                        maxLength={6}
-                        keyboardType='number-pad'
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        placeholder='ex: 123456'
+                    <Controller 
+                        name='codigoRecuperacao'
+                        control={control}
+                        render={({field: {onChange, onBlur, value}}) => (
+                            <TextInput 
+                                style={[patternStyle.input, {letterSpacing: 6, textAlign: 'center', width: '50%'}]}
+                                onChangeText={onChange}
+                                onBlur={onBlur}
+                                value={value}
+                                placeholder="123456"
+                                maxLength={6}
+                                keyboardType='number-pad'
+                            />  
+                        )}
                     />
+                    {errors.codigoRecuperacao && <Text style={patternStyle.labelError}>{errors.codigoRecuperacao?.message}</Text>}
                 </View>
                 <BotaoInicio 
-                    onPress={abreMudarSenha}
+                    onPress={handleSubmit(enviarCodigo)}
                     styleExterno={patternStyle.botaoExterno} 
                     styleCorpo={patternStyle.botaoInterno} 
                     styleTexto={patternStyle.textoBotao}>
@@ -62,20 +86,6 @@ function TelaCodigoRecuperacao({navigation}) {
 export default TelaCodigoRecuperacao;
 
 const styles = StyleSheet.create({
-    input: {
-        height: 60,
-        width: '60%',
-        fontSize: 18,
-        letterSpacing: 6, 
-        color: Colors.preto,
-        marginVertical: 10,
-        textAlign: 'center',
-        borderRadius: 40,
-        borderColor: Colors.cinzaContorno,
-        borderWidth: 1,
-        padding: 10,
-        textAlign: 'center',
-    },
     inputContainer: {
         justifyContent: 'center',
         alignItems: 'center',
