@@ -6,12 +6,7 @@ import Subtitulo from '../componentes/Subtitulo';
 import patternStyle from '../constantes/style';
 import {useForm, Controller} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup'; 
-import * as yup from 'yup';
-
-//Validações
-const schema = yup.object({
-    codigoRecuperacao: yup.number().min(6, "O código de conter no mínimo 6 dígitos")
-})
+import {recoverPasswordSchema} from '../store/schemas/forgot-password-schema';
 
 function TelaCodigoRecuperacao({navigation}) {
     //Funções de abertura de telas
@@ -27,7 +22,7 @@ function TelaCodigoRecuperacao({navigation}) {
 
     //Formulário
     const {control, handleSubmit, formState: {errors}} = useForm({
-        resolver: yupResolver(schema)
+        resolver: yupResolver(recoverPasswordSchema)
     })
 
     function enviarCodigo(data){

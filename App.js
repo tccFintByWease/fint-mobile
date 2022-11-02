@@ -13,11 +13,10 @@ import TelaInicio from './telas/TelaInicio';
 import TelaLogin from './telas/TelaLogin';
 import TelaCadastro from './telas/TelaCadastro';
 import TelaRecuperacaoLink from './telas/TelaRecuperacaoLink';
-import TelaMudarSenha from './telas/TelaMudarSenha';
+import TelaAlterarSenha from './telas/TelaAlterarSenha';
 import TelaDinheiroMoeda from './telas/TelaDinheiroMoeda';
 import TelaHome from './telas/TelaHome';
 import TelaCodigoRecuperacao from './telas/TelaCodigoRecuperacao';
-
 
 //Constantes
 import Colors from './constantes/colors';
@@ -54,12 +53,12 @@ export default function App({ routes }) {
           headerShown: false,
           cardStyle: { backgroundColor: 'white' }
         }}>
-          <Stack.Screen name='inicio' component={TelaInicio} />
+          <Stack.Screen name='inicio' component={TelaDinheiroMoeda} />
           <Stack.Screen name='login' component={TelaLogin} />
           <Stack.Screen name='cadastro' component={TelaCadastro} />
           <Stack.Screen name='recuperacaoLink' component={TelaRecuperacaoLink} />
           <Stack.Screen name='recuperacaoCodigo' component={TelaCodigoRecuperacao} />
-          <Stack.Screen name='mudarSenha' component={TelaMudarSenha} />
+          <Stack.Screen name='mudarSenha' component={TelaAlterarSenha} />
           <Stack.Screen name='dinheiroMoeda' component={TelaDinheiroMoeda} />
           <Stack.Screen name='home' component={BottomTabNavigator} />
         </Stack.Navigator>

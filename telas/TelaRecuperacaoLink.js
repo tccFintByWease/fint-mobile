@@ -6,12 +6,7 @@ import Subtitulo from '../componentes/Subtitulo';
 import patternStyle from '../constantes/style';
 import {useForm, Controller} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup'; 
-import * as yup from 'yup';
-
-//Validações
-const schema = yup.object({
-    email: yup.string().email("Informe um email válido").required("Informe seu email"),
-})
+import {forgotPasswordSchema} from '../store/schemas/forgot-password-schema'
 
 function TelaRecuperacaoLink({navigation}) {
     //Funções para a abertura de telas
@@ -30,7 +25,7 @@ function TelaRecuperacaoLink({navigation}) {
 
     //Formulário de email
     const {control, handleSubmit, formState: {errors}} = useForm({
-        resolver: yupResolver(schema)
+        resolver: yupResolver(forgotPasswordSchema)
     })
 
     function enviarEmail(data){
@@ -51,7 +46,7 @@ function TelaRecuperacaoLink({navigation}) {
                 <View style={patternStyle.inputContainer}>
                     <View style={{width: '90%'}}>
                         <Controller 
-                            name='email'
+                            name='emailUsuario'
                             control={control}
                             render={({field: {onChange, onBlur, value}}) => (
                                 <TextInput 
@@ -64,7 +59,7 @@ function TelaRecuperacaoLink({navigation}) {
                                 />  
                             )}
                         />
-                        {errors.email && <Text style={patternStyle.labelError}>{errors.email?.message}</Text>}
+                        {errors.emailUsuario && <Text style={patternStyle.labelError}>{errors.emailUsuario?.message}</Text>}
                     </View>
                     <BotaoInicio 
                     onPress={handleSubmit(enviarEmail)}

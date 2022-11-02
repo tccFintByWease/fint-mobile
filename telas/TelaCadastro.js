@@ -1,7 +1,8 @@
 import React from "react";
 import axios from 'axios';
+import api from "../services/api";
 import { useState } from "react";
-import { View, Image, Text, Switch, Linking, Modal, Alert, Pressable, StyleSheet, TextInput} from "react-native";
+import { View, Image, Text, Switch, Linking, Modal, Alert, Pressable, StyleSheet, TextInput, ScrollView, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView} from "react-native";
 
 import Colors from "../constantes/colors";
 import BotaoInicio from "../componentes/BotaoInicio";
@@ -9,26 +10,14 @@ import Subtitulo from "../componentes/Subtitulo";
 import patternStyle from '../constantes/style';
 import {useForm, Controller} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup'; 
-import * as yup from 'yup';
 import { LinearGradient } from "expo-linear-gradient";
 import { SIGN_UP_URL } from "../store/api-urls";
-
-//Validações
-const schema = yup.object({
-    nomeUsuario: yup.string().required("Informe seu nome completo"),
-    emailUsuario: yup.string().email("Informe um email válido").required("Informe seu email"),
-    senhaUsuario: yup.string().min(8, "A senha deve conter pelo menos 8 dígitos").required("Informe sua senha"),
-    confirmarSenha: yup.string().oneOf([yup.ref('senhaUsuario'), null], "As senhas devem ser iguais").required("Informe a confirmação da senha"),
-    cpfUsuario: yup.string(),
-    foneUsuario: yup.string(),
-    dataNascUsuario: yup.string()
-})
+import { getTodayDate } from "../utils/date-utils";
+import {TextInputMask} from 'react-native-masked-text';
+import {signUpSchema} from '../store/schemas/sign-up-schemas';
 
 function TelaCadastro({navigation}) {
     //Funções de abertura de telas
-    function abreInicio(){
-        navigation.navigate('cadastro');
-    }
     function abreLogin(){
         navigation.navigate('login');
     }
@@ -69,179 +58,188 @@ function TelaCadastro({navigation}) {
 
     //Formulário de Cadastro
     const {control, handleSubmit, formState: {errors}} = useForm({
-        resolver: yupResolver(schema)
+        resolver: yupResolver(signUpSchema)
     })
 
     async function cadastrarUsuario(data){
         try {
             delete data.confirmarSenha; 
             data.idMoeda = 1;
-            // const response = await axios.post(SIGN_UP_URL, data);
-            console.log(data); 
+            data.dataCadastroUsuario = getTodayDate();
+            // api.get("/usuario/inserir").then((response) => {
+            //     console.log(data);
+            // }).catch(error => console.log(error));
+            console.log(data);
         } catch (error) {
             console.log(error);
         }
     }
 
     return (
-        <View style={patternStyle.rootContainer}>
-            <View style={patternStyle.caixaLogo}>
-                <Pressable onPress={abreInicio}>
-                    <Image
-                        style={patternStyle.image}
-                        source={require('../assets/images/logo_preto.png')}
-                    />
-                </Pressable>
-            </View>
-            <View style={patternStyle.inputContainer}>
-                <View style={{width: '90%', alignItems: 'center', justifyContent: 'center'}}>
-                    <Controller 
-                        control={control}
-                        name="nomeUsuario"
-                        render={({field: {onChange, onBlur, value}}) => (
-                          <TextInput 
-                            style={patternStyle.input}
-                            onChangeText={onChange}
-                            onBlur={onBlur}
-                            value={value}
-                            placeholder="Nome Completo"
-                            maxLength={200}
-                          />  
-                        )}
-                    />
-                    {errors.nomeUsuario && <Text style={patternStyle.labelError}>{errors.nomeUsuario?.message}</Text>}
-                    <Controller 
-                        control={control}
-                        name="emailUsuario"
-                        render={({field: {onChange, onBlur, value}}) => (
-                          <TextInput 
-                            style={patternStyle.input}
-                            onChangeText={onChange}
-                            onBlur={onBlur}
-                            value={value}
-                            placeholder="Email"
-                            maxLength={100}
-                          />  
-                        )}
-                    />
-                    {errors.emailUsuario && <Text style={patternStyle.labelError}>{errors.emailUsuario?.message}</Text>}
-                    <Controller 
-                        control={control}
-                        name="senhaUsuario"
-                        render={({field: {onChange, onBlur, value}}) => (
-                          <TextInput 
-                            style={patternStyle.input}
-                            onChangeText={onChange}
-                            onBlur={onBlur}
-                            value={value}
-                            placeholder="Senha"
-                            maxLength={50}
-                            secureTextEntry={true}
-                          />  
-                        )}
-                    />
-                    {errors.senhaUsuario && <Text style={patternStyle.labelError}>{errors.senhaUsuario?.message}</Text>}
-                    <Controller 
-                        control={control}
-                        name="confirmarSenha"
-                        render={({field: {onChange, onBlur, value}}) => (
-                          <TextInput 
-                            style={patternStyle.input}
-                            onChangeText={onChange}
-                            onBlur={onBlur}
-                            value={value}
-                            maxLength={50}
-                            placeholder="Confirmar Senha"
-                            secureTextEntry={true}
-                          />  
-                        )}
-                    />
-                    {errors.confirmarSenha && <Text style={patternStyle.labelError}>{errors.confirmarSenha?.message}</Text>}
-                    <Controller 
-                        control={control}
-                        name="cpfUsuario"
-                        render={({field: {onChange, onBlur, value}}) => (
-                          <TextInput 
-                            style={patternStyle.input}
-                            onChangeText={onChange}
-                            onBlur={onBlur}
-                            value={value}
-                            placeholder="CPF"
-                            maxLength={50}
-                            secureTextEntry={true}
-                            keyboardType='number-pad'
-                          />  
-                        )}
-                    />
-                    {errors.cpfUsuario && <Text style={patternStyle.labelError}>{errors.cpfUsuario?.message}</Text>}
-                    <Controller 
-                        control={control}
-                        name="foneUsuario"
-                        render={({field: {onChange, onBlur, value}}) => (
-                          <TextInput 
-                            style={patternStyle.input}
-                            onChangeText={onChange}
-                            onBlur={onBlur}
-                            value={value}
-                            placeholder="Fone"
-                            maxLength={50}
-                            secureTextEntry={true}
-                            keyboardType='phone-pad'
-                          />  
-                        )}
-                    />
-                    {errors.foneUsuario && <Text style={patternStyle.labelError}>{errors.foneUsuario?.message}</Text>}
-                    <Controller 
-                        control={control}
-                        name="dataNascUsuario"
-                        render={({field: {onChange, onBlur, value}}) => (
-                          <TextInput 
-                            style={patternStyle.input}
-                            onChangeText={onChange}
-                            onBlur={onBlur}
-                            value={value}
-                            placeholder="Data de nascimento"
-                            maxLength={50}
-                            keyboardType='default'
-                          />  
-                        )}
-                    />
-                    {errors.dataNascUsuario && <Text style={patternStyle.labelError}>{errors.dataNascUsuario?.message}</Text>}
-                </View>
-                <View style={{flexDirection: 'row', width: '85%'}}>
-                    <View style={{ flexDirection: 'row', width: '85%' }}>
-                        <Switch
-                            trackColor={{ false: Colors.cinzaContorno, true: Colors.verdeSecundario }}
-                            thumbColor={estaHabilitado ? Colors.verdePrincipal : Colors.branco}
-                            ios_backgroundColor="#3e3e3e"
-                            onValueChange={mexerBotao}
-                            value={estaHabilitado}
+        <ScrollView style={{flex: 1}}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={patternStyle.rootContainer}>
+                    <View style={patternStyle.caixaLogo}>
+                        <Image
+                            style={patternStyle.image}
+                            source={require('../assets/images/logo_preto.png')}
                         />
-                        <Text
-                            onPress={() => { Linking.openURL('https://fint-48a30.web.app/documentacao'); }}
-                            style={[patternStyle.texto, { fontSize: 15 }]}>
-                            Concordo com os Termos de Uso e Políticas de Privacidade
-                        </Text>
+                    </View>
+                    <View style={patternStyle.inputContainer}>
+                        <View style={{width: '90%', alignItems: 'center', justifyContent: 'center'}}>
+                            <Controller 
+                                control={control}
+                                name="nomeUsuario"
+                                render={({field: {onChange, onBlur, value}}) => (
+                                <TextInput 
+                                    style={patternStyle.input}
+                                    onChangeText={onChange}
+                                    onBlur={onBlur}
+                                    value={value}
+                                    placeholder="Nome Completo"
+                                    maxLength={200}
+                                />  
+                                )}
+                            />
+                            {errors.nomeUsuario && <Text style={patternStyle.labelError}>{errors.nomeUsuario?.message}</Text>}
+                            <Controller 
+                                control={control}
+                                name="emailUsuario"
+                                render={({field: {onChange, onBlur, value}}) => (
+                                <TextInput 
+                                    style={patternStyle.input}
+                                    onChangeText={onChange}
+                                    onBlur={onBlur}
+                                    value={value}
+                                    placeholder="Email"
+                                    maxLength={100}
+                                />  
+                                )}
+                            />
+                            {errors.emailUsuario && <Text style={patternStyle.labelError}>{errors.emailUsuario?.message}</Text>}
+                            <Controller 
+                                control={control}
+                                name="senhaUsuario"
+                                render={({field: {onChange, onBlur, value}}) => (
+                                <TextInput 
+                                    style={patternStyle.input}
+                                    onChangeText={onChange}
+                                    onBlur={onBlur}
+                                    value={value}
+                                    placeholder="Senha"
+                                    maxLength={50}
+                                    secureTextEntry={true}
+                                />  
+                                )}
+                            />
+                            {errors.senhaUsuario && <Text style={patternStyle.labelError}>{errors.senhaUsuario?.message}</Text>}
+                            <Controller 
+                                control={control}
+                                name="confirmarSenha"
+                                render={({field: {onChange, onBlur, value}}) => (
+                                <TextInput 
+                                    style={patternStyle.input}
+                                    onChangeText={onChange}
+                                    onBlur={onBlur}
+                                    value={value}
+                                    maxLength={50}
+                                    placeholder="Confirmar Senha"
+                                    secureTextEntry={true}
+                                />  
+                                )}
+                            />
+                            {errors.confirmarSenha && <Text style={patternStyle.labelError}>{errors.confirmarSenha?.message}</Text>}
+                            <Controller 
+                                control={control}
+                                name="cpfUsuario"
+                                render={({field: {onChange, onBlur, value}}) => (
+                                    <TextInputMask 
+                                        style={patternStyle.input}
+                                        onChangeText={onChange}
+                                        onBlur={onBlur}
+                                        value={value}
+                                        placeholder="CPF"
+                                        type="cpf"
+                                    />
+                                )}
+                            />
+                            {errors.cpfUsuario && <Text style={patternStyle.labelError}>{errors.cpfUsuario?.message}</Text>}
+                            <Controller 
+                                control={control}
+                                name="dataNascUsuario"
+                                render={({field: {onChange, onBlur, value}}) => (
+                                    <TextInputMask 
+                                        style={patternStyle.input}
+                                        onChangeText={onChange}
+                                        onBlur={onBlur}
+                                        value={value}
+                                        placeholder="Data de nascimento"
+                                        maxLength={15}
+                                        type='datetime'
+                                        options={{
+                                            format: 'DD/MM/YYYY'
+                                        }}
+                                    />  
+                                )}
+                            />
+                            {errors.dataNascUsuario && <Text style={patternStyle.labelError}>{errors.dataNascUsuario?.message}</Text>}
+                            <Controller 
+                                control={control}
+                                name="foneUsuario"
+                                render={({field: {onChange, onBlur, value}}) => (
+                                    <TextInputMask 
+                                        style={patternStyle.input}
+                                        onChangeText={onChange}
+                                        onBlur={onBlur}
+                                        value={value}
+                                        placeholder="Celular"
+                                        type='cel-phone'
+                                        options={{
+                                            maskType: 'BRL',
+                                            withDDD: true,
+                                            dddMask: '(11) '
+                                        }}
+                                    />  
+                                )}
+                            />
+                            {errors.foneUsuario && <Text style={patternStyle.labelError}>{errors.foneUsuario?.message}</Text>}
+                        </View>
+                        <View style={{flexDirection: 'row', width: '85%'}}>
+                            <View style={{ flexDirection: 'row', width: '85%' }}>
+                                <Switch
+                                    trackColor={{ false: Colors.cinzaContorno, true: Colors.verdeSecundario }}
+                                    thumbColor={estaHabilitado ? Colors.verdePrincipal : Colors.branco}
+                                    ios_backgroundColor="#3e3e3e"
+                                    onValueChange={mexerBotao}
+                                    value={estaHabilitado}
+                                />
+                                <Text
+                                    onPress={() => { Linking.openURL('https://fint-48a30.web.app/documentacao'); }}
+                                    style={[patternStyle.texto, { fontSize: 15 }]}>
+                                    Concordo com os Termos de Uso e Políticas de Privacidade
+                                </Text>
+                            </View>
+                        </View>
+                        <BotaoInicio 
+                            onPress={estaHabilitado ?  handleSubmit(cadastrarUsuario) : () => setModalVisible(true)} 
+                            styleExterno={patternStyle.botaoExterno} 
+                            styleCorpo={patternStyle.botaoInterno} 
+                            styleTexto={patternStyle.textoBotao}>
+                                Cadastrar-se
+                        </BotaoInicio>
+                        <View style={styles.centeredView}>
+                            <Aviso />
+                        </View>
+                    </View>
+                    <View style={patternStyle.caixaTexto}>
+                        <Text onPress={abreLogin} style={patternStyle.texto}>Já possui uma conta? Conecte-se</Text>
+                    </View>
+                    <View style={[patternStyle.rodapeLogin, {marginTop: 40}]}>
+                        <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>
                     </View>
                 </View>
-                <BotaoInicio 
-                    onPress={estaHabilitado ?  handleSubmit(cadastrarUsuario) : () => setModalVisible(true)} 
-                    styleExterno={patternStyle.botaoExterno} 
-                    styleCorpo={patternStyle.botaoInterno} 
-                    styleTexto={patternStyle.textoBotao}>
-                        Cadastrar-se
-                </BotaoInicio>
-                <View style={styles.centeredView}>
-                    <Aviso />
-                </View>
-            </View>
-            <View style={patternStyle.caixaTexto}>
-                <Text onPress={abreLogin} style={patternStyle.texto}>Já possui uma conta? Conecte-se</Text>
-            </View>
-            <View style={[patternStyle.rodapeLogin, {marginTop: 50}]}>
-                <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>
-            </View>
-        </View>
+            </TouchableWithoutFeedback>
+        </ScrollView>
     );  
 }
 
