@@ -18,13 +18,13 @@ import TelaDinheiroMoeda from './telas/TelaDinheiroMoeda';
 import TelaHome from './telas/TelaHome';
 import TelaCodigoRecuperacao from './telas/TelaCodigoRecuperacao';
 
-//Constantes
+//Constantes aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 import Colors from './constantes/colors';
 import BottomTabNavigator from './componentes/BottomTabNavigator';
 
-// Navigation
+// Navigation aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 const Stack = createStackNavigator();
-
+const a = a;
 SplashScreen.preventAutoHideAsync();
 
 export default function App({ routes }) {
