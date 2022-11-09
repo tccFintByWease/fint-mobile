@@ -1,4 +1,4 @@
-const API = 'http://localhost:1433/api';
+const API = 'http://10.0.2.2:1433/api';
 
 const SIGN_UP_URL = `${API}/usuario/inserir`;
 // const UPDATE_USER_URL = ${API}/usuario/alterar;
@@ -14,7 +14,7 @@ const LOOK_FOR_PHONE_URL = `${API}/usuario/buscarUmPorFone`;
 // const INSERT_USER_CHART = ${API}/grafico/inserirGraficoUsuario;
 // const DELETE_USER_CHART = ${API}/grafico/deletarGraficoUsuario;
 
-export  {
+export {
     SIGN_UP_URL,
     // UPDATE_USER_URL,
     LOGIN_URL,
