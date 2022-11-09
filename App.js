@@ -25,6 +25,8 @@ import BottomTabNavigator from './componentes/BottomTabNavigator';
 import SimulacaoUmInvestimento from './componentes/SimulacaoUmInvestimento';
 import SimulacaoAlterarDados from './componentes/SimulacaoAlterarDados';
 import SimulacaoSalvar from './componentes/SimulacaoSalvar';
+import Notificacao from './componentes/Notificacao';
+import TelaNotificacao from './telas/TelaNotificacoes';
 
 // Navigation aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 const Stack = createStackNavigator();
@@ -57,7 +59,7 @@ export default function App({ routes }) {
           headerShown: false,
           cardStyle: { backgroundColor: 'white' }
         }}>
-          <Stack.Screen name='inicio' component={SimulacaoSalvar} />
+          <Stack.Screen name='inicio' component={TelaInicio} />
           <Stack.Screen name='login' component={TelaLogin} />
           <Stack.Screen name='cadastro' component={TelaCadastro} />
           <Stack.Screen name='recuperacaoLink' component={TelaRecuperacaoLink} />

@@ -2,23 +2,23 @@ import React from "react";
 import axios from 'axios';
 import api from "../services/api";
 import { useState } from "react";
-import { View, Image, Text, Switch, Linking, Modal, Alert, Pressable, StyleSheet, TextInput, ScrollView, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView} from "react-native";
+import { View, Image, Text, Switch, Linking, Modal, Alert, Pressable, StyleSheet, TextInput, ScrollView, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView } from "react-native";
 
 import Colors from "../constantes/colors";
 import BotaoInicio from "../componentes/BotaoInicio";
 import Subtitulo from "../componentes/Subtitulo";
 import patternStyle from '../constantes/style';
-import {useForm, Controller} from 'react-hook-form';
-import {yupResolver} from '@hookform/resolvers/yup'; 
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { LinearGradient } from "expo-linear-gradient";
 import { SIGN_UP_URL } from "../store/api-urls";
 import { getTodayDate } from "../utils/date-utils";
-import {TextInputMask} from 'react-native-masked-text';
-import {signUpSchema} from '../store/schemas/sign-up-schemas';
+import { TextInputMask } from 'react-native-masked-text';
+import { signUpSchema } from '../store/schemas/sign-up-schemas';
 
-function TelaCadastro({navigation}) {
+function TelaCadastro({ navigation }) {
     //Funções de abertura de telas
-    function abreLogin(){
+    function abreLogin() {
         navigation.navigate('login');
     }
 
@@ -30,8 +30,8 @@ function TelaCadastro({navigation}) {
     const [modalVisible, setModalVisible] = useState(false);
 
     // Aviso de Termos e Políticas
-    function Aviso(){
-        return(
+    function Aviso() {
+        return (
             <Modal
                 animationType='slide'
                 transparent={true}
@@ -45,8 +45,8 @@ function TelaCadastro({navigation}) {
                     <LinearGradient colors={[Colors.verdePrincipal, Colors.verdeSecundario]} style={styles.modalView}>
                         <Text style={styles.modalText}>Concorde com Termos de Uso e Políticas de Privacidade para concluir seu cadastro!</Text>
                         <Pressable
-                        style={[styles.button, styles.buttonClose]}
-                        onPress={() => setModalVisible(!modalVisible)}
+                            style={[styles.button, styles.buttonClose]}
+                            onPress={() => setModalVisible(!modalVisible)}
                         >
                             <Text style={styles.textStyle}>OK</Text>
                         </Pressable>
@@ -54,21 +54,45 @@ function TelaCadastro({navigation}) {
                 </View>
             </Modal>
         );
-    } 
+    }
 
     //Formulário de Cadastro
-    const {control, handleSubmit, formState: {errors}} = useForm({
+    const { control, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(signUpSchema)
     })
 
-    async function cadastrarUsuario(data){
+    async function cadastrarUsuario(data) {
         try {
-            delete data.confirmarSenha; 
+            delete data.confirmarSenha;
             data.idMoeda = 1;
+            data.statusUsuario = 1;
             data.dataCadastroUsuario = getTodayDate();
+
+            let dataNascUsuario = data.dataNascUsuario.toLocaleDateString();
+
+            console.log(dataNascUsuario);
+
+            const ano = data.dataNascUsuario.getFullYear();
+            const dia = dataNascUsuario.split('/')[0];
+            const mes = dataNascUsuario.split('/')[1];
+
+
+
+            console.log(ano);
+
+            dataNascUsuario = `${ano}-${mes}-${dia}`;
+
+            console.log(dataNascUsuario);
+
+            data.dataNascUsuario = dataNascUsuario;
+
+            const response = await axios.post(SIGN_UP_URL, data);
+
             // api.get("/usuario/inserir").then((response) => {
             //     console.log(data);
             // }).catch(error => console.log(error));
+            console.log(data.dataNascUsuario);
+            console.log(response.data);
             console.log(data);
         } catch (error) {
             console.log(error);
@@ -76,7 +100,7 @@ function TelaCadastro({navigation}) {
     }
 
     return (
-        <ScrollView style={{flex: 1}}>
+        <ScrollView style={{ flex: 1 }}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={patternStyle.rootContainer}>
                     <View style={patternStyle.caixaLogo}>
@@ -86,74 +110,74 @@ function TelaCadastro({navigation}) {
                         />
                     </View>
                     <View style={patternStyle.inputContainer}>
-                        <View style={{width: '90%', alignItems: 'center', justifyContent: 'center'}}>
-                            <Controller 
+                        <View style={{ width: '90%', alignItems: 'center', justifyContent: 'center' }}>
+                            <Controller
                                 control={control}
                                 name="nomeUsuario"
-                                render={({field: {onChange, onBlur, value}}) => (
-                                <TextInput 
-                                    style={patternStyle.input}
-                                    onChangeText={onChange}
-                                    onBlur={onBlur}
-                                    value={value}
-                                    placeholder="Nome Completo"
-                                    maxLength={200}
-                                />  
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <TextInput
+                                        style={patternStyle.input}
+                                        onChangeText={onChange}
+                                        onBlur={onBlur}
+                                        value={value}
+                                        placeholder="Nome Completo"
+                                        maxLength={200}
+                                    />
                                 )}
                             />
                             {errors.nomeUsuario && <Text style={patternStyle.labelError}>{errors.nomeUsuario?.message}</Text>}
-                            <Controller 
+                            <Controller
                                 control={control}
                                 name="emailUsuario"
-                                render={({field: {onChange, onBlur, value}}) => (
-                                <TextInput 
-                                    style={patternStyle.input}
-                                    onChangeText={onChange}
-                                    onBlur={onBlur}
-                                    value={value}
-                                    placeholder="Email"
-                                    maxLength={100}
-                                />  
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <TextInput
+                                        style={patternStyle.input}
+                                        onChangeText={onChange}
+                                        onBlur={onBlur}
+                                        value={value}
+                                        placeholder="Email"
+                                        maxLength={100}
+                                    />
                                 )}
                             />
                             {errors.emailUsuario && <Text style={patternStyle.labelError}>{errors.emailUsuario?.message}</Text>}
-                            <Controller 
+                            <Controller
                                 control={control}
                                 name="senhaUsuario"
-                                render={({field: {onChange, onBlur, value}}) => (
-                                <TextInput 
-                                    style={patternStyle.input}
-                                    onChangeText={onChange}
-                                    onBlur={onBlur}
-                                    value={value}
-                                    placeholder="Senha"
-                                    maxLength={50}
-                                    secureTextEntry={true}
-                                />  
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <TextInput
+                                        style={patternStyle.input}
+                                        onChangeText={onChange}
+                                        onBlur={onBlur}
+                                        value={value}
+                                        placeholder="Senha"
+                                        maxLength={50}
+                                        secureTextEntry={true}
+                                    />
                                 )}
                             />
                             {errors.senhaUsuario && <Text style={patternStyle.labelError}>{errors.senhaUsuario?.message}</Text>}
-                            <Controller 
+                            <Controller
                                 control={control}
                                 name="confirmarSenha"
-                                render={({field: {onChange, onBlur, value}}) => (
-                                <TextInput 
-                                    style={patternStyle.input}
-                                    onChangeText={onChange}
-                                    onBlur={onBlur}
-                                    value={value}
-                                    maxLength={50}
-                                    placeholder="Confirmar Senha"
-                                    secureTextEntry={true}
-                                />  
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <TextInput
+                                        style={patternStyle.input}
+                                        onChangeText={onChange}
+                                        onBlur={onBlur}
+                                        value={value}
+                                        maxLength={50}
+                                        placeholder="Confirmar Senha"
+                                        secureTextEntry={true}
+                                    />
                                 )}
                             />
                             {errors.confirmarSenha && <Text style={patternStyle.labelError}>{errors.confirmarSenha?.message}</Text>}
-                            <Controller 
+                            <Controller
                                 control={control}
                                 name="cpfUsuario"
-                                render={({field: {onChange, onBlur, value}}) => (
-                                    <TextInputMask 
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <TextInputMask
                                         style={patternStyle.input}
                                         onChangeText={onChange}
                                         onBlur={onBlur}
@@ -164,11 +188,11 @@ function TelaCadastro({navigation}) {
                                 )}
                             />
                             {errors.cpfUsuario && <Text style={patternStyle.labelError}>{errors.cpfUsuario?.message}</Text>}
-                            <Controller 
+                            <Controller
                                 control={control}
                                 name="dataNascUsuario"
-                                render={({field: {onChange, onBlur, value}}) => (
-                                    <TextInputMask 
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <TextInputMask
                                         style={patternStyle.input}
                                         onChangeText={onChange}
                                         onBlur={onBlur}
@@ -179,15 +203,15 @@ function TelaCadastro({navigation}) {
                                         options={{
                                             format: 'DD/MM/YYYY'
                                         }}
-                                    />  
+                                    />
                                 )}
                             />
                             {errors.dataNascUsuario && <Text style={patternStyle.labelError}>{errors.dataNascUsuario?.message}</Text>}
-                            <Controller 
+                            <Controller
                                 control={control}
                                 name="foneUsuario"
-                                render={({field: {onChange, onBlur, value}}) => (
-                                    <TextInputMask 
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <TextInputMask
                                         style={patternStyle.input}
                                         onChangeText={onChange}
                                         onBlur={onBlur}
@@ -199,12 +223,12 @@ function TelaCadastro({navigation}) {
                                             withDDD: true,
                                             dddMask: '(11) '
                                         }}
-                                    />  
+                                    />
                                 )}
                             />
                             {errors.foneUsuario && <Text style={patternStyle.labelError}>{errors.foneUsuario?.message}</Text>}
                         </View>
-                        <View style={{flexDirection: 'row', width: '85%'}}>
+                        <View style={{ flexDirection: 'row', width: '85%' }}>
                             <View style={{ flexDirection: 'row', width: '85%' }}>
                                 <Switch
                                     trackColor={{ false: Colors.cinzaContorno, true: Colors.verdeSecundario }}
@@ -220,12 +244,12 @@ function TelaCadastro({navigation}) {
                                 </Text>
                             </View>
                         </View>
-                        <BotaoInicio 
-                            onPress={estaHabilitado ?  handleSubmit(cadastrarUsuario) : () => setModalVisible(true)} 
-                            styleExterno={patternStyle.botaoExterno} 
-                            styleCorpo={patternStyle.botaoInterno} 
+                        <BotaoInicio
+                            onPress={estaHabilitado ? handleSubmit(cadastrarUsuario) : () => setModalVisible(true)}
+                            styleExterno={patternStyle.botaoExterno}
+                            styleCorpo={patternStyle.botaoInterno}
                             styleTexto={patternStyle.textoBotao}>
-                                Cadastrar-se
+                            Cadastrar-se
                         </BotaoInicio>
                         <View style={styles.centeredView}>
                             <Aviso />
@@ -234,13 +258,13 @@ function TelaCadastro({navigation}) {
                     <View style={patternStyle.caixaTexto}>
                         <Text onPress={abreLogin} style={patternStyle.texto}>Já possui uma conta? Conecte-se</Text>
                     </View>
-                    <View style={[patternStyle.rodapeLogin, {marginTop: 40}]}>
+                    <View style={[patternStyle.rodapeLogin, { marginTop: 40 }]}>
                         <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>
                     </View>
                 </View>
             </TouchableWithoutFeedback>
         </ScrollView>
-    );  
+    );
 }
 
 export default TelaCadastro;

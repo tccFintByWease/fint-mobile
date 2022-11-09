@@ -52,7 +52,7 @@ const signUpSchema = yup.object({
         .email('Insira um email válido')
         .required('Insira seu email')
         .max(100, 'O email deve ter no máximo 100 caracteres'),
-        // .checkEmail("Esse email já está cadastrado na plataforma"),
+    // .checkEmail("Esse email já está cadastrado na plataforma"),
 
     senhaUsuario: yup.string()
         .required('Insira sua senha')
@@ -75,12 +75,12 @@ const signUpSchema = yup.object({
         .required('Insira seu CPF')
         .min(14, 'Insira um CPF válido').max(14)
         .test('validated-cpf', 'Insira um CPF válido', (cpf) => validateCPF(cpf)),
-        // .checkCPF("Esse CPF já está cadastrado na plataforma"),
+    // .checkCPF("Esse CPF já está cadastrado na plataforma"),
 
     foneUsuario: yup.string()
         .required('Insira seu telefone')
         .min(15, 'Insira um telefone válido').max(15),
-        // .checkPhone("Esse telefone já está cadastrado na plataforma"),
+    // .checkPhone("Esse telefone já está cadastrado na plataforma"),
 
     dataNascUsuario: yup.date('Insira sua data de nascimento novamente')
         .required('Insira sua data de nascimento')
@@ -89,7 +89,7 @@ const signUpSchema = yup.object({
 });
 
 const startingValueSchema = yup.object({
-    
+
 });
 
 export {
