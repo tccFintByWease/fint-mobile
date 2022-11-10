@@ -9,6 +9,33 @@ import InputSenha from '../componentes/InputSenha';
 
 
 function TelaExcluirConta() {
+
+    async function excluirConta(data) {
+        try {
+            delete data.confirmarSenha;
+            data.idUsuario = 1
+            data.statusUsuario = 1
+            data.idMoeda = 1
+            data.foneUsuario = "(79)2131-7210"
+            data.nomeUsuario = "João Gilberto"
+            data.emailUsuario = "joaog@gmail.com"
+            data.cpfUsuario = "683.342.360-10"
+            data.dataNascUsuario = "1990-01-01 00:00:00"
+            data.dataCadastroUsuario = "2022-01-01 00:00:00"
+
+            //chamado um por email
+            //
+
+
+            console.log(data);
+
+            const response = await axios.put(UPDATE_USER_URL, data);
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <View style={patternStyle.rootContainer}>
             <View style={patternStyle.caixaLogo}>
@@ -26,7 +53,9 @@ function TelaExcluirConta() {
                     placeholder="Confirma Senha"
                     onChangeText={(text) => { this.setState({ password: text }) }}
                 />
-                <BotaoInicio styleExterno={patternStyle.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}>Excluir Conta</BotaoInicio>
+                <BotaoInicio
+                    onPress={handleSubmit(excluirConta)}
+                    styleExterno={patternStyle.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}>Excluir Conta</BotaoInicio>
             </View>
             <View style={patternStyle.rodapeLogin}>
                 <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>
