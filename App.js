@@ -59,7 +59,7 @@ export default function App({ routes }) {
           headerShown: false,
           cardStyle: { backgroundColor: 'white' }
         }}>
-          <Stack.Screen name='inicio' component={TelaInicio} />
+          <Stack.Screen name='inicio' component={TelaAlterarSenha} />
           <Stack.Screen name='login' component={TelaLogin} />
           <Stack.Screen name='cadastro' component={TelaCadastro} />
           <Stack.Screen name='recuperacaoLink' component={TelaRecuperacaoLink} />
