@@ -10,7 +10,7 @@ import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { resetPasswordSchema } from '../store/schemas/forgot-password-schema';
-import { UPDATE_USER_URL } from "../store/api-urls";
+import { UPDATE_PASSWORD_USER_URL } from "../store/api-urls";
 
 function TelaAlterarSenha() {
     //Formulário de Alteração de Senha
@@ -21,23 +21,14 @@ function TelaAlterarSenha() {
     async function alterarSenha(data) {
         try {
             delete data.confirmarSenha;
-            data.idUsuario = 1
-            data.statusUsuario = 0
-            data.idMoeda = 1
-            data.foneUsuario = "(79)2131-7210"
-            data.nomeUsuario = "João Gilberto"
-            data.emailUsuario = "joaog@gmail.com"
-            data.cpfUsuario = "683.342.360-10"
-            data.dataNascUsuario = "1990-01-01 00:00:00"
-            data.dataCadastroUsuario = "2022-01-01 00:00:00"
 
-            //chamado um por email
-            //
-
+            data.emailUsuario = await SecureStore.getItemAsync("email");
+            // const response1 = await axios.pull(LOOK_FOR_EMAIL_URL, sus);
+            // console.log(response1.data.idUsuario);
 
             console.log(data);
 
-            const response = await axios.put(UPDATE_USER_URL, data);
+            const response = await axios.put(UPDATE_PASSWORD_USER_URL, data);
             console.log(response);
         } catch (error) {
             console.log(error);

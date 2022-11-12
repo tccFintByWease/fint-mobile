@@ -18,6 +18,7 @@ import TelaDinheiroMoeda from './telas/TelaDinheiroMoeda';
 import TelaHome from './telas/TelaHome';
 import TelaCodigoRecuperacao from './telas/TelaCodigoRecuperacao';
 import TelaSimulador from './telas/TelaSimulador';
+import TelaExcluirConta from './telas/TelaExcluirConta';
 
 //Constantes aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 import Colors from './constantes/colors';
@@ -59,7 +60,7 @@ export default function App({ routes }) {
           headerShown: false,
           cardStyle: { backgroundColor: 'white' }
         }}>
-          <Stack.Screen name='inicio' component={TelaAlterarSenha} />
+          <Stack.Screen name='inicio' component={TelaInicio} />
           <Stack.Screen name='login' component={TelaLogin} />
           <Stack.Screen name='cadastro' component={TelaCadastro} />
           <Stack.Screen name='recuperacaoLink' component={TelaRecuperacaoLink} />
@@ -78,3 +79,17 @@ const styles = StyleSheet.create({
     flex: 1,
   }
 });
+
+
+// isSignedIn ? (
+//   <>
+//     <Stack.Screen name="Home" component={HomeScreen} />
+//     <Stack.Screen name="Profile" component={ProfileScreen} />
+//     <Stack.Screen name="Settings" component={SettingsScreen} />
+//   </>
+// ) : (
+//   <>
+//     <Stack.Screen name="SignIn" component={SignInScreen} />
+//     <Stack.Screen name="SignUp" component={SignUpScreen} />
+//   </>
+// );

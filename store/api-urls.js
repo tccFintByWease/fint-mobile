@@ -2,6 +2,8 @@ const API = 'http://10.0.2.2:1433/api';
 
 const SIGN_UP_URL = `${API}/usuario/inserir`;
 const UPDATE_USER_URL = `${API}/usuario/alterar`;
+const UPDATE_STATUS_USER_URL = `${API}/usuario/alterarStatus`;
+const UPDATE_PASSWORD_USER_URL = `${API}/usuario/alterarSenha`;
 const LOGIN_URL = `${API}/login/buscarLogin`;
 
 const LIST_CURRENCIES_URL = `${API}/moeda/buscarTodos`;
@@ -39,12 +41,14 @@ export {
     SIGN_UP_URL,
     UPDATE_USER_URL,
     LOGIN_URL,
+    UPDATE_PASSWORD_USER_URL,
     LIST_CURRENCIES_URL,
     INSERT_TRANSITION_URL,
     LOOK_FOR_EMAIL_URL,
     LOOK_FOR_CPF_URL,
     LOOK_FOR_PHONE_URL,
     FORGOT_PASSWORD_URL,
+    UPDATE_STATUS_USER_URL,
     GET_CHARTS_URL,
     GET_USER_CHARTS_URL,
     INSERT_USER_CHART_URL,

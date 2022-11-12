@@ -1,48 +1,54 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { View, TextInput, Text, Image, StyleSheet, Pressable, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { View, TextInput, Text, Image, StyleSheet, Pressable, TouchableWithoutFeedback, Keyboard, Parse, Alert } from "react-native";
 import patternStyle from '../constantes/style';
 import Subtitulo from '../componentes/Subtitulo';
 import BotaoInicio from '../componentes/BotaoInicio';
 import Colors from '../constantes/colors';
 import { Ionicons } from '@expo/vector-icons';
-import {useForm, Controller} from 'react-hook-form';
-import {yupResolver} from '@hookform/resolvers/yup'; 
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { LOGIN_URL } from '../store/api-urls';
-import {loginSchema} from '../store/schemas/login-schema';
+import { loginSchema } from '../store/schemas/login-schema';
+import * as SecureStore from 'expo-secure-store';
 
 
-function TelaLogin({navigation}) {
+function TelaLogin({ navigation }) {
     //Funções de abertura de telas
-    function abreInicio(){
+    function abreInicio() {
         navigation.navigate('inicio');
     }
-    function abreCadastro(){
+    function abreCadastro() {
         navigation.navigate('cadastro');
     }
-    function abreLinkRecuperacao(){
+    function abreLinkRecuperacao() {
         navigation.navigate('recuperacaoLink');
     }
-    function abreMoeda(){
+    function abreMoeda() {
         navigation.navigate('dinheiroMoeda');
     }
-    function abreHome(){
+    function abreHome() {
         navigation.navigate('home');
     }
 
     //Formulário de Login
-    const {control, handleSubmit, formState: {errors}} = useForm({
+    const { control, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(loginSchema)
     })
 
-    async function fazerLogin(data){
+    async function fazerLogin(data) {
         try {
             const response = await axios.post(LOGIN_URL, data);
-            if (data.emailUsuario === response.data.result.emailUsuario && data.senhaUsuario === response.data.result.senhaUsuario) {
+            if (data.emailUsuario === response.data.result.emailUsuario && data.senhaUsuario === response.data.result.senhaUsuario && response.data.result.statusUsuario === "Ativo") {
                 navigation.navigate('home');
+                const sus = data.emailUsuario;
+                await SecureStore.setItemAsync("email", sus);
+
+                const subla = await SecureStore.getItemAsync("email");
+                console.log(subla)
             } else {
-                console.log("EMAIL OU SENHA INVÁLIDOS");
-            } 
+                Alert.alert("Email ou senha inválido");
+            }
         } catch (error) {
             console.log(error);
         }
@@ -58,27 +64,27 @@ function TelaLogin({navigation}) {
                     />
                 </View>
                 <View style={patternStyle.inputContainer}>
-                    <View style={{width: '90%'}}>
-                        <Controller 
+                    <View style={{ width: '90%' }}>
+                        <Controller
                             name='emailUsuario'
                             control={control}
-                            render={({field: {onChange, onBlur, value}}) => (
-                                <TextInput 
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <TextInput
                                     style={patternStyle.input}
                                     onChangeText={onChange}
                                     onBlur={onBlur}
                                     value={value}
                                     placeholder="Email"
                                     maxLength={100}
-                                />  
+                                />
                             )}
                         />
                         {errors.emailUsuario && <Text style={patternStyle.labelError}>{errors.emailUsuario?.message}</Text>}
-                        <Controller 
+                        <Controller
                             name='senhaUsuario'
                             control={control}
-                            render={({field: {onChange, onBlur, value}}) => (
-                                <TextInput 
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <TextInput
                                     style={patternStyle.input}
                                     onChangeText={onChange}
                                     onBlur={onBlur}
@@ -86,17 +92,17 @@ function TelaLogin({navigation}) {
                                     placeholder="Senha"
                                     maxLength={50}
                                     secureTextEntry={true}
-                                />  
+                                />
                             )}
                         />
                         {errors.senhaUsuario && <Text style={patternStyle.labelError}>{errors.senhaUsuario?.message}</Text>}
                     </View>
-                    <BotaoInicio 
+                    <BotaoInicio
                         onPress={handleSubmit(fazerLogin)}
-                        styleExterno={patternStyle.botaoExterno} 
-                        styleCorpo={patternStyle.botaoInterno} 
+                        styleExterno={patternStyle.botaoExterno}
+                        styleCorpo={patternStyle.botaoInterno}
                         styleTexto={patternStyle.textoBotao}>
-                            Entrar
+                        Entrar
                     </BotaoInicio>
                     <Text onPress={abreLinkRecuperacao} style={patternStyle.texto}>Esqueceu a senha?</Text>
                 </View>
@@ -115,7 +121,7 @@ function TelaLogin({navigation}) {
                     </BotaoInicio>
                     <Text onPress={abreCadastro} style={patternStyle.texto}>Crie uma nova conta</Text>
                 </View>
-                <View style={[patternStyle.rodapeLogin, {marginTop: 110}]}>
+                <View style={[patternStyle.rodapeLogin, { marginTop: 110 }]}>
                     <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>
                 </View>
             </View>
@@ -146,3 +152,16 @@ const styles = StyleSheet.create({
         margin: 2
     },
 });
+
+// state.userToken == null ? (
+//   <>
+//     <Stack.Screen name="SignIn" component={SignInScreen} />
+//     <Stack.Screen name="SignUp" component={SignUpScreen} />
+//     <Stack.Screen name="ResetPassword" component={ResetPassword} />
+//   </>
+// ) : (
+//   <>
+//     <Stack.Screen name="Home" component={HomeScreen} />
+//     <Stack.Screen name="Profile" component={ProfileScreen} />
+//   </>
+// )

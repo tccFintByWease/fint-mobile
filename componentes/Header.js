@@ -1,12 +1,14 @@
 import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, Pressable } from 'react-native';
 import { useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import * as SecureStore from 'expo-secure-store';
 
 import Colors from '../constantes/colors';
 
-function Header() {
+function Header({ navigation }) {
     function perfilResponse() {
-        console.log('Perfil')
+        const sus = SecureStore.getItemAsync("email");
+        console.log(sus);
     };
     function notificationResponse() {
         console.log('notific')

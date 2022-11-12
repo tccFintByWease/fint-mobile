@@ -11,7 +11,8 @@ import React from 'react';
 import CardHome from '../componentes/CardHome';
 import BottomTabNavigator from '../componentes/BottomTabNavigator';
 
-function TelaHome() {
+function TelaHome({ }) {
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <Header />
