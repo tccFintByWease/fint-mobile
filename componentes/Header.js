@@ -4,20 +4,13 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 import Colors from '../constantes/colors';
 
-function Header() {
-    function perfilResponse() {
-        console.log('Perfil')
-    };
-    function notificationResponse() {
-        console.log('notific')
-    };
-
+function Header({perfil}) {
     const [hideSaldo, setHideSaldo] = useState(true);
 
     return <SafeAreaView style={{ flex: 1, position: 'relative', height: 300 }}>
         <View style={styles.container}>
             <View style={styles.caixaPessoa}>
-                <Pressable onPress={perfilResponse}>
+                <Pressable onPress={perfil}>
                     <Ionicons name='person' size={25} />
                 </Pressable>
             </View>
@@ -30,7 +23,7 @@ function Header() {
                         {hideSaldo ?
                             "R$22,50"
                             :
-                            "R$ - -, - -"
+                            "Oculto"
                         }
                     </Text>
                     <TouchableOpacity style={styles.icon} onPress={() => setHideSaldo(!hideSaldo)}>
@@ -43,7 +36,7 @@ function Header() {
                 </View>
             </View>
             <View style={styles.viewNotific}>
-                <Pressable onPress={notificationResponse}>
+                <Pressable>
                     <Ionicons name='notifications' size={35} />
                 </Pressable>
             </View>

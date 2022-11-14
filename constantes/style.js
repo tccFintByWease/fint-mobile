@@ -39,6 +39,16 @@ const patternStyle = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 40
     },
+    input2:{
+        fontFamily: 'roboto-regular',
+        fontSize: 18,
+        color: 'black',
+        textAlign: 'left',
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        width: '100%',
+        marginVertical: 5,
+    },
     labelError:{
         alignSelf: 'flex-start',
         color: 'red',

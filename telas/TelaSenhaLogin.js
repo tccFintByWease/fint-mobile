@@ -7,18 +7,23 @@ import Colors from '../constantes/colors';
 import {useForm, Controller} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup'; 
 import * as yup from 'yup';
+import axios from 'axios';
 
 //Validações
 const schema = yup.object({
     pin: yup.number().min(4, "O pin deve conter 4 dígitos").required("Informe o pin"),
 })
 
-function TelaSenhaLogin() {
-    function olhoReceiver() {
-        console.log('olho')
-    }
-    function loginReceiver() {
-        console.log('login')
+function TelaSenhaLogin({navigation}) {
+    async function enviarPin(data) {
+        try {
+            // const response = await axios.post();
+            // console.log(response);
+            console.log(data);
+            navigation.navigate('home');
+        } catch (error) {
+            console.log(error);
+        }
     }
     function senhaReceiver() {
         console.log('senha')
@@ -28,10 +33,6 @@ function TelaSenhaLogin() {
     const {control, handleSubmit, formState: {errors}} = useForm({
         resolver: yupResolver(schema)
     })
-
-    function enviarPin(data){
-        console.log(data); 
-    }
 
     return (
         <View style={patternStyle.rootContainer}>
@@ -50,7 +51,7 @@ function TelaSenhaLogin() {
                 </View>
                 <View style={styles.inputButton}>
                     <Controller 
-                        name='pin'
+                        name='pinUsuario'
                         control={control}
                         render={({field: {onChange, onBlur, value}}) => (
                             <TextInput
@@ -66,11 +67,17 @@ function TelaSenhaLogin() {
                             /> 
                         )}
                     />
-                    {errors.pin && <Text style={patternStyle.labelError}>{errors.pin?.message}</Text>}
+                    {errors.pinUsuario && <Text style={patternStyle.labelError}>{errors.pinUsuario?.message}</Text>}
                 </View>
                 <Text style={styles.texto}>É possível desativar a camada de proteção há qualquer
                     momento nas configurações do aplicativo. </Text>
-                <BotaoInicio onPress={loginReceiver} styleExterno={patternStyle.botaoExterno} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Entrar</BotaoInicio>
+                <BotaoInicio 
+                    onPress={handleSubmit(enviarPin)} 
+                    styleExterno={patternStyle.botaoExterno} 
+                    styleCorpo={patternStyle.botaoInterno} 
+                    styleTexto={patternStyle.textoBotao}>
+                        Entrar
+                </BotaoInicio>
                 <Pressable onPress={senhaReceiver}>
                     <Text style={styles.texto}>Esqueceu a senha?</Text>
                 </Pressable>

@@ -1,36 +1,13 @@
 import React, { useCallback } from 'react';
 import { StyleSheet, SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import StackNavigator from './componentes/Navegadores/StackNavigator';
 
 // Expo
 import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from "expo-splash-screen";
 
-// Telas
-import TelaInicio from './telas/TelaInicio';
-import TelaLogin from './telas/TelaLogin';
-import TelaCadastro from './telas/TelaCadastro';
-import TelaRecuperacaoLink from './telas/TelaRecuperacaoLink';
-import TelaAlterarSenha from './telas/TelaAlterarSenha';
-import TelaDinheiroMoeda from './telas/TelaDinheiroMoeda';
-import TelaHome from './telas/TelaHome';
-import TelaCodigoRecuperacao from './telas/TelaCodigoRecuperacao';
-import TelaSimulador from './telas/TelaSimulador';
-
-//Constantes aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-import Colors from './constantes/colors';
-import BottomTabNavigator from './componentes/BottomTabNavigator';
-import SimulacaoUmInvestimento from './componentes/SimulacaoUmInvestimento';
-import SimulacaoAlterarDados from './componentes/SimulacaoAlterarDados';
-import SimulacaoSalvar from './componentes/SimulacaoSalvar';
-import Notificacao from './componentes/Notificacao';
-import TelaNotificacao from './telas/TelaNotificacoes';
-
-// Navigation aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-const Stack = createStackNavigator();
-const a = a;
 SplashScreen.preventAutoHideAsync();
 
 export default function App({ routes }) {
@@ -55,19 +32,7 @@ export default function App({ routes }) {
     <SafeAreaView onLayout={onLayoutRootView} style={styles.rootScreen}>
       <StatusBar style='light' />
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='inicio' screenOptions={{
-          headerShown: false,
-          cardStyle: { backgroundColor: 'white' }
-        }}>
-          <Stack.Screen name='inicio' component={TelaAlterarSenha} />
-          <Stack.Screen name='login' component={TelaLogin} />
-          <Stack.Screen name='cadastro' component={TelaCadastro} />
-          <Stack.Screen name='recuperacaoLink' component={TelaRecuperacaoLink} />
-          <Stack.Screen name='recuperacaoCodigo' component={TelaCodigoRecuperacao} />
-          <Stack.Screen name='mudarSenha' component={TelaAlterarSenha} />
-          <Stack.Screen name='dinheiroMoeda' component={TelaDinheiroMoeda} />
-          <Stack.Screen name='home' component={BottomTabNavigator} />
-        </Stack.Navigator>
+        <StackNavigator />
       </NavigationContainer>
     </SafeAreaView>
   );

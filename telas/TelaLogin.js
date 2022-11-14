@@ -14,9 +14,6 @@ import {loginSchema} from '../store/schemas/login-schema';
 
 function TelaLogin({navigation}) {
     //Funções de abertura de telas
-    function abreInicio(){
-        navigation.navigate('inicio');
-    }
     function abreCadastro(){
         navigation.navigate('cadastro');
     }
@@ -101,7 +98,7 @@ function TelaLogin({navigation}) {
                     <Text onPress={abreLinkRecuperacao} style={patternStyle.texto}>Esqueceu a senha?</Text>
                 </View>
                 <View style={[patternStyle.inputContainer, styles.inputContainer2]}>
-                    <BotaoInicio
+                    {/* <BotaoInicio
                         styleExterno={patternStyle.botaoExterno}
                         styleCorpo={styles.botaoInternoG}
                         styleTexto={styles.textoBotao2}>
@@ -112,10 +109,10 @@ function TelaLogin({navigation}) {
                         styleCorpo={styles.botaoInternoF}
                         styleTexto={styles.textoBotao2}>
                         <Ionicons name="logo-facebook" size={20} />   Entrar com sua conta Facebook
-                    </BotaoInicio>
+                    </BotaoInicio> */}
                     <Text onPress={abreCadastro} style={patternStyle.texto}>Crie uma nova conta</Text>
                 </View>
-                <View style={[patternStyle.rodapeLogin, {marginTop: 110}]}>
+                <View style={[patternStyle.rodapeLogin, {marginTop: 220}]}>
                     <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>
                 </View>
             </View>

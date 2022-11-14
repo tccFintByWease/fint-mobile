@@ -4,76 +4,32 @@ import patternStyle from '../constantes/style';
 import Header from '../componentes/Header';
 import Colors from '../constantes/colors';
 import BotaoInicio from '../componentes/BotaoInicio';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { useState } from 'react';
+import CardGrafico from '../componentes/CardGrafico';
 
-function TelaSelecionarGraficos() {
+function TelaSelecionarGraficos({navigation}) {
+    function voltar(){
+        navigation.goBack();
+    }
 
-    function oReceiver() {
-        console.log('owo');
-    };
-    function setinha1Receiver() {
-        console.log('>1');
-    };
-    function setinha2Receiver() {
-        console.log('>2');
-    };
-    function setinha3Receiver() {
-        console.log('>3');
-    };
-    function xReceiver() {
-        console.log('X');
-    };
-    function assinarReceiver() {
-        console.log('Assinar');
-    };
     return (
-        <View style={{ flex: 1 }}>
-            <Header />
-            <ScrollView style={{ marginBottom: 76, marginTop: 110 }}>
+        <View style={{ flex: 1, marginTop: 40 }}>
+            <ScrollView>
+                <Pressable onPress={voltar}>
+                    <View style={{width: '100%', paddingRight: 15}}>
+                        <Ionicons style={{alignSelf: 'flex-end'}} name='close' color='black' size={40}/>
+                    </View>
+                </Pressable>
                 <View style={patternStyle.rootContainer2}>
                     <View style={{ width: '100%', paddingLeft: 10 }}>
                         <Text style={styles.textoAnteGrafico}>
                             Selecionar Gráficos
                         </Text>
                     </View>
-                    <View style={styles.graficoBox}>
-                        <View style={styles.viewTextosGrafico}>
-                            <Text style={styles.textoGrafico}> Nome do Gráfico</Text>
-                            <Text style={styles.textoNovo}>NOVO</Text>
-                            <Text style={styles.textoEnorme}>o</Text>
-                        </View>
-                        <View style={{ flex: 1, alignItems: 'center' }}>
-                            <View style={{ marginTop: 30 }}>
-                                <Text style={styles.textoGrande}> TESTE AAAAAA </Text>
-                            </View>
-                            <BotaoInicio styleExterno={styles.botaoFora} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Ativar</BotaoInicio>
-                        </View>
-                    </View>
-                    <View style={styles.graficoBox}>
-                        <View style={styles.viewTextosGrafico}>
-                            <Text style={styles.textoGrafico}> Nome do Gráfico</Text>
-                            <Text style={styles.textoEnormeVerde}>o</Text>
-                        </View>
-                        <View style={{ flex: 1, alignItems: 'center' }}>
-                            <View style={{ marginTop: 30 }}>
-                                <Text style={styles.textoGrande}> TESTE AAAAAA </Text>
-                            </View>
-                            <BotaoInicio styleExterno={styles.botaoFora} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}>Desativar</BotaoInicio>
-                        </View>
-                    </View>
-                    <View style={styles.graficoBox}>
-                        <View style={styles.viewTextosGrafico}>
-                            <Text style={styles.textoGrafico}> Nome do Gráfico</Text>
-                            <Text style={styles.textoEnorme}>o</Text>
-                        </View>
-                        <View style={{ flex: 1, alignItems: 'center' }}>
-                            <View style={{ marginTop: 30 }}>
-                                <Text style={styles.textoGrande}> TESTE AAAAAA </Text>
-                            </View>
-                            <BotaoInicio styleExterno={styles.botaoFora} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}>Ativar</BotaoInicio>
-                        </View>
-                    </View>
-                    <View style={{ height: 50 }}>
-                    </View>
+                    <CardGrafico />
+                    <CardGrafico />
+                    <CardGrafico />
                 </View>
             </ScrollView >
         </View >
@@ -92,31 +48,6 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
         elevation: 4
     },
-    graficoBox: {
-        width: '92%',
-        backgroundColor: Colors.branco,
-        borderRadius: 20,
-        marginTop: 30,
-        elevation: 6,
-        paddingBottom: 20,
-        height: 250
-    },
-    viewTextosGrafico: {
-        paddingLeft: 10,
-        flexDirection: 'row',
-        paddingBottom: 4,
-        borderBottomColor: Colors.cinzaContorno,
-        borderBottomWidth: 1,
-        marginTop: 10,
-    },
-    textoGrafico: {
-        color: Colors.preto,
-        fontSize: 22,
-        fontFamily: 'roboto-regular',
-        letterSpacing: 1.6,
-        paddingHorizontal: 6,
-        paddingVertical: 4,
-    },
     textoNovo: {
         backgroundColor: Colors.verdePrincipal,
         color: Colors.branco,
@@ -130,10 +61,6 @@ const styles = StyleSheet.create({
     botaoInterno: {
         backgroundColor: Colors.cinzaContorno,
         paddingVertical: 10
-    },
-    botaoFora: {
-        width: 200,
-        marginTop: 110
     },
     boxTitle: {
         marginTop: 42,
@@ -169,12 +96,11 @@ const styles = StyleSheet.create({
         marginTop: -10
     },
     textoAnteGrafico: {
-        fontSize: 28,
-        fontFamily: 'roboto-regular',
+        fontSize: 25,
+        fontFamily: 'roboto-bold',
         letterSpacing: 1.4,
         textAlign: 'left',
-        marginTop: 30,
-        left: 0
+        marginLeft: 15
     },
     textoGrande: {
         color: Colors.preto,

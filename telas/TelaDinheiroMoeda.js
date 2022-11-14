@@ -1,4 +1,4 @@
-import { View, Image, TextInput, Text, StyleSheet } from 'react-native';
+import { View, Image, TextInput, Text, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 import BotaoInicio from '../componentes/BotaoInicio';
 import Subtitulo from '../componentes/Subtitulo';
@@ -9,17 +9,10 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import {useForm, Controller} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup'; 
 import {startingValueSchema} from '../store/schemas/sign-up-schemas';
-import SelectList from 'react-native-dropdown-select-list';
+import { TextInputMask } from 'react-native-masked-text';
+import axios from 'axios';
 
-//Validações
-
-
-function TelaDinheiroMoeda({ navigation }) {
-    //Funções de abertura de tela
-    function abreHome() {
-        navigation.navigate('home');
-    }
-
+function TelaDinheiroMoeda({navigation}) {
     //Formulário de Quantia inicial
     const {control, handleSubmit, formState: {errors}} = useForm({
         resolver: yupResolver(startingValueSchema)
@@ -28,97 +21,73 @@ function TelaDinheiroMoeda({ navigation }) {
     async function inserirValor(data){
         try {
             console.log(data);
+            navigation.navigate('login');
         } catch (error) {
             console.log(error);
         }
     }
 
-    // Dropdown de moedas
-    const [selected, setSelected] = useState("");
-
-    const moedas = [
-        {key: '1', value: 'BRL'},
-        {key: '2', value: 'EUR'},
-        {key: '3', value: 'USD'},
-        {key: '4', value: 'JPY'},
-        {key: '5', value: 'KRW'},
-        {key: '6', value: 'INR'},
-        {key: '7', value: 'GBP'},
-        {key: '8', value: 'CAD'},
-        {key: '9', value: 'CNY'},
-        {key: '10', value: 'NZD'}
-    ];
-
     return (
-        <View style={patternStyle.rootContainer}>
-            <View style={patternStyle.caixaLogo}>
-                <Image
-                    style={patternStyle.image}
-                    source={require('../assets/images/logo_preto.png')}
-                />
-            </View>
-            <View style={styles.textoBox}>
-                <Text style={styles.texto}>
-                    Cadastre seu saldo inicial e sua
-                    moeda padrão.
-                </Text>
-            </View>
-            <View style={patternStyle.inputContainer}>
-                <View style={styles.dropText}>
-                    <View style={[styles.caixinha, {flex: 1}]}>
-                        <SelectList 
-                            data={moedas}
-                            setSelected={setSelected}
-                            boxStyles={{width: '70%'}}
-                            placeholder=""
-                        />
-                    </View>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={patternStyle.rootContainer}>
+                <View style={patternStyle.caixaLogo}>
+                    <Image
+                        style={patternStyle.image}
+                        source={require('../assets/images/logo_preto.png')}
+                    />
+                </View>
+                <View style={styles.textoBox}>
+                    <Text style={styles.texto}>
+                        Cadastre seu saldo inicial e sua
+                        moeda padrão.
+                    </Text>
+                </View>
+                <View style={patternStyle.inputContainer}>
                     <View style={[styles.caixinha, {flex: 1}]}>
                         <Controller 
-                            name='valorInicial'
+                            name='valorMovimentacao'
                             control={control}
                             render={({field: {onChange, onBlur, value}}) => (
-                                <TextInput 
-                                    style={[patternStyle.input, {fontSize: 14}]}
+                                <TextInputMask
+                                    style={[patternStyle.input, {fontSize: 18, height: 60, width: '70%', textAlign: 'center'}]}
                                     onChangeText={onChange}
                                     onBlur={onBlur}
                                     value={value}
                                     placeholder="Valor Inicial"
-                                    maxLength={10}
-                                    keyboardType='numeric'
+                                    maxLength={15}
+                                    type='money'
+                                    options={{
+                                        unit: '',
+                                        precision: 2,
+                                        separator: ',',
+                                        delimiter: '.',                                        
+                                    }}
                                 />  
                             )}
                         />
-                        {errors.valorInicial && <Text style={patternStyle.labelError}>{errors.valorInicial?.message}</Text>}
+                        {errors.valorMovimentacao && <Text style={patternStyle.labelError}>{errors.valorMovimentacao?.message}</Text>}
                     </View>
+                    <Text style={styles.texto2}>Essas informações poderão ser alteradas há qualquer
+                        momento nas configurações do aplicativo. </Text>
+                    <BotaoInicio
+                        styleExterno={[patternStyle.botaoExterno, styles.botao]}
+                        styleCorpo={patternStyle.botaoInterno}
+                        styleTexto={patternStyle.textoBotao}
+                        onPress={handleSubmit(inserirValor)}>
+                        Confirmar
+                    </BotaoInicio>
                 </View>
-                <Text style={styles.texto2}>Essas informações poderão ser alteradas há qualquer
-                    momento nas configurações do aplicativo. </Text>
-                <BotaoInicio
-                    styleExterno={[patternStyle.botaoExterno, styles.botao]}
-                    styleCorpo={patternStyle.botaoInterno}
-                    styleTexto={patternStyle.textoBotao}
-                    onPress={handleSubmit(inserirValor)}>
-                    Confirmar
-                </BotaoInicio>
+                <View style={[patternStyle.rodapeLogin, { marginTop: 105 }]}>
+                    <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>
+                </View>
             </View>
-            <View style={[patternStyle.rodapeLogin, { marginTop: 105 }]}>
-                <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>
-            </View>
-        </View>
+        </TouchableWithoutFeedback>
     );
 }
 
 export default TelaDinheiroMoeda;
 
 const styles = StyleSheet.create({
-    dropText: {
-        flexDirection: 'row',
-        textAlign: 'center',
-        marginBottom: 40,
-        display: 'flex',
-        width: '80%'
-    },
     sus: {
         width: '90%',
         alignItems: 'center',
@@ -158,6 +127,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginHorizontal: 5,
+        flexDirection: 'row',
+        textAlign: 'center',
+        marginBottom: 40,
+        display: 'flex',
+        width: '80%'
     },
     botao: {
         marginTop: 25,

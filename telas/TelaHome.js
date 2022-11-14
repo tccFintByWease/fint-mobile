@@ -9,17 +9,38 @@ import BotaoInicio from '../componentes/BotaoInicio';
 import CaixaInvestimento from '../componentes/CaixaInvestimento';
 import React from 'react';
 import CardHome from '../componentes/CardHome';
-import BottomTabNavigator from '../componentes/BottomTabNavigator';
+import BottomTabNavigator from '../componentes/Navegadores/BottomTabNavigator';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-function TelaHome() {
+function TelaHome({navigation}) {
+    function abrirPerfil(){
+        navigation.navigate('perfil');
+    }
+    function abrirSelecaoGraficos(){
+        navigation.navigate('selecionarGraficos');
+    }
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <Header />
+            <Header perfil={abrirPerfil}/>
             <ScrollView style={{ marginTop: 70 }}>
-                <CardHome />
-                <View style={patternStyle.rootContainer2}>
+                <View style={{
+                    width: '100%', 
+                    alignSelf: 'center', 
+                    paddingVertical: 10, 
+                    marginTop: 10, 
+                    borderBottomColor: Colors.cinzaContorno, 
+                    borderBottomWidth: 1
+                }}>
+                    <Text style={[styles.textTitle, {marginLeft: 10}]}>Seus Gráficos</Text>
+                </View>
+                <View style={[patternStyle.rootContainer2, {borderBottomColor:Colors.cinzaContorno, borderBottomWidth: 1}]}>
                     <View style={styles.viewGrafico}>
                         <Text style={styles.textoGrafico}> Gráfico</Text>
+                    </View>
+                    <View style={{width: '90%', borderRadius: 30, alignItems: 'flex-end'}}>
+                        <TouchableOpacity onPress={abrirSelecaoGraficos}>
+                            <Ionicons name='add-circle' size={50} color={Colors.verdePrincipal}/>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <View style={styles.boxTitle}>
@@ -35,11 +56,10 @@ function TelaHome() {
                         justifyContent: 'center',
                         alignItems: 'center',
                     }}>
-                        <BotaoInicio onPress={() => this.props.navigation.navigate('Investimentos')} styleExterno={styles.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}> Ver Mais </BotaoInicio>
+                        <BotaoInicio onPress={() => this.props.navigation.navigate('investimentos')} styleExterno={styles.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}> Ver Mais </BotaoInicio>
                     </View>
                 </View>
             </ScrollView >
-            {/*<BottomTabNavigator />*/}
         </SafeAreaView >
     );
 }
@@ -79,10 +99,8 @@ const styles = StyleSheet.create({
     viewGrafico: {
         backgroundColor: '#e3e1e1',
         height: 260,
-        width: '92%',
-        marginTop: 15,
+        width: '100%',
         alignContent: 'center',
-        borderRadius: 30
     },
     textoGrafico: {
         color: '#c0c0c0',

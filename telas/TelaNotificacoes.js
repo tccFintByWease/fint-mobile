@@ -5,7 +5,7 @@ import Colors from '../constantes/colors'
 import patternStyle from '../constantes/style';
 import Notificacao from '../componentes/Notificacao';
 
-function TelaNotificacao() {
+function TelaNotificacoes() {
     return <View style={{ flex: 1 }}>
         <View style={styles.viewTopo}>
             <Text style={styles.textoTopo}> Notificações </Text>
@@ -21,7 +21,7 @@ let tempo = '20 minutos';
 let mensagem = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 
 
-export default TelaNotificacao;
+export default TelaNotificacoes;
 
 const styles = StyleSheet.create({
     viewTopo: {

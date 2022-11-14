@@ -94,6 +94,8 @@ function TelaCadastro({ navigation }) {
             console.log(data.dataNascUsuario);
             console.log(response.data);
             console.log(data);
+
+            navigation.navigate('dinheiroMoeda');
         } catch (error) {
             console.log(error);
         }

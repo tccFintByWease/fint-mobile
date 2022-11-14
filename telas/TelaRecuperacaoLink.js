@@ -10,9 +10,6 @@ import {forgotPasswordSchema} from '../store/schemas/forgot-password-schema'
 
 function TelaRecuperacaoLink({navigation}) {
     //Funções para a abertura de telas
-    function abreInicio(){
-        navigation.navigate('inicio');
-    }
     function abreCadastro(){
         navigation.navigate('cadastro');
     }
@@ -28,21 +25,24 @@ function TelaRecuperacaoLink({navigation}) {
         resolver: yupResolver(forgotPasswordSchema)
     })
 
-    function enviarEmail(data){
-        console.log(data); 
+    async function enviarEmail(data){
+        try {
+            console.log(data); 
+            navigation.navigate('recuperacaoCodigo');
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
         <View style={{ flex: 1 }}>
             <View style={patternStyle.rootContainer}>
-                <Pressable onPress={abreInicio}>
-                    <View style={patternStyle.caixaLogo}>
-                        <Image
-                            style={patternStyle.image}
-                            source={require('../assets/images/logo_preto.png')}
-                        />
-                    </View>
-                </Pressable>
+                <View style={patternStyle.caixaLogo}>
+                    <Image
+                        style={patternStyle.image}
+                        source={require('../assets/images/logo_preto.png')}
+                    />
+                </View>
                 <View style={patternStyle.inputContainer}>
                     <View style={{width: '90%'}}>
                         <Controller 

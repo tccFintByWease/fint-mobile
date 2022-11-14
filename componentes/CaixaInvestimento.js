@@ -3,23 +3,20 @@ import { View,Text,Pressable,StyleSheet } from 'react-native';
 import Colors from '../constantes/colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-function CaixaInvestimento({children}) {
-    function setinhaReceiver() {
-        console.log('>');
-    };
+function CaixaInvestimento({children, onPress}) {
     return (
-        <View style={styles.boxList}>
-            <Ionicons style={{marginVertical: 4}} name="home" color="#000" size={40}/>
-            <View style={{ flexDirection: 'column' }}>
-                <Text style={styles.textoGrande}>{children}</Text>
-                <Text style={styles.textoPequeno}>Valor: (valor)</Text>
-            </View>
-            <View style={{ position: 'absolute', right: 0 }}>
-                <Pressable onPress={setinhaReceiver}>
+        <Pressable onPress={onPress}>
+            <View style={styles.boxList}>
+                <Ionicons style={{marginVertical: 4}} name="trending-up" color="#000" size={40}/>
+                <View style={{ flexDirection: 'column' }}>
+                    <Text style={styles.textoGrande}>{children}</Text>
+                    <Text style={styles.textoPequeno}>Valor: (valor)</Text>
+                </View>
+                <View style={{ position: 'absolute', right: 0 }}>
                     <Ionicons name='chevron-forward-outline' size={40} style={{margin: 15}}/>
-                </Pressable>
+                </View>
             </View>
-        </View>
+        </Pressable>
     );
 }
 

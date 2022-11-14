@@ -9,7 +9,7 @@ function CaixaSimulador({ children }) {
     };
     return (
         <View style={styles.boxList}>
-            <Ionicons style={{ marginVertical: 4 }} name="home" color="#000" size={40} />
+            <Ionicons style={{ marginVertical: 4 }} name="trending-up" color="#000" size={40} />
             <View style={{ flexDirection: 'column' }}>
                 <Text style={styles.textoGrande}>{children}</Text>
                 <Text style={styles.textoPequeno}>Investimento: (valor)</Text>

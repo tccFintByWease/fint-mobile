@@ -11,13 +11,13 @@ function TelaUsuario() {
         <SafeAreaView style={{ marginTop: 20 }}>
             <Header />
             <View style={styles.viewTopo}>
-                <Text style={styles.textoTopo}> Nome {this.user}</Text>
+                <Text style={styles.textoTopo}> Nome</Text>
                 <View style={{ flexDirection: 'row', marginLeft: 10 }}>
                     <View style={{ backgroundColor: Colors.verdePrincipal, paddingHorizontal: 10, paddingVertical: 3, marginVertical: 6 }}>
                         <Text style={{ color: Colors.branco, fontSize: 14, }}>Salário</Text>
                     </View>
                     <View style={{ marginLeft: 12, marginVertical: 10 }}>
-                        <Text style={{ color: Colors.cinzaContorno, fontSize: 12, }}>{this.temporestante}</Text>
+                        <Text style={{ color: Colors.cinzaContorno, fontSize: 12, }}></Text>
                     </View>
                 </View>
             </View>
