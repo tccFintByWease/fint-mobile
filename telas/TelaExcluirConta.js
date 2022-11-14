@@ -27,9 +27,7 @@ function TelaExcluirConta() {
             //chamado um por email
             //
 
-
             console.log(data);
-
 
             const response = await axios.put(UPDATE_STATUS_USER_URL, data);
             console.log(response.data)

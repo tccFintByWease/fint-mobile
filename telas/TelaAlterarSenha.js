@@ -7,6 +7,7 @@ import Subtitulo from '../componentes/Subtitulo';
 import patternStyle from '../constantes/style';
 import Colors from '../constantes/colors';
 import React from 'react';
+import * as SecureStore from 'expo-secure-store';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { resetPasswordSchema } from '../store/schemas/forgot-password-schema';
@@ -27,6 +28,8 @@ function TelaAlterarSenha() {
             // console.log(response1.data.idUsuario);
 
             console.log(data);
+
+            console.log(data.emailUsuario)
 
             const response = await axios.put(UPDATE_PASSWORD_USER_URL, data);
             console.log(response);
