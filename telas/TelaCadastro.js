@@ -12,6 +12,8 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LinearGradient } from "expo-linear-gradient";
 import { SIGN_UP_URL } from "../store/api-urls";
+import { LOOK_FOR_EMAIL_URL } from "../store/api-urls";
+import { UPDATE_USER_URL } from "../store/api-urls";
 import { getTodayDate } from "../utils/date-utils";
 import { TextInputMask } from 'react-native-masked-text';
 import { signUpSchema } from '../store/schemas/sign-up-schemas';
@@ -64,8 +66,9 @@ function TelaCadastro({ navigation }) {
     async function cadastrarUsuario(data) {
         try {
             delete data.confirmarSenha;
+
             data.idMoeda = 1;
-            data.statusUsuario = 1;
+            data.statusUsuario = "Ativo"
             data.dataCadastroUsuario = getTodayDate();
 
             let dataNascUsuario = data.dataNascUsuario.toLocaleDateString();
@@ -76,8 +79,6 @@ function TelaCadastro({ navigation }) {
             const dia = dataNascUsuario.split('/')[0];
             const mes = dataNascUsuario.split('/')[1];
 
-
-
             console.log(ano);
 
             dataNascUsuario = `${ano}-${mes}-${dia}`;
@@ -85,17 +86,29 @@ function TelaCadastro({ navigation }) {
             console.log(dataNascUsuario);
 
             data.dataNascUsuario = dataNascUsuario;
+            const response1 = await axios.post(LOOK_FOR_EMAIL_URL, data);
 
-            const response = await axios.post(SIGN_UP_URL, data);
+            if (data.emailUsuario === response1.data.result.emailUsuario && response1.data.result.statusUsuario === "Inativo") {
+
+                Alert.alert("Essa conta foi deletada!");
+
+            }
+            if (data.emailUsuario === response1.data.result.emailUsuario && response1.data.result.statusUsuario === "Ativo") {
+
+                Alert.alert("Essa conta já existe!");
+
+            }
+            if (data.emailUsuario !== response1.data.result.emailUsuario) {
+
+                const response = await axios.post(SIGN_UP_URL, data);
+                Alert.alert("conta criada!")
+                console.log(response)
+
+            }
 
             // api.get("/usuario/inserir").then((response) => {
             //     console.log(data);
             // }).catch(error => console.log(error));
-            console.log(data.dataNascUsuario);
-            console.log(response.data);
-            console.log(data);
-
-            navigation.navigate('dinheiroMoeda');
         } catch (error) {
             console.log(error);
         }

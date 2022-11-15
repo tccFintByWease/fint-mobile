@@ -4,11 +4,12 @@ import { View, Image, Pressable, Text, ScrollView, StyleSheet, TextInput } from 
 import patternStyle from '../constantes/style';
 import Header from '../componentes/Header';
 import Colors from '../constantes/colors';
-import BotaoInicio from './BotaoInicio';
+import BotaoInicio from '../componentes/BotaoInicio';
 
-function SimulacaoUmInvestimento() {
+function TelaSimulacaoUmInvestimento() {
     return (
         <View>
+            <Header />
             <ScrollView style={{ marginTop: 70, padding: 6 }}>
                 <View style={styles.boxTitle}>
                     <Text style={styles.textTitle}>
@@ -49,7 +50,7 @@ function SimulacaoUmInvestimento() {
                         </Text>
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={styles.textoVerde}>
-                                {meses}
+                                {periodoTempo}
                             </Text>
                             <Text style={styles.textoPretoG}>
                                 meses
@@ -63,7 +64,7 @@ function SimulacaoUmInvestimento() {
                     </Text>
                     <View style={{ flexDirection: 'row' }}>
                         <Text style={styles.textoVerde}>
-                            {corretagem}
+                            {taxaDeCorretagem}
                         </Text>
                         <Text style={styles.textoPretoG}>
                             %
@@ -75,7 +76,7 @@ function SimulacaoUmInvestimento() {
                                 Em x meses, você terá
                             </Text>
                             <Text style={styles.textoPretoG}>
-                                AAA
+                                {lucroSimulado} {moeda}
                             </Text>
                         </View>
                         <View style={{ flexDirection: 'column', marginTop: 10 }}>
@@ -84,30 +85,31 @@ function SimulacaoUmInvestimento() {
                             </Text>
                             <View style={{ flexDirection: 'row' }}>
                                 <Text style={styles.textoPretoG}>
-                                    AAA
-                                </Text>
-                                <Text style={styles.textoPretoG}>
-                                    por mês
+                                    {lucro} {moeda}
                                 </Text>
                             </View>
                         </View>
                     </View>
                 </View>
-                <View style={{ alignItems: 'center' }}>
+                <View style={{ alignItems: 'center', paddingVertical: 10 }}>
                     <BotaoInicio styleExterno={patternStyle.botaoExterno} styleCorpo={patternStyle.botaoInterno} styleTexto={patternStyle.textoBotao}> Salvar Simulação </BotaoInicio>
                 </View>
             </ScrollView >
         </View >
     );
 }
-
+let valorInvestido = 420.69;
+let taxaDeCorretagem = 2.21;
+let periodoTempo = 24;
+const porCento = 1 + taxaDeCorretagem / 100;
+const jurosTotal = Math.pow(porCento, periodoTempo);
+const lucroSimulado = (valorInvestido * jurosTotal).toFixed(2);
+const lucro = (lucroSimulado - valorInvestido).toFixed(2);
 let moeda = "R$ ";
-let valorInvestido = 429.52;
-let meses = 6;
-let corretagem = 0.25;
+// let valorInvestido = 429.52;
 let nomeInvestimento = "Nome do Investimento";
 
-export default SimulacaoUmInvestimento;
+export default TelaSimulacaoUmInvestimento;
 
 const styles = StyleSheet.create({
     alertaBox: {
@@ -135,7 +137,7 @@ const styles = StyleSheet.create({
         marginTop: 110
     },
     boxTitle: {
-        marginTop: 30,
+        marginTop: 10,
         marginHorizontal: 10,
         marginBottom: 5,
     },

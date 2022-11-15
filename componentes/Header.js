@@ -1,16 +1,25 @@
 import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, Pressable } from 'react-native';
 import { useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import * as SecureStore from 'expo-secure-store';
 
 import Colors from '../constantes/colors';
 
-function Header({perfil}) {
+function Header({  }) {
+    function perfilResponse() {
+        const sus = SecureStore.getItemAsync("email");
+        console.log(sus);
+    };
+    function notificationResponse() {
+        console.log('notific')
+    };
+
     const [hideSaldo, setHideSaldo] = useState(true);
 
     return <SafeAreaView style={{ flex: 1, position: 'relative', height: 300 }}>
         <View style={styles.container}>
             <View style={styles.caixaPessoa}>
-                <Pressable onPress={perfil}>
+                <Pressable onPress={perfilResponse}>
                     <Ionicons name='person' size={25} />
                 </Pressable>
             </View>
@@ -36,7 +45,7 @@ function Header({perfil}) {
                 </View>
             </View>
             <View style={styles.viewNotific}>
-                <Pressable>
+                <Pressable onPress={notificationResponse}>
                     <Ionicons name='notifications' size={35} />
                 </Pressable>
             </View>
