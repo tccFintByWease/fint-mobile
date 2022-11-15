@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TextInput, Pressable, Keyboard, KeyboardAvoidingView, ScrollView, Alert, TouchableWithoutFeedback } from 'react-native'
 import { RadioButton } from 'react-native-paper';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import Colors from '../constantes/colors'
@@ -13,8 +13,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { TextInputMask } from 'react-native-masked-text';
 import { movimentacaoSchema } from '../store/schemas/movimentacao-schema';
 
-function DetalhesMovimentacao({navigation}) {
-    function voltar(){
+function DetalhesMovimentacao({ navigation }) {
+    function voltar() {
         navigation.goBack();
     }
 
@@ -23,7 +23,7 @@ function DetalhesMovimentacao({navigation}) {
     });
 
     // Excluir Movimentação
-    async function excluirMovimentacao(data){
+    async function excluirMovimentacao(data) {
         try {
             let dataMovimentacao = data.dataMovimentacao.toLocaleDateString();
 
@@ -39,7 +39,7 @@ function DetalhesMovimentacao({navigation}) {
 
             dataMovimentacao = `${ano}-${mes}-${dia}`;
 
-            console.log(dataMovimentacao);
+
 
             data.dataMovimentacao = dataMovimentacao;
 
@@ -50,9 +50,9 @@ function DetalhesMovimentacao({navigation}) {
     }
 
     // Alterar Movimentação
-    async function alterarMovimentacao(data){
+    async function alterarMovimentacao(data) {
         try {
-            if(checked === 'Receita'){
+            if (checked === 'Receita') {
                 data.idTipoMovimentacao = 1;
             } else if (checked === 'Despesa') {
                 data.idTipoMovimentacao = 2;
@@ -87,19 +87,19 @@ function DetalhesMovimentacao({navigation}) {
 
     return (
         <TouchableWithoutFeedback style={{ flex: 1, height: 300, paddingTop: 100 }} onPress={Keyboard.dismiss}>
-            <ScrollView style={{flex: 1}}>
-                <View style={{flexDirection: 'row', display: 'flex'}}>
-                    <View style={{flex: 4}}>
-                        <Text style={{marginLeft: 15, fontFamily: 'roboto-bold', fontSize: 24}}>Alterar/Excluir</Text>
+            <ScrollView style={{ flex: 1 }}>
+                <View style={{ flexDirection: 'row', display: 'flex' }}>
+                    <View style={{ flex: 4 }}>
+                        <Text style={{ marginLeft: 15, fontFamily: 'roboto-bold', fontSize: 24 }}>Alterar/Excluir</Text>
                     </View>
-                    <Pressable style={{flex: 1, alignItems: 'flex-end'}} onPress={voltar}>
-                        <View style={{paddingRight: 15}}>
-                            <Ionicons name='close' color='black' size={35}/>
+                    <Pressable style={{ flex: 1, alignItems: 'flex-end' }} onPress={voltar}>
+                        <View style={{ paddingRight: 15 }}>
+                            <Ionicons name='close' color='black' size={35} />
                         </View>
                     </Pressable>
                 </View>
                 <View style={styles.viewTopo}>
-                    <Controller 
+                    <Controller
                         name='descricaoMovimentacao'
                         control={control}
                         render={({ field: { onChange, onBlur, value } }) => (
@@ -114,13 +114,13 @@ function DetalhesMovimentacao({navigation}) {
                         )}
                     />
                     {errors.descricaoMovimentacao && <Text style={patternStyle.labelError}>{errors.descricaoMovimentacao?.message}</Text>}
-                    <View style={{flexDirection: 'row', paddingLeft: 10, alignItems:'center'}}>
+                    <View style={{ flexDirection: 'row', paddingLeft: 10, alignItems: 'center' }}>
                         <View>
                             <CardCategoria backgroundColor='red'>Teste</CardCategoria>
                         </View>
-                        <Pressable style={{ flexDirection: 'row', marginLeft: 10}}>
-                            <View style={{ backgroundColor: Colors.cinzaContorno, borderRadius: 20, padding: 5, width: 35}}>
-                                <Ionicons style={{alignSelf: 'center'}} name='add' color='black' size={22}/>
+                        <Pressable style={{ flexDirection: 'row', marginLeft: 10 }}>
+                            <View style={{ backgroundColor: Colors.cinzaContorno, borderRadius: 20, padding: 5, width: 35 }}>
+                                <Ionicons style={{ alignSelf: 'center' }} name='add' color='black' size={22} />
                             </View>
                         </Pressable>
                     </View>
@@ -128,7 +128,7 @@ function DetalhesMovimentacao({navigation}) {
                 <View>
                     <View style={styles.viewAdjacente}>
                         <Text style={styles.textoCinza}>Descrição</Text>
-                        <Controller 
+                        <Controller
                             name='observacaoMovimentacao'
                             control={control}
                             render={({ field: { onChange, onBlur, value } }) => (
@@ -147,7 +147,7 @@ function DetalhesMovimentacao({navigation}) {
                     </View>
                     <View style={styles.viewAdjacente}>
                         <Text style={styles.textoCinza}>Data</Text>
-                        <Controller 
+                        <Controller
                             name='dataMovimentacao'
                             control={control}
                             render={({ field: { onChange, onBlur, value } }) => (
@@ -169,26 +169,26 @@ function DetalhesMovimentacao({navigation}) {
                     </View>
                     <View style={styles.viewAdjacente}>
                         <Text style={styles.textoCinza}>Tipo da Movimentação</Text>
-                        <Controller 
+                        <Controller
                             name='tipoMovimentacao'
                             control={control}
                             render={({ field: { onChange, onBlur, value } }) => (
                                 <View>
-                                    <View style={{flexDirection: 'row'}}>
+                                    <View style={{ flexDirection: 'row' }}>
                                         <RadioButton
-                                            value="Receita" 
-                                            status={ checked === 'Receita' ? 'checked' : 'unchecked' }
+                                            value="Receita"
+                                            status={checked === 'Receita' ? 'checked' : 'unchecked'}
                                             onPress={() => setChecked('Receita')}
                                         />
-                                        <Text style={{alignSelf: 'center'}}>Receita</Text>
+                                        <Text style={{ alignSelf: 'center' }}>Receita</Text>
                                     </View>
-                                    <View style={{flexDirection: 'row'}}>
+                                    <View style={{ flexDirection: 'row' }}>
                                         <RadioButton
                                             value="Despesa"
-                                            status={ checked === 'Despesa' ? 'checked' : 'unchecked' }
+                                            status={checked === 'Despesa' ? 'checked' : 'unchecked'}
                                             onPress={() => setChecked('Despesa')}
                                         />
-                                        <Text style={{alignSelf: 'center'}}>Despesa</Text>
+                                        <Text style={{ alignSelf: 'center' }}>Despesa</Text>
                                     </View>
                                 </View>
                             )}
@@ -198,8 +198,8 @@ function DetalhesMovimentacao({navigation}) {
                     <View style={styles.viewAdjacente}>
                         <Text style={styles.textoCinza}>Valor</Text>
                         <View style={{ flexDirection: 'row' }}>
-                            <Text style={{alignSelf: 'center', fontSize: 18, marginLeft: 10}}>R$ </Text>
-                            <Controller 
+                            <Text style={{ alignSelf: 'center', fontSize: 18, marginLeft: 10 }}>R$ </Text>
+                            <Controller
                                 name='valorMovimentacao'
                                 control={control}
                                 render={({ field: { onChange, onBlur, value } }) => (
@@ -215,7 +215,7 @@ function DetalhesMovimentacao({navigation}) {
                                             unit: '',
                                             precision: 2,
                                             separator: ',',
-                                            delimiter: '.',                                        
+                                            delimiter: '.',
                                         }}
                                     />
                                 )}
@@ -224,24 +224,24 @@ function DetalhesMovimentacao({navigation}) {
                         </View>
                     </View>
                     <View style={{ alignItems: 'center', display: 'flex', marginTop: 10, flexDirection: 'row', paddingHorizontal: 25 }}>
-                        <View style={{flex: 1}}>
-                            <BotaoInicio 
+                        <View style={{ flex: 1 }}>
+                            <BotaoInicio
                                 onPress={handleSubmit(excluirMovimentacao)}
-                                styleExterno={patternStyle.botaoExterno} 
-                                styleCorpo={styles.botaoInterno} 
+                                styleExterno={patternStyle.botaoExterno}
+                                styleCorpo={styles.botaoInterno}
                                 styleTexto={patternStyle.textoBotao}>
-                                    <Ionicons name='trash-outline' color='white' size={20}/>
-                                    Excluir 
+                                <Ionicons name='trash-outline' color='white' size={20} />
+                                Excluir
                             </BotaoInicio>
                         </View>
-                        <View style={{flex: 1}}>
-                            <BotaoInicio 
+                        <View style={{ flex: 1 }}>
+                            <BotaoInicio
                                 onPress={handleSubmit(alterarMovimentacao)}
-                                styleExterno={patternStyle.botaoExterno} 
-                                styleCorpo={[styles.botaoInterno, {backgroundColor: Colors.verdePrincipal}]} 
+                                styleExterno={patternStyle.botaoExterno}
+                                styleCorpo={[styles.botaoInterno, { backgroundColor: Colors.verdePrincipal }]}
                                 styleTexto={patternStyle.textoBotao}>
-                                    <Ionicons name='refresh-outline' color='white' size={20}/>
-                                    Alterar 
+                                <Ionicons name='refresh-outline' color='white' size={20} />
+                                Alterar
                             </BotaoInicio>
                         </View>
                     </View>

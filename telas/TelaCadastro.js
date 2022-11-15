@@ -63,7 +63,7 @@ function TelaCadastro({ navigation }) {
         resolver: yupResolver(signUpSchema)
     })
 
-    async function cadastrarUsuario(data) {
+    async function cadastrarUsuario(data, { navigation }) {
         try {
             delete data.confirmarSenha;
 
@@ -102,6 +102,7 @@ function TelaCadastro({ navigation }) {
 
                 const response = await axios.post(SIGN_UP_URL, data);
                 Alert.alert("conta criada!")
+                navigation.navitate('dinheiroMoeda')
                 console.log(response)
 
             }
