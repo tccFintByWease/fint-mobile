@@ -1,17 +1,18 @@
 import { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Pressable, TouchableWithoutFeedback, Keyboard, ScrollView, Alert } from 'react-native'
-import { RadioButton } from 'react-native-paper';
+import { View, Text, StyleSheet, TextInput, Pressable, TouchableWithoutFeedback, Keyboard, ScrollView, Alert, KeyboardAvoidingView } from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Colors from '../constantes/colors'
 import BotaoInicio from './BotaoInicio';
 import patternStyle from '../constantes/style';
 import CardCategoria from './CardCategoria';
+import Aviso from './Aviso';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { TextInputMask } from 'react-native-masked-text';
 import { movimentacaoSchema } from '../store/schemas/movimentacao-schema';
 import { INSERT_TRANSITION_URL } from '../store/api-urls';
 import axios from 'axios';
+import CriarCategoria from './CriarCategoria';
 
 function CadastroMovimentacao({ navigation }) {
     function voltar() {
@@ -55,11 +56,7 @@ function CadastroMovimentacao({ navigation }) {
 
             data.idUsuario = 10;
 
-            if (checked === 'Receita') {
-                data.idTipoMovimentacao = 1;
-            } else if (checked === 'Despesa') {
-                data.idTipoMovimentacao = 2;
-            }
+            data.idTipoMovimentacao = 1;
 
             data.idCategoria = 1;
 
@@ -77,8 +74,8 @@ function CadastroMovimentacao({ navigation }) {
         }
     }
 
-    // Radio Button
-    const [checked, setChecked] = useState('');
+
+    const [modalVisible, setModalVisible] = useState(false);
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -114,11 +111,16 @@ function CadastroMovimentacao({ navigation }) {
                             <View>
                                 <CardCategoria backgroundColor='red'>Teste</CardCategoria>
                             </View>
-                            <Pressable style={{ flexDirection: 'row', marginLeft: 10 }}>
+                            <Pressable onPress={() => setModalVisible(true)} style={{ flexDirection: 'row', marginLeft: 10 }}>
                                 <View style={{ backgroundColor: Colors.cinzaContorno, borderRadius: 20, padding: 5, width: 35 }}>
                                     <Ionicons style={{ alignSelf: 'center' }} name='add' color='black' size={22} />
                                 </View>
                             </Pressable>
+                            <KeyboardAvoidingView style={patternStyle.centeredView} behavior='position' enabled>
+                                <Aviso nomeIcone='close' modalVisible={modalVisible} setModalVisible={setModalVisible}>
+                                    <CriarCategoria />
+                                </Aviso>
+                            </KeyboardAvoidingView>
                         </View>
                     </View>
                     <View style={{ flex: 1 }}>
@@ -170,34 +172,6 @@ function CadastroMovimentacao({ navigation }) {
                                 )}
                             />
                             {/* {errors.dataMovimentacao && <Text style={patternStyle.labelError}>{errors.dataMovimentacao?.message}</Text>} */}
-                        </View>
-                        <View style={styles.viewAdjacente}>
-                            <Text style={styles.textoCinza}>Tipo da Movimentação</Text>
-                            <Controller
-                                name='tipoMovimentacao'
-                                control={control}
-                                render={({ field: { onChange, onBlur, value } }) => (
-                                    <View>
-                                        <View style={{ flexDirection: 'row' }}>
-                                            <RadioButton
-                                                value="Receita"
-                                                status={checked === 'Receita' ? 'checked' : 'unchecked'}
-                                                onPress={() => setChecked('Receita')}
-                                            />
-                                            <Text style={{ alignSelf: 'center' }}>Receita</Text>
-                                        </View>
-                                        <View style={{ flexDirection: 'row' }}>
-                                            <RadioButton
-                                                value="Despesa"
-                                                status={checked === 'Despesa' ? 'checked' : 'unchecked'}
-                                                onPress={() => setChecked('Despesa')}
-                                            />
-                                            <Text style={{ alignSelf: 'center' }}>Despesa</Text>
-                                        </View>
-                                    </View>
-                                )}
-
-                            />
                         </View>
                         <View style={styles.viewAdjacente}>
                             <Text style={styles.textoCinza}>Valor</Text>

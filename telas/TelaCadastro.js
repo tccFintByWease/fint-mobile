@@ -7,10 +7,10 @@ import { View, Image, Text, Switch, Linking, Modal, Alert, Pressable, StyleSheet
 import Colors from "../constantes/colors";
 import BotaoInicio from "../componentes/BotaoInicio";
 import Subtitulo from "../componentes/Subtitulo";
+import Aviso from '../componentes/Aviso';
 import patternStyle from '../constantes/style';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { LinearGradient } from "expo-linear-gradient";
 import { SIGN_UP_URL } from "../store/api-urls";
 import { LOOK_FOR_EMAIL_URL } from "../store/api-urls";
 import { UPDATE_USER_URL } from "../store/api-urls";
@@ -30,33 +30,6 @@ function TelaCadastro({ navigation }) {
 
     //Botão de Cadastro
     const [modalVisible, setModalVisible] = useState(false);
-
-    // Aviso de Termos e Políticas
-    function Aviso() {
-        return (
-            <Modal
-                animationType='slide'
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
-                    setModalVisible(!modalVisible);
-                }}
-            >
-                <View style={styles.centeredView}>
-                    <LinearGradient colors={[Colors.verdePrincipal, Colors.verdeSecundario]} style={styles.modalView}>
-                        <Text style={styles.modalText}>Concorde com Termos de Uso e Políticas de Privacidade para concluir seu cadastro!</Text>
-                        <Pressable
-                            style={[styles.button, styles.buttonClose]}
-                            onPress={() => setModalVisible(!modalVisible)}
-                        >
-                            <Text style={styles.textStyle}>OK</Text>
-                        </Pressable>
-                    </LinearGradient>
-                </View>
-            </Modal>
-        );
-    }
 
     //Formulário de Cadastro
     const { control, handleSubmit, formState: { errors } } = useForm({
@@ -106,10 +79,6 @@ function TelaCadastro({ navigation }) {
                 console.log(response)
 
             }
-
-            // api.get("/usuario/inserir").then((response) => {
-            //     console.log(data);
-            // }).catch(error => console.log(error));
         } catch (error) {
             console.log(error);
         }
@@ -267,8 +236,10 @@ function TelaCadastro({ navigation }) {
                             styleTexto={patternStyle.textoBotao}>
                             Cadastrar-se
                         </BotaoInicio>
-                        <View style={styles.centeredView}>
-                            <Aviso />
+                        <View style={patternStyle.centeredView}>
+                            <Aviso nomeIcone='checkmark-circle' modalVisible={modalVisible} setModalVisible={setModalVisible}>
+                                <Text style={patternStyle.textStyle}>Concorde com Termos de Uso e Políticas de Privacidade para concluir seu cadastro!</Text>
+                            </Aviso>
                         </View>
                     </View>
                     <View style={patternStyle.caixaTexto}>
@@ -286,38 +257,5 @@ function TelaCadastro({ navigation }) {
 export default TelaCadastro;
 
 const styles = StyleSheet.create({
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    modalView: {
-        margin: 20,
-        backgroundColor: Colors.branco,
-        borderRadius: 20,
-        padding: 50,
-        alignItems: "center",
-        elevation: 5
-    },
-    button: {
-        borderRadius: 30,
-        paddingHorizontal: 40,
-        paddingVertical: 10,
-        elevation: 2,
-    },
-    buttonClose: {
-        backgroundColor: Colors.branco,
-    },
-    textStyle: {
-        color: Colors.verdeSecundario,
-        fontFamily: 'roboto-bold',
-        textAlign: "center"
-    },
-    modalText: {
-        color: Colors.branco,
-        fontFamily: 'roboto-regular',
-        fontSize: 16,
-        marginBottom: 30,
-        textAlign: "center"
-    },
+
 });

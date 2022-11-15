@@ -29,7 +29,7 @@ export default function App({ routes }) {
   if (!fontsLoaded) return null;
 
   return (
-    <SafeAreaView onLayout={onLayoutRootView} style={styles.rootScreen}>
+    <SafeAreaView onLayout={onLayoutRootView} style={{flex: 1}}>
       <StatusBar style='light' />
       <NavigationContainer>
         <StackNavigator />
@@ -37,23 +37,3 @@ export default function App({ routes }) {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  rootScreen: {
-    flex: 1,
-  }
-});
-
-
-// isSignedIn ? (
-//   <>
-//     <Stack.Screen name="Home" component={HomeScreen} />
-//     <Stack.Screen name="Profile" component={ProfileScreen} />
-//     <Stack.Screen name="Settings" component={SettingsScreen} />
-//   </>
-// ) : (
-//   <>
-//     <Stack.Screen name="SignIn" component={SignInScreen} />
-//     <Stack.Screen name="SignUp" component={SignUpScreen} />
-//   </>
-// );
