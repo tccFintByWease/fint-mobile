@@ -5,9 +5,9 @@ import Colors from '../constantes/colors'
 import BotaoInicio from './BotaoInicio';
 import patternStyle from '../constantes/style';
 
-class DetalhesMovimentacao extends React.Component {
-    render() {
-        return <View style={{ marginTop: 30, flex: 1 }}>
+function DetalhesMovimentacao() {
+    return (
+        <View style={{ marginTop: 30, flex: 1 }}>
             <View style={styles.viewTopo}>
                 <Text style={styles.textoTopo}> Nome Receita</Text>
                 <View style={{ flexDirection: 'row', marginLeft: 10 }}>
@@ -44,7 +44,7 @@ class DetalhesMovimentacao extends React.Component {
                 </View>
             </View>
         </View >
-    }
+    )
 }
 
 export default DetalhesMovimentacao;
