@@ -5,9 +5,9 @@ import * as SecureStore from 'expo-secure-store';
 
 import Colors from '../constantes/colors';
 
-function Header({  }) {
-    function perfilResponse() {
-        const sus = SecureStore.getItemAsync("email");
+function Header({ }) {
+    async function perfilResponse() {
+        const sus = await SecureStore.getItemAsync("email");
         console.log(sus);
     };
     function notificationResponse() {

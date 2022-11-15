@@ -9,7 +9,7 @@ import CaixaSimulador from '../componentes/CaixaSimulador';
 function TelaSimulador() {
     return (
         <View style={{ flex: 1 }}>
-            <Header/>
+            <Header />
             <ScrollView style={{ marginTop: 70 }}>
                 <View style={styles.boxTitle}>
                     <Text style={styles.textTitle}>
@@ -17,7 +17,7 @@ function TelaSimulador() {
                     </Text>
                 </View>
 
-                <CaixaSimulador>{texto}</CaixaSimulador>
+                <CaixaSimulador texto={texto}></CaixaSimulador>
                 <View style={patternStyle.rootContainer2}>
                     <View style={styles.viewGrafico}>
                         <Text style={styles.textoGrafico}> Gráfico</Text>
@@ -31,7 +31,7 @@ function TelaSimulador() {
                 </View>
 
                 <CaixaSimulador>{texto}</CaixaSimulador>
-                <View style={[patternStyle.rootContainer2, {marginBottom: 10}]}>
+                <View style={[patternStyle.rootContainer2, { marginBottom: 10 }]}>
                     <View style={styles.viewGrafico}>
                         <Text style={styles.textoGrafico}> Gráfico</Text>
                     </View>

@@ -11,7 +11,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { TextInputMask } from 'react-native-masked-text';
 import { movimentacaoSchema } from '../store/schemas/movimentacao-schema';
 import { INSERT_TRANSITION_URL } from '../store/api-urls';
+import { LOOK_FOR_EMAIL_URL } from '../store/api-urls';
 import axios from 'axios';
+import * as SecureStore from 'expo-secure-store';
 
 function CadastroMovimentacao({ navigation }) {
     function voltar() {
@@ -29,7 +31,13 @@ function CadastroMovimentacao({ navigation }) {
             delete data.tipoMovimentacao;
             let dataMovimentacao = data.dataMovimentacao.toLocaleDateString();
 
-            console.log(data.valorMovimentacao)
+            data.emailUsuario = await SecureStore.getItemAsync('email');
+
+            const response0 = await axios.post(LOOK_FOR_EMAIL_URL, data.emailUsuario)
+
+            data.idUsuario = response0.data.result.idUsuario;
+
+            console.log(data.idUsuario)
 
             let dataValorMovimentacao = Number.parseFloat(data.valorMovimentacao);
 
@@ -52,8 +60,6 @@ function CadastroMovimentacao({ navigation }) {
             data.dataMovimentacao = dataMovimentacao;
 
             console.log(typeof data.valorMovimentacao)
-
-            data.idUsuario = 10;
 
             if (checked === 'Receita') {
                 data.idTipoMovimentacao = 1;
@@ -241,7 +247,7 @@ function CadastroMovimentacao({ navigation }) {
                                 styleExterno={patternStyle.botaoExterno}
                                 styleCorpo={[styles.botaoInterno, { backgroundColor: Colors.verdePrincipal }]}
                                 styleTexto={patternStyle.textoBotao}>
-                                {/* <Ionicons name='add-circle-outline' color='white' size={20} /> */}
+                                <Ionicons name='add-circle-outline' color='white' size={20} />
                                 Adicionar
                             </BotaoInicio>
                         </View>
