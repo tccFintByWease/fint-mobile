@@ -4,7 +4,7 @@
     "name": "TCC",
     "slug": "TCC",
     "splash": {
-      "image": "./assets/images/splashScreen.png",
+      "image": "./assets/images/splashScreen.jpg",
       "resizeMode": "cover"
     },
     "version": "1.0.0",

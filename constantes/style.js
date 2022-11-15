@@ -64,6 +64,7 @@ const patternStyle = StyleSheet.create({
     },
     textoBotao: {
         fontSize: 18,
+        fontFamily: 'roboto-bold'
     },
     texto: {
         color: Colors.cinzaContorno,

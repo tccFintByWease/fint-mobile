@@ -11,7 +11,6 @@ const movimentacaoSchema = yup.object({
         .required('Insira uma data'),
     valorMovimentacao: yup.number()
         .required('Insira um valor')
-        .min(1, "O valor deve ser maior que 1 real")
 });
 
 export {

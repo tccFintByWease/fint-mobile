@@ -19,6 +19,9 @@ function TelaHome({navigation}) {
     function abrirSelecaoGraficos(){
         navigation.navigate('selecionarGraficos');
     }
+    function abrirInvestimentos(){
+        navigation.navigate('investimentos');
+    }
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <Header perfil={abrirPerfil}/>
@@ -56,7 +59,7 @@ function TelaHome({navigation}) {
                         justifyContent: 'center',
                         alignItems: 'center',
                     }}>
-                        <BotaoInicio onPress={() => this.props.navigation.navigate('investimentos')} styleExterno={styles.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}> Ver Mais </BotaoInicio>
+                        <BotaoInicio onPress={abrirInvestimentos} styleExterno={styles.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}> Ver Mais </BotaoInicio>
                     </View>
                 </View>
             </ScrollView >
