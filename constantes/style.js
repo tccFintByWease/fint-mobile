@@ -87,7 +87,17 @@ const patternStyle = StyleSheet.create({
     textorodapeLogin: {
         color: Colors.cinzaContorno,
         fontSize: 18,
-    }
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    textStyle: {
+        color: 'white',
+        fontFamily: 'roboto-bold',
+        textAlign: "center"
+    },
 });
 
 export default patternStyle;
