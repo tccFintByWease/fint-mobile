@@ -1,4 +1,6 @@
-const API = 'http://10.0.2.2:1433/api';
+const API = 'http://192.168.15.11:1433/api';
+
+//  192.168.15.11
 
 const SIGN_UP_URL = `${API}/usuario/inserir`;
 const UPDATE_USER_URL = `${API}/usuario/alterar`;

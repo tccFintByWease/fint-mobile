@@ -11,7 +11,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { TextInputMask } from 'react-native-masked-text';
 import { movimentacaoSchema } from '../store/schemas/movimentacao-schema';
 import { INSERT_TRANSITION_URL } from '../store/api-urls';
-import { LOOK_FOR_EMAIL_URL } from '../store/api-urls';
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 import CriarCategoria from './CriarCategoria'
@@ -32,13 +31,9 @@ function CadastroMovimentacao({ navigation }) {
             delete data.tipoMovimentacao;
             let dataMovimentacao = data.dataMovimentacao.toLocaleDateString();
 
-            data.emailUsuario = await SecureStore.getItemAsync('email');
+            // data.idUsuario = await SecureStore.getItemAsync('id');
 
-            const response0 = await axios.post(LOOK_FOR_EMAIL_URL, data.emailUsuario)
-
-            data.idUsuario = response0.data.result.idUsuario;
-
-            console.log(data.idUsuario)
+            // console.log(data.idUsuario)
 
             let dataValorMovimentacao = Number.parseFloat(data.valorMovimentacao);
 
@@ -62,15 +57,17 @@ function CadastroMovimentacao({ navigation }) {
 
             console.log(typeof data.valorMovimentacao)
 
+            data.idUsuario = 2;
+
             data.idTipoMovimentacao = 1;
 
-            data.idCategoria = 1;
+            data.idCategoria = 2;
 
             data.idDetalheMovimentacao = 1;
 
             const response = await axios.post(INSERT_TRANSITION_URL, data)
 
-            // console.log(response);
+            console.log(response);
 
             Alert.alert("deu")
             console.log(Number(data.valorMovimentacao));
@@ -182,7 +179,7 @@ function CadastroMovimentacao({ navigation }) {
                         <View style={styles.viewAdjacente}>
                             <Text style={styles.textoCinza}>Valor</Text>
                             <View style={{ flexDirection: 'row' }}>
-                                <Text style={{ alignSelf: 'center', fontSize: 18, marginLeft: 10 }}>R$ </Text>
+                                <Text style={{ alignSelf: 'center', fontSize: 18, marginLeft: 10 }}>R$</Text>
                                 <Controller
                                     name='valorMovimentacao'
                                     control={control}

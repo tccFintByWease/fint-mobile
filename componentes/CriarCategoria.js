@@ -7,13 +7,30 @@ import patternStyle from '../constantes/style';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios';
+import { INSERT_CATEGORY_URL } from '../store/api-urls';
 
-function CriarCategoria({}) {
-    const { control, handleSubmit, formState: { errors } } = useForm({});
+function CriarCategoria({ }) {
+    const { control, handleSubmit } = useForm();
 
-    async function criarCategoria(data){
+    async function adicionarCategoria(data) {
         try {
             // const response = await axios.post();
+            delete data.tipoMovimentacao;
+
+
+            if (checked === "Receita") {
+                data.idTipoMovimentacao = 1;
+            }
+            else if (checked === "Despesa") {
+                data.idTipoMovimentacao = 2;
+            }
+
+            data.idUsuario = 2;
+
+            const response = await axios.post(INSERT_CATEGORY_URL, data);
+
+            console.log(response)
+
             console.log(data);
         } catch (error) {
             console.log(error);
@@ -23,7 +40,7 @@ function CriarCategoria({}) {
     // Radio Button
     const [checked, setChecked] = useState('');
 
-    return(
+    return (
         <ScrollView style={styles.rootContainer}>
             <View style={styles.viewTopo}>
                 <Text style={styles.textoTopo}>Criar Categoria</Text>
@@ -32,7 +49,7 @@ function CriarCategoria({}) {
                 <View style={styles.viewAdjacente}>
                     <Text style={styles.textoCinza}>Nome</Text>
                     <View>
-                        <Controller 
+                        <Controller
                             name='descricaoCategoria'
                             control={control}
                             render={({ field: { onChange, onBlur, value } }) => (
@@ -52,7 +69,7 @@ function CriarCategoria({}) {
                 <View style={styles.viewAdjacente}>
                     <Text style={styles.textoCinza}>Cor</Text>
                     <View>
-                        <Controller 
+                        <Controller
                             name='corCategoria'
                             control={control}
                             render={({ field: { onChange, onBlur, value } }) => (
@@ -72,7 +89,7 @@ function CriarCategoria({}) {
                 <View style={styles.viewAdjacente}>
                     <Text style={styles.textoCinza}>Tipo Movimentação</Text>
                     <View>
-                        <Controller 
+                        <Controller
                             name='tipoMovimentacao'
                             control={control}
                             render={({ field: { onChange, onBlur, value } }) => (
@@ -98,26 +115,26 @@ function CriarCategoria({}) {
                         />
                     </View>
                 </View>
-                <View style={{marginTop: 5}}>
-                    <View style={{ alignItems: 'center'}}>
-                        <BotaoInicio 
-                            onPress={handleSubmit(criarCategoria)}
-                            styleExterno={patternStyle.botaoExterno} 
-                            styleCorpo={styles.botaoInterno} 
+                <View style={{ marginTop: 5 }}>
+                    <View style={{ alignItems: 'center' }}>
+                        <BotaoInicio
+                            onPress={handleSubmit(adicionarCategoria)}
+                            styleExterno={patternStyle.botaoExterno}
+                            styleCorpo={styles.botaoInterno}
                             styleTexto={patternStyle.textoBotao}>
-                                Criar
+                            Criar
                         </BotaoInicio>
                     </View>
                 </View>
             </View>
         </ScrollView>
-    ); 
+    );
 }
 
 export default CriarCategoria;
 
 const styles = StyleSheet.create({
-    rootContainer:{
+    rootContainer: {
         flex: 1,
         width: 250,
         borderColor: Colors.cinzaContorno,
