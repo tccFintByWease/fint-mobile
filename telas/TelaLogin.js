@@ -42,10 +42,10 @@ function TelaLogin({ navigation }) {
             const response = await axios.post(LOGIN_URL, data);
             if (data.emailUsuario === response.data.result.emailUsuario && data.senhaUsuario === response.data.result.senhaUsuario && response.data.result.statusUsuario === "Ativo") {
                 navigation.navigate('home');
-                const sus = data.emailUsuario;
-                await SecureStore.setItemAsync("email", sus);
+                const sus = (response.data.result.idUsuario).toString();
+                await SecureStore.setItemAsync("id", sus);
 
-                const subla = await SecureStore.getItemAsync("email");
+                const subla = await SecureStore.getItemAsync("id");
                 console.log(subla)
             } else {
                 Alert.alert("Email ou senha inválido");
@@ -119,7 +119,7 @@ function TelaLogin({ navigation }) {
                     </BotaoInicio> */}
                     <Text onPress={abreCadastro} style={patternStyle.texto}>Crie uma nova conta</Text>
                 </View>
-                <View style={[patternStyle.rodapeLogin, {marginTop: 220}]}>
+                <View style={[patternStyle.rodapeLogin, { marginTop: 220 }]}>
                     <Subtitulo style={patternStyle.textorodapeLogin}>Wease co.</Subtitulo>
                 </View>
             </View>

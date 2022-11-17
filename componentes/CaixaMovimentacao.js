@@ -3,7 +3,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 import Colors from '../constantes/colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-function CaixaSimulador(props) {
+function CaixaMovimentacao(props) {
     function setinhaReceiver() {
         console.log('>');
     };
@@ -11,8 +11,8 @@ function CaixaSimulador(props) {
         <View style={styles.boxList}>
             <Ionicons style={{ marginVertical: 4 }} name="trending-up" color="#000" size={40} />
             <View style={{ flexDirection: 'column' }}>
-                <Text style={styles.textoGrande}>{props.texto}</Text>
-                <Text style={styles.textoPequeno}>Investimento: R$ {props.valor}</Text>
+                <Text style={styles.textoGrande}>{props.descMov}</Text>
+                <Text style={styles.textoPequeno}>{props.maisMenos} R$ {props.valor}</Text>
             </View>
             <View style={{ position: 'absolute', right: 0 }}>
                 <Pressable onPress={setinhaReceiver}>
@@ -23,7 +23,7 @@ function CaixaSimulador(props) {
     );
 }
 
-export default CaixaSimulador;
+export default CaixaMovimentacao;
 
 const styles = StyleSheet.create({
     textoEnorme: {

@@ -9,7 +9,7 @@ const movimentacaoSchema = yup.object({
         .max(100, "Limite de caracteres para a descrição"),
     dataMovimentacao: yup.date()
         .required('Insira uma data'),
-    valorMovimentacao: yup.string()
+    valorMovimentacao: yup.number()
         .required('Insira um valor')
 });
 

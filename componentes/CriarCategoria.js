@@ -8,11 +8,12 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { INSERT_CATEGORY_URL } from '../store/api-urls';
 import axios from 'axios';
+import { INSERT_CATEGORY_URL } from '../store/api-urls';
 
-function CriarCategoria({}) {
-    const { control, handleSubmit, formState: { errors } } = useForm({});
+function CriarCategoria({ }) {
+    const { control, handleSubmit } = useForm();
 
-    async function criarCategoria(data){
+    async function adicionarCategoria(data) {
         try {
             data.idUsuario = 1;
             data.corCategoria = cor;
@@ -145,19 +146,19 @@ function CriarCategoria({}) {
                             styleExterno={patternStyle.botaoExterno} 
                             styleCorpo={styles.botaoInterno} 
                             styleTexto={patternStyle.textoBotao}>
-                                Criar
+                            Criar
                         </BotaoInicio>
                     </View>
                 </View>
             </View>
         </ScrollView>
-    ); 
+    );
 }
 
 export default CriarCategoria;
 
 const styles = StyleSheet.create({
-    rootContainer:{
+    rootContainer: {
         flex: 1,
         width: 300,
     },

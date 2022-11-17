@@ -1,71 +1,177 @@
-import React, { useState } from 'react';
-import { View, Image, Pressable, Text, ScrollView, StyleSheet } from 'react-native';
+import { RadioButton } from 'react-native-paper';
+import React, { useState, useEffect } from 'react';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { View, Text, StyleSheet, TextInput, Pressable, Keyboard, KeyboardAvoidingView, ScrollView, Alert, TouchableWithoutFeedback } from 'react-native'
+import axios from 'axios';
 
 import patternStyle from '../constantes/style';
 import Header from '../componentes/Header';
 import Colors from '../constantes/colors';
 import CaixaInvestimento from '../componentes/CaixaInvestimento';
 import BotaoInicio from '../componentes/BotaoInicio';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { TextInputMask } from 'react-native-masked-text';
+import { investimentoSchema } from '../store/schemas/investimento-schema';
+import { GET_REVENUES_URL } from '../store/api-urls'
+import * as SecureStore from 'expo-secure-store';
+
 
 function TelaInvestimentos() {
+
+
+    // function calcular(){ -----------------------------TODO
+    //     var dt1 = document.getElementById("dt1").value; 
+    //     var dt2 = document.getElementById("dt2").value; 
+
+    //     var data1 = new Date(dt1); 
+    //     var data2 = new Date(new Date(dt2));
+    //     var total = (data2.getFullYear() - data1.getFullYear())*12 + (data2.getMonth() - data1.getMonth());
+    //     document.getElementById("result").value = total;
+    //     }
+
+
+    const { control, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(investimentoSchema)
+    });
+
+
+    const [resultsInvestimentos, setResultsInvestimentos] = useState([]); // getter / "setter"
+
+    async function BuscarReceitas(data) {
+        console.log('---------------------')
+        try {
+            console.log(data)
+            data.idUsuarioString = await SecureStore.getItemAsync('id');
+            data.idUsuario = Number(data.idUsuarioString);
+            delete data.idUsuarioString;
+
+            const responseInvestimentos = await axios.post(GET_REVENUES_URL, data);  // pega os dados do servidor
+
+            console.log(responseInvestimentos.data)
+
+            let resultsInvestimentosHTML = [];
+
+            if (responseInvestimentos.data.result.length >= 1 && responseInvestimentos.data.result.dataFinal !== null) {
+                console.log('entrou')
+
+                // Imprimo o header "investimentos salvos"
+                resultsInvestimentosHTML.push(
+                    <View style={styles.boxTitle} key="-1">
+                        <Text style={styles.textTitle}>
+                            Investimentos salvos
+                        </Text>
+                    </View>
+                )
+
+                for (var i = 0; i < responseInvestimentos.data.result.length; i++) {
+                    resultsInvestimentosHTML.push(
+                        <CaixaInvestimento key={[i]} texto={responseInvestimentos.data.result[i].idUsuario} valor={responseInvestimentos.data.result[i].valorMovimentacao}></CaixaInvestimento>
+                    );
+                }
+
+            } else {
+                // talvez trocar o layout daqui.
+                resultsInvestimentosHTML.push(
+                    <View style={styles.boxTitle} key="-1">
+                        <Text style={styles.textTitle}>
+                            Nenhum resultado encontrado
+                        </Text>
+                    </View>
+                )
+            }
+
+            setResultsInvestimentos(resultsInvestimentosHTML);
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+    useEffect(() => {
+        console.log('uai');
+        let data = new Object();
+
+        data.dataInicial = '2022-11-01T03:00:00.000Z';
+        data.dataFinal = '2050-01-01T03:00:00.000Z';
+
+        BuscarReceitas(data);
+        //BuscarDespesas(data);
+    }, [])
+
+
+
     return (
         <View style={{ flex: 1 }}>
             <Header />
             <ScrollView style={{ marginTop: 70 }}>
-                <View style={styles.boxTitle}>
-                    <Text style={styles.textTitle}>
-                        Tipos de Investimentos
-                    </Text>
-                </View>
-                <View style={{ borderTopColor: Colors.cinzaClaro, borderTopWidth: 1, flex: 1, flexDirection: 'row' }}>
-                    <Pressable style={{ flex: 1 }}>
-                        <View style={{ borderBottomColor: Colors.verdePrincipal, borderBottomWidth: 1, alignItems: 'center', paddingBottom: 6, padding: 6 }}>
-                            <Text style={{ color: Colors.verdePrincipal, fontSize: 15, textAlign: 'center' }}>
-                                Gráfico Setores {/* Basicamente transformar isso em algo como o bottomTabNavigator, que muda só o Gráfico. */}
-                            </Text>
-                        </View>
-                    </Pressable>
-                    <Pressable style={{ flex: 1 }}>
-                        <View style={{ borderBottomColor: Colors.preto, borderBottomWidth: 1, alignItems: 'center', paddingBottom: 6, padding: 6 }}>
-                            <Text style={{ color: Colors.preto, fontSize: 15, textAlign: 'center' }}>
-                                Gráfico Linha
-                            </Text>
-                        </View>
-                    </Pressable>
-                </View>
-
-                <CaixaInvestimento >{texto}</CaixaInvestimento>
-
-                <View style={patternStyle.rootContainer2}>
-                    <View style={styles.viewGrafico}>
-                        <Text style={styles.textoGrafico}>Gráfico - de Setores</Text>
-                    </View>
-                </View>
 
                 <View style={styles.boxTitle}>
                     <Text style={styles.textTitle}>
-                        Investimentos salvos
+                        Mostrar seus investimentos salvos:
                     </Text>
                 </View>
-
-                <CaixaInvestimento>{texto}</CaixaInvestimento>
-
-                <CaixaInvestimento>{texto}</CaixaInvestimento>
-
-                <CaixaInvestimento>{texto}</CaixaInvestimento>
-
-                <View style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}>
-                    <BotaoInicio styleExterno={styles.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}> Ver Mais </BotaoInicio>
+                <View style={styles.viewAdjacente}>
+                    <Text style={styles.textoCinza}>Data</Text>
+                    <Controller
+                        name='dataInicial'
+                        control={control}
+                        render={({ field: { onChange, onBlur, value } }) => (
+                            <TextInputMask
+                                style={patternStyle.input2}
+                                onChangeText={onChange}
+                                onBlur={onBlur}
+                                value={value}
+                                placeholder="Data Inicial"
+                                maxLength={15}
+                                type='datetime'
+                                options={{
+                                    format: 'DD/MM/YYYY'
+                                }}
+                            />
+                        )}
+                    />
+                    {errors.dataInicial && <Text style={patternStyle.labelError}>{errors.dataInicial?.message}</Text>}
                 </View>
+                <View style={styles.viewAdjacente}>
+                    <Text style={styles.textoCinza}>Data</Text>
+                    <Controller
+                        name='dataFinal'
+                        control={control}
+                        render={({ field: { onChange, onBlur, value } }) => (
+                            <TextInputMask
+                                style={patternStyle.input2}
+                                onChangeText={onChange}
+                                onBlur={onBlur}
+                                value={value}
+                                placeholder="Data Final"
+                                maxLength={15}
+                                type='datetime'
+                                options={{
+                                    format: 'DD/MM/YYYY'
+                                }}
+                            />
+                        )}
+                    />
+                    {errors.dataFinal && <Text style={patternStyle.labelError}>{errors.dataFinal?.message}</Text>}
+                </View>
+
+                <View style={{ alignItems: 'center', display: 'flex', marginTop: 10, flexDirection: 'row' }}>
+                    <BotaoInicio
+                        onPress={handleSubmit(BuscarReceitas)}
+                        styleExterno={patternStyle.botaoExterno}
+                        styleCorpo={[styles.botaoInterno, { backgroundColor: Colors.verdePrincipal }]}
+                        styleTexto={patternStyle.textoBotao}>
+                        <Ionicons name='add-circle-outline' color='white' size={20} />
+                        Buscar
+                    </BotaoInicio>
+                </View>
+
+                {resultsInvestimentos}
+
             </ScrollView >
         </View >
     );
 }
-
-let texto = "(nome do investimento)";
 
 export default TelaInvestimentos;
 
@@ -132,5 +238,17 @@ const styles = StyleSheet.create({
         fontFamily: 'roboto-regular',
         fontSize: 20,
         textAlign: 'center'
-    }
+    },
+    viewAdjacente: {
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        borderBottomColor: Colors.cinzaContorno,
+        borderBottomWidth: 1,
+    },
+    textoCinza: {
+        fontSize: 15,
+        fontFamily: 'roboto-regular',
+        color: Colors.cinzaContorno,
+        letterSpacing: 1.2,
+    },
 })

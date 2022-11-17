@@ -21,7 +21,7 @@ function TelaExcluirConta() {
     async function excluirConta(data) {
         try {
             delete data.confirmarSenha;
-            data.emailUsuario = await SecureStore.getItemAsync("email");
+            data.idUsuario = await SecureStore.getItemAsync("id");
             data.statusUsuario = 'Inativo'
 
             //chamado um por email

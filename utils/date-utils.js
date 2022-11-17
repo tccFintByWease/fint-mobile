@@ -10,8 +10,8 @@ const getTodayDate = () => {
 
     if (mm < 10) {
         mm = '0' + mm;
-    } 
-        
+    }
+
     today = yyyy + '-' + mm + '-' + dd;
 
     return today.toString();

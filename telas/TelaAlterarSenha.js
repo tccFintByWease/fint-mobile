@@ -14,7 +14,7 @@ import { resetPasswordSchema } from '../store/schemas/forgot-password-schema';
 import { UPDATE_PASSWORD_USER_URL } from "../store/api-urls";
 import InputSenha from '../componentes/InputSenha';
 
-function TelaAlterarSenha({navigation}) {
+function TelaAlterarSenha({ navigation }) {
     //Formulário de Alteração de Senha
     const { control, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(resetPasswordSchema)
@@ -24,13 +24,13 @@ function TelaAlterarSenha({navigation}) {
         try {
             delete data.confirmarSenha;
 
-            data.emailUsuario = await SecureStore.getItemAsync("email");
+            data.idUsuario = await SecureStore.getItemAsync("id");
             // const response1 = await axios.pull(LOOK_FOR_EMAIL_URL, sus);
             // console.log(response1.data.idUsuario);
 
             console.log(data);
 
-            console.log(data.emailUsuario)
+            console.log(data.idUsuario)
 
             const response = await axios.put(UPDATE_PASSWORD_USER_URL, data);
             console.log(response);

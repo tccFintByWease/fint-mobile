@@ -1,29 +1,39 @@
 import React from 'react';
-import { View,Text,Pressable,StyleSheet } from 'react-native';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
 import Colors from '../constantes/colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-function CaixaInvestimento({children, onPress}) {
+
+function CaixaInvestimento(props) {
+    function setinhaReceiver() {
+        console.log('>');
+    };
+
+
+
     return (
-        <Pressable onPress={onPress}>
-            <View style={styles.boxList}>
-                <Ionicons style={{marginVertical: 4}} name="trending-up" color="#000" size={40}/>
-                <View style={{ flexDirection: 'column' }}>
-                    <Text style={styles.textoGrande}>{children}</Text>
-                    <Text style={styles.textoPequeno}>Valor: (valor)</Text>
-                </View>
-                <View style={{ position: 'absolute', right: 0 }}>
-                    <Ionicons name='chevron-forward-outline' size={40} style={{margin: 15}}/>
-                </View>
+        <View style={styles.boxList}>
+            <Ionicons style={{ marginVertical: 4 }} name="trending-up" color="#000" size={40} />
+            <View style={{ flexDirection: 'column' }}>
+                <Text style={styles.textoGrande}>{props.texto}</Text>
+                <Text style={styles.textoPequeno}>Valor Investido: R$ {props.valor}</Text>
+                <Text style={styles.textoPequeno}>Meses: {props.tempo}</Text>
+                <Text style={styles.textoPequeno}>Lucro: R$ {props.lucro}</Text>
+                <Text style={styles.textoPequeno}>Montante: R$ {props.valor}</Text>
             </View>
-        </Pressable>
+            <View style={{ position: 'absolute', right: 0 }}>
+                <Pressable onPress={setinhaReceiver}>
+                    <Ionicons name='chevron-forward-outline' size={40} style={{ margin: 15 }} />
+                </Pressable>
+            </View>
+        </View>
     );
 }
 
 export default CaixaInvestimento;
 
 const styles = StyleSheet.create({
-    textoEnorme:{
+    textoEnorme: {
         fontSize: 35,
         marginRight: 15,
         marginTop: 5
