@@ -31,9 +31,13 @@ function CadastroMovimentacao({ navigation }) {
             delete data.tipoMovimentacao;
             let dataMovimentacao = data.dataMovimentacao.toLocaleDateString();
 
-            // data.idUsuario = await SecureStore.getItemAsync('id');
+            data.idUsuarioString = await SecureStore.getItemAsync('id');
 
-            // console.log(data.idUsuario)
+            data.idUsuario = Number(data.idUsuarioString);
+
+            delete data.idUsuarioString;
+
+            console.log(data.idUsuario)
 
             let dataValorMovimentacao = Number.parseFloat(data.valorMovimentacao);
 
@@ -47,7 +51,6 @@ function CadastroMovimentacao({ navigation }) {
             const dia = dataMovimentacao.split('/')[0];
             const mes = dataMovimentacao.split('/')[1];
 
-            console.log(ano);
 
             dataMovimentacao = `${ano}-${mes}-${dia}`;
 
@@ -57,11 +60,11 @@ function CadastroMovimentacao({ navigation }) {
 
             console.log(typeof data.valorMovimentacao)
 
-            data.idUsuario = 2;
+            // data.idUsuario = 2;
 
             data.idTipoMovimentacao = 1;
 
-            data.idCategoria = 2;
+            data.idCategoria = data.idUsuario;
 
             data.idDetalheMovimentacao = 1;
 
@@ -174,7 +177,7 @@ function CadastroMovimentacao({ navigation }) {
                                     // />
                                 )}
                             />
-                            {/* {errors.dataMovimentacao && <Text style={patternStyle.labelError}>{errors.dataMovimentacao?.message}</Text>} */}
+                            {errors.dataMovimentacao && <Text style={patternStyle.labelError}>{errors.dataMovimentacao?.message}</Text>}
                         </View>
                         <View style={styles.viewAdjacente}>
                             <Text style={styles.textoCinza}>Valor</Text>
@@ -191,13 +194,13 @@ function CadastroMovimentacao({ navigation }) {
                                             value={value}
                                             placeholder="Valor Movimentação"
                                             maxLength={12}
-                                            type='money'
-                                            options={{
-                                                unit: '',
-                                                precision: 2,
-                                                separator: '.',
-                                                delimiter: '',
-                                            }}
+                                            type='only-numbers'
+                                        // options={{
+                                        //     unit: '',
+                                        //     precision: 2,
+                                        //     separator: '.',
+                                        //     delimiter: '',
+                                        // }}
                                         />
                                         // <TextInput
                                         //     style={patternStyle.input2}

@@ -5,6 +5,7 @@ import patternStyle from '../constantes/style';
 import Header from '../componentes/Header';
 import Colors from '../constantes/colors';
 import CaixaSimulador from '../componentes/CaixaSimulador';
+import { Suspense } from 'react/cjs/react.production.min';
 
 function TelaSimulador() {
     return (
@@ -17,7 +18,7 @@ function TelaSimulador() {
                     </Text>
                 </View>
 
-                <CaixaSimulador texto={texto}></CaixaSimulador>
+                <CaixaSimulador texto={texto} valor={valor}></CaixaSimulador>
                 <View style={patternStyle.rootContainer2}>
                     <View style={styles.viewGrafico}>
                         <Text style={styles.textoGrafico}> Gráfico</Text>
@@ -30,7 +31,7 @@ function TelaSimulador() {
                     </Text>
                 </View>
 
-                <CaixaSimulador>{texto}</CaixaSimulador>
+                <CaixaSimulador texto={texto2} valor={valor2}></CaixaSimulador>
                 <View style={[patternStyle.rootContainer2, { marginBottom: 10 }]}>
                     <View style={styles.viewGrafico}>
                         <Text style={styles.textoGrafico}> Gráfico</Text>
@@ -42,7 +43,10 @@ function TelaSimulador() {
     );
 }
 
-let texto = "(nome do investimento)";
+let texto = "Investimento Pica";
+let texto2 = "investimento Médio";
+let valor = 521.23;
+let valor2 = 124.01;
 
 export default TelaSimulador;
 

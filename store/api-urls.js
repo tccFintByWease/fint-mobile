@@ -1,6 +1,7 @@
-const API = 'http://192.168.15.11:1433/api';
+const API = 'http://10.0.2.2:1433/api';
 
 //  192.168.15.11
+// 10.0.2.2
 
 const SIGN_UP_URL = `${API}/usuario/inserir`;
 const UPDATE_USER_URL = `${API}/usuario/alterar`;
@@ -31,6 +32,13 @@ const DELETE_TRANSITION_URL = `${API}/movimentacao/deletar`;
 const GET_REVENUES_URL = `${API}/movimentacao/buscarTodasReceitas`;
 const GET_EXPENSES_URL = `${API}/movimentacao/buscarTodasDespesas`;
 const GET_TRANSITION_URL = `${API}/movimentacao/buscarUmPorId`;
+
+const GET_SIMULATION_URL = `${API}/simulacao/buscarTodasSimulacoesUsuario`
+const INSERT_SIMULATION_URL = `${API}/simulacao/inserir`
+const UPDATE_SIMULATION_URL = `${API}/simulacao/alterar`
+const DELETE_SIMULATION_URL = `${API}/simulacao/deletar`
+const GET_SIMULATION_ID_URL = `${API}/simulacao/buscarUmPorId`
+
 
 const GET_CATEGORIES_URL = `${API}/categoria/buscarTodosTipoMovimentacao`;
 const GET_CATEGORY_URL = `${API}/categoria/buscarUmPorId`;
@@ -68,5 +76,10 @@ export {
     INSERT_CATEGORY_URL,
     UPDATE_CATEGORY_URL,
     DELETE_CATEGORY_URL,
-    GET_CATEGORY_RECURRENCE_URL
+    GET_CATEGORY_RECURRENCE_URL,
+    GET_SIMULATION_URL,
+    INSERT_SIMULATION_URL,
+    UPDATE_SIMULATION_URL,
+    DELETE_SIMULATION_URL,
+    GET_SIMULATION_ID_URL
 }

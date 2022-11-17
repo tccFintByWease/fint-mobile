@@ -41,7 +41,7 @@ function TelaLogin({ navigation }) {
             const response = await axios.post(LOGIN_URL, data);
             if (data.emailUsuario === response.data.result.emailUsuario && data.senhaUsuario === response.data.result.senhaUsuario && response.data.result.statusUsuario === "Ativo") {
                 navigation.navigate('home');
-                const sus = response.data.result.idUsuario;
+                const sus = (response.data.result.idUsuario).toString();
                 await SecureStore.setItemAsync("id", sus);
 
                 const subla = await SecureStore.getItemAsync("id");
