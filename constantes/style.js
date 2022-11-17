@@ -39,6 +39,23 @@ const patternStyle = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 40
     },
+    inputCaixa:{
+        display: 'flex', 
+        flexDirection: 'row',
+        textAlign: 'left',
+        width: '100%',
+        marginVertical: 5,
+        paddingHorizontal: 5,
+        paddingVertical: 1,
+        borderColor: Colors.cinzaContorno,
+        borderWidth: 1,
+        borderRadius: 40
+    },
+    inputText:{
+        fontFamily: 'roboto-regular',
+        fontSize: 18,
+        color: 'black',
+    },
     input2:{
         fontFamily: 'roboto-regular',
         fontSize: 18,

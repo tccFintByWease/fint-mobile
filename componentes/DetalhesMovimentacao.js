@@ -86,167 +86,171 @@ function DetalhesMovimentacao({ navigation }) {
     const [checked, setChecked] = useState('');
 
     return (
-        <TouchableWithoutFeedback style={{ flex: 1, height: 300, paddingTop: 100 }} onPress={Keyboard.dismiss}>
-            <ScrollView style={{ flex: 1 }}>
-                <View style={{ flexDirection: 'row', display: 'flex' }}>
-                    <View style={{ flex: 4 }}>
-                        <Text style={{ marginLeft: 15, fontFamily: 'roboto-bold', fontSize: 24 }}>Alterar/Excluir</Text>
-                    </View>
-                    <Pressable style={{ flex: 1, alignItems: 'flex-end' }} onPress={voltar}>
-                        <View style={{ paddingRight: 15 }}>
-                            <Ionicons name='close' color='black' size={35} />
-                        </View>
-                    </Pressable>
-                </View>
-                <View style={styles.viewTopo}>
-                    <Controller
-                        name='descricaoMovimentacao'
-                        control={control}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <TextInput
-                                style={patternStyle.input2}
-                                onChangeText={onChange}
-                                onBlur={onBlur}
-                                value={value}
-                                placeholder="Título Movimentação"
-                                maxLength={200}
-                            />
-                        )}
-                    />
-                    {errors.descricaoMovimentacao && <Text style={patternStyle.labelError}>{errors.descricaoMovimentacao?.message}</Text>}
-                    <View style={{ flexDirection: 'row', paddingLeft: 10, alignItems: 'center' }}>
-                        <View>
-                            <CardCategoria backgroundColor='red'>Teste</CardCategoria>
-                        </View>
-                        <Pressable style={{ flexDirection: 'row', marginLeft: 10 }}>
-                            <View style={{ backgroundColor: Colors.cinzaContorno, borderRadius: 20, padding: 5, width: 35 }}>
-                                <Ionicons style={{ alignSelf: 'center' }} name='add' color='black' size={22} />
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={{ flex: 1, height: 300, paddingTop: 100 }} >
+                <ScrollView style={{ flex: 1 }}>
+                    <View style={{flex: 1}}>
+                        <View style={{ flexDirection: 'row', display: 'flex' }}>
+                            <View style={{ flex: 4 }}>
+                                <Text style={{ marginLeft: 15, fontFamily: 'roboto-bold', fontSize: 24 }}>Alterar/Excluir</Text>
                             </View>
-                        </Pressable>
-                    </View>
-                </View>
-                <View>
-                    <View style={styles.viewAdjacente}>
-                        <Text style={styles.textoCinza}>Descrição</Text>
-                        <Controller
-                            name='observacaoMovimentacao'
-                            control={control}
-                            render={({ field: { onChange, onBlur, value } }) => (
-                                <TextInput
-                                    style={patternStyle.input2}
-                                    onChangeText={onChange}
-                                    onBlur={onBlur}
-                                    value={value}
-                                    placeholder="Observação Movimentação (opcional)"
-                                    maxLength={300}
-                                    multiline={true}
-                                />
-                            )}
-                        />
-                        {errors.observacaoMovimentacao && <Text style={patternStyle.labelError}>{errors.observacaoMovimentacao?.message}</Text>}
-                    </View>
-                    <View style={styles.viewAdjacente}>
-                        <Text style={styles.textoCinza}>Data</Text>
-                        <Controller
-                            name='dataMovimentacao'
-                            control={control}
-                            render={({ field: { onChange, onBlur, value } }) => (
-                                <TextInputMask
-                                    style={patternStyle.input2}
-                                    onChangeText={onChange}
-                                    onBlur={onBlur}
-                                    value={value}
-                                    placeholder="Data Movimentação"
-                                    maxLength={15}
-                                    type='datetime'
-                                    options={{
-                                        format: 'DD/MM/YYYY'
-                                    }}
-                                />
-                            )}
-                        />
-                        {errors.dataMovimentacao && <Text style={patternStyle.labelError}>{errors.dataMovimentacao?.message}</Text>}
-                    </View>
-                    <View style={styles.viewAdjacente}>
-                        <Text style={styles.textoCinza}>Tipo da Movimentação</Text>
-                        <Controller
-                            name='tipoMovimentacao'
-                            control={control}
-                            render={({ field: { onChange, onBlur, value } }) => (
-                                <View>
-                                    <View style={{ flexDirection: 'row' }}>
-                                        <RadioButton
-                                            value="Receita"
-                                            status={checked === 'Receita' ? 'checked' : 'unchecked'}
-                                            onPress={() => setChecked('Receita')}
-                                        />
-                                        <Text style={{ alignSelf: 'center' }}>Receita</Text>
-                                    </View>
-                                    <View style={{ flexDirection: 'row' }}>
-                                        <RadioButton
-                                            value="Despesa"
-                                            status={checked === 'Despesa' ? 'checked' : 'unchecked'}
-                                            onPress={() => setChecked('Despesa')}
-                                        />
-                                        <Text style={{ alignSelf: 'center' }}>Despesa</Text>
-                                    </View>
+                            <Pressable style={{ flex: 1, alignItems: 'flex-end' }} onPress={voltar}>
+                                <View style={{ paddingRight: 15 }}>
+                                    <Ionicons name='close' color='black' size={35} />
                                 </View>
-                            )}
-
-                        />
-                    </View>
-                    <View style={styles.viewAdjacente}>
-                        <Text style={styles.textoCinza}>Valor</Text>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={{ alignSelf: 'center', fontSize: 18, marginLeft: 10 }}>R$ </Text>
+                            </Pressable>
+                        </View>
+                        <View style={styles.viewTopo}>
                             <Controller
-                                name='valorMovimentacao'
+                                name='descricaoMovimentacao'
                                 control={control}
                                 render={({ field: { onChange, onBlur, value } }) => (
-                                    <TextInputMask
+                                    <TextInput
                                         style={patternStyle.input2}
                                         onChangeText={onChange}
                                         onBlur={onBlur}
                                         value={value}
-                                        placeholder="Valor Movimentação"
-                                        maxLength={12}
-                                        type='money'
-                                        options={{
-                                            unit: '',
-                                            precision: 2,
-                                            separator: ',',
-                                            delimiter: '.',
-                                        }}
+                                        placeholder="Título Movimentação"
+                                        maxLength={200}
                                     />
                                 )}
                             />
-                            {errors.valorMovimentacao && <Text style={patternStyle.labelError}>{errors.valorMovimentacao?.message}</Text>}
+                            {errors.descricaoMovimentacao && <Text style={patternStyle.labelError}>{errors.descricaoMovimentacao?.message}</Text>}
+                            <View style={{ flexDirection: 'row', paddingLeft: 10, alignItems: 'center' }}>
+                                <View>
+                                    <CardCategoria backgroundColor='red'>Teste</CardCategoria>
+                                </View>
+                                <Pressable style={{ flexDirection: 'row', marginLeft: 10 }}>
+                                    <View style={{ backgroundColor: Colors.cinzaContorno, borderRadius: 20, padding: 5, width: 35 }}>
+                                        <Ionicons style={{ alignSelf: 'center' }} name='add' color='black' size={22} />
+                                    </View>
+                                </Pressable>
+                            </View>
+                        </View>
+                        <View>
+                            <View style={styles.viewAdjacente}>
+                                <Text style={styles.textoCinza}>Descrição</Text>
+                                <Controller
+                                    name='observacaoMovimentacao'
+                                    control={control}
+                                    render={({ field: { onChange, onBlur, value } }) => (
+                                        <TextInput
+                                            style={patternStyle.input2}
+                                            onChangeText={onChange}
+                                            onBlur={onBlur}
+                                            value={value}
+                                            placeholder="Observação Movimentação (opcional)"
+                                            maxLength={300}
+                                            multiline={true}
+                                        />
+                                    )}
+                                />
+                                {errors.observacaoMovimentacao && <Text style={patternStyle.labelError}>{errors.observacaoMovimentacao?.message}</Text>}
+                            </View>
+                            <View style={styles.viewAdjacente}>
+                                <Text style={styles.textoCinza}>Data</Text>
+                                <Controller
+                                    name='dataMovimentacao'
+                                    control={control}
+                                    render={({ field: { onChange, onBlur, value } }) => (
+                                        <TextInputMask
+                                            style={patternStyle.input2}
+                                            onChangeText={onChange}
+                                            onBlur={onBlur}
+                                            value={value}
+                                            placeholder="Data Movimentação"
+                                            maxLength={15}
+                                            type='datetime'
+                                            options={{
+                                                format: 'DD/MM/YYYY'
+                                            }}
+                                        />
+                                    )}
+                                />
+                                {errors.dataMovimentacao && <Text style={patternStyle.labelError}>{errors.dataMovimentacao?.message}</Text>}
+                            </View>
+                            <View style={styles.viewAdjacente}>
+                                <Text style={styles.textoCinza}>Tipo da Movimentação</Text>
+                                <Controller
+                                    name='tipoMovimentacao'
+                                    control={control}
+                                    render={({ field: { onChange, onBlur, value } }) => (
+                                        <View>
+                                            <View style={{ flexDirection: 'row' }}>
+                                                <RadioButton
+                                                    value="Receita"
+                                                    status={checked === 'Receita' ? 'checked' : 'unchecked'}
+                                                    onPress={() => setChecked('Receita')}
+                                                />
+                                                <Text style={{ alignSelf: 'center' }}>Receita</Text>
+                                            </View>
+                                            <View style={{ flexDirection: 'row' }}>
+                                                <RadioButton
+                                                    value="Despesa"
+                                                    status={checked === 'Despesa' ? 'checked' : 'unchecked'}
+                                                    onPress={() => setChecked('Despesa')}
+                                                />
+                                                <Text style={{ alignSelf: 'center' }}>Despesa</Text>
+                                            </View>
+                                        </View>
+                                    )}
+
+                                />
+                            </View>
+                            <View style={styles.viewAdjacente}>
+                                <Text style={styles.textoCinza}>Valor</Text>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <Text style={{ alignSelf: 'center', fontSize: 18, marginLeft: 10 }}>R$ </Text>
+                                    <Controller
+                                        name='valorMovimentacao'
+                                        control={control}
+                                        render={({ field: { onChange, onBlur, value } }) => (
+                                            <TextInputMask
+                                                style={patternStyle.input2}
+                                                onChangeText={onChange}
+                                                onBlur={onBlur}
+                                                value={value}
+                                                placeholder="Valor Movimentação"
+                                                maxLength={12}
+                                                type='money'
+                                                options={{
+                                                    unit: '',
+                                                    precision: 2,
+                                                    separator: ',',
+                                                    delimiter: '.',
+                                                }}
+                                            />
+                                        )}
+                                    />
+                                    {errors.valorMovimentacao && <Text style={patternStyle.labelError}>{errors.valorMovimentacao?.message}</Text>}
+                                </View>
+                            </View>
+                            <View style={{ alignItems: 'center', display: 'flex', marginTop: 10, flexDirection: 'row', paddingHorizontal: 25 }}>
+                                <View style={{ flex: 1, alignItems: 'center' }}>
+                                    <BotaoInicio
+                                        onPress={handleSubmit(excluirMovimentacao)}
+                                        styleExterno={patternStyle.botaoExterno}
+                                        styleCorpo={styles.botaoInterno}
+                                        styleTexto={patternStyle.textoBotao}>
+                                        <Ionicons name='trash-outline' color='white' size={20} />
+                                        Excluir
+                                    </BotaoInicio>
+                                </View>
+                                <View style={{ flex: 1, alignItems:'center' }}>
+                                    <BotaoInicio
+                                        onPress={handleSubmit(alterarMovimentacao)}
+                                        styleExterno={patternStyle.botaoExterno}
+                                        styleCorpo={[styles.botaoInterno, { backgroundColor: Colors.verdePrincipal }]}
+                                        styleTexto={patternStyle.textoBotao}>
+                                        <Ionicons name='refresh-outline' color='white' size={20} />
+                                        Alterar
+                                    </BotaoInicio>
+                                </View>
+                            </View>
                         </View>
                     </View>
-                    <View style={{ alignItems: 'center', display: 'flex', marginTop: 10, flexDirection: 'row', paddingHorizontal: 25 }}>
-                        <View style={{ flex: 1 }}>
-                            <BotaoInicio
-                                onPress={handleSubmit(excluirMovimentacao)}
-                                styleExterno={patternStyle.botaoExterno}
-                                styleCorpo={styles.botaoInterno}
-                                styleTexto={patternStyle.textoBotao}>
-                                <Ionicons name='trash-outline' color='white' size={20} />
-                                Excluir
-                            </BotaoInicio>
-                        </View>
-                        <View style={{ flex: 1 }}>
-                            <BotaoInicio
-                                onPress={handleSubmit(alterarMovimentacao)}
-                                styleExterno={patternStyle.botaoExterno}
-                                styleCorpo={[styles.botaoInterno, { backgroundColor: Colors.verdePrincipal }]}
-                                styleTexto={patternStyle.textoBotao}>
-                                <Ionicons name='refresh-outline' color='white' size={20} />
-                                Alterar
-                            </BotaoInicio>
-                        </View>
-                    </View>
-                </View>
-            </ScrollView>
+                </ScrollView>
+            </View>
         </TouchableWithoutFeedback>
     );
 }

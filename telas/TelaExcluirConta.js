@@ -11,7 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { resetPasswordSchema } from '../store/schemas/forgot-password-schema';
 import { UPDATE_STATUS_USER_URL } from "../store/api-urls";
 import React from 'react';
-import InputSenha from '../componentes/formulario/InputSenha'
+import InputSenha from '../componentes/InputSenha'
 
 
 function TelaExcluirConta() {
@@ -51,14 +51,11 @@ function TelaExcluirConta() {
                     name='senhaUsuario'
                     control={control}
                     render={({ field: { onChange, onBlur, value } }) => (
-                        <TextInput
-                            style={[patternStyle.input, { width: '90%' }]}
-                            onChangeText={onChange}
+                        <InputSenha 
+                            onChange={onChange}
                             onBlur={onBlur}
                             value={value}
-                            placeholder="Senha"
-                            maxLength={50}
-                            secureTextEntry={true}
+                            placeholder='Senha'
                         />
                     )}
                 />
@@ -67,14 +64,11 @@ function TelaExcluirConta() {
                     name='confirmarSenha'
                     control={control}
                     render={({ field: { onChange, onBlur, value } }) => (
-                        <TextInput
-                            style={[patternStyle.input, { width: '90%' }]}
-                            onChangeText={onChange}
+                        <InputSenha 
+                            onChange={onChange}
                             onBlur={onBlur}
                             value={value}
-                            placeholder="Confirmar Senha"
-                            maxLength={50}
-                            secureTextEntry={true}
+                            placeholder='Confirmar Senha'
                         />
                     )}
                 />

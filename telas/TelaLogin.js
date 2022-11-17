@@ -11,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { LOGIN_URL } from '../store/api-urls';
 import { loginSchema } from '../store/schemas/login-schema';
 import * as SecureStore from 'expo-secure-store';
+import InputSenha from '../componentes/InputSenha';
 
 
 function TelaLogin({ navigation }) {
@@ -84,14 +85,11 @@ function TelaLogin({ navigation }) {
                             name='senhaUsuario'
                             control={control}
                             render={({ field: { onChange, onBlur, value } }) => (
-                                <TextInput
-                                    style={patternStyle.input}
-                                    onChangeText={onChange}
+                                <InputSenha 
+                                    onChange={onChange}
                                     onBlur={onBlur}
                                     value={value}
-                                    placeholder="Senha"
-                                    maxLength={50}
-                                    secureTextEntry={true}
+                                    placeholder='Senha'
                                 />
                             )}
                         />

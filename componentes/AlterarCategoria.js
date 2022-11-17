@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable, TextInput, ScrollView, Alert } from 'react-native'
+import { View, Text, StyleSheet, Alert, TextInput, ScrollView } from 'react-native'
 import { useState } from 'react';
 import { RadioButton } from 'react-native-paper';
 import Colors from '../constantes/colors'
@@ -6,34 +6,53 @@ import BotaoInicio from './BotaoInicio';
 import patternStyle from '../constantes/style';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { INSERT_CATEGORY_URL } from '../store/api-urls';
+import { UPDATE_CATEGORY_URL, DELETE_CATEGORY_URL } from '../store/api-urls';
 import axios from 'axios';
 
-function CriarCategoria({}) {
+function AlterarCategoria({}) {
     const { control, handleSubmit, formState: { errors } } = useForm({});
 
-    async function criarCategoria(data){
+    async function alterarCategoria(data){
         try {
             data.idUsuario = 1;
             data.corCategoria = cor;
             data.idTipoMovimentacao = idTipoMovimentacao;
-            // const response = await axios.post(INSERT_CATEGORY_URL, data);
+            // const response = await axios.post(UPDATE_CATEGORY_URL, data);
             console.log(data);
-            Alert.alert("Categoria cadastrada! ✅");
+            setSucessoAlterar(true);
+            Alert.alert("Categoria alterada! ✅");
         } catch (error) {
             console.log(error);
         }
     }
 
+    async function excluirCategoria(data){
+        try {
+            delete data.idTipoMovimentacao;
+            delete data.descricaoCategoria;
+            delete data.corCategoria;
+
+            data.idCategoria = 1;
+            setSucessoExcluir(true);
+            // const response = await axios.post(UPDATE_CATEGORY_URL, data);
+            console.log(data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const [sucessoAlterar, setSucessoAlterar] = useState(false);
+    const [sucessoExcluir, setSucessoExcluir] = useState(false);
+
     // Radio Button
-    const [idTipoMovimentacao, setIdTipoMovimentacao] = useState('');
-    const [cor, setCor] = useState('');
+    const [idTipoMovimentacao, setIdTipoMovimentacao] = useState(2);
+    const [cor, setCor] = useState('#f05a4f');
 
     return(
         <ScrollView>
             <View style={styles.rootContainer}>
                 <View style={styles.viewTopo}>
-                    <Text style={styles.textoTopo}>Criar Categoria</Text>
+                    <Text style={styles.textoTopo}>Alterar/Exluir Categoria</Text>
                 </View>
                 <View>
                     <View style={styles.viewAdjacente}>
@@ -50,6 +69,7 @@ function CriarCategoria({}) {
                                         value={value}
                                         placeholder="Nome Categoria"
                                         maxLength={50}
+                                        defaultValue={'Teste'}
                                     />
                                 )}
                             />
@@ -139,14 +159,25 @@ function CriarCategoria({}) {
                             />
                         </View>
                     </View>
-                    <View style={{marginTop: 25, alignItems: 'center'}}>
-                        <BotaoInicio 
-                            onPress={handleSubmit(criarCategoria)}
-                            styleExterno={patternStyle.botaoExterno} 
-                            styleCorpo={styles.botaoInterno} 
-                            styleTexto={patternStyle.textoBotao}>
-                                Criar
-                        </BotaoInicio>
+                    <View style={{marginTop: 25, display: 'flex', flexDirection: 'row'}}>
+                        <View style={{flex: 1, alignItems: 'center'}}>
+                            <BotaoInicio 
+                                onPress={handleSubmit(alterarCategoria)}
+                                styleExterno={patternStyle.botaoExterno} 
+                                styleCorpo={styles.botaoInterno} 
+                                styleTexto={patternStyle.textoBotao}>
+                                    Alterar
+                            </BotaoInicio>
+                        </View>
+                        <View style={{flex: 1, alignItems: 'center'}}>
+                            <BotaoInicio 
+                                onPress={handleSubmit(excluirCategoria)}
+                                styleExterno={patternStyle.botaoExterno} 
+                                styleCorpo={[styles.botaoInterno, {backgroundColor: Colors.vermelhoGoogle}]} 
+                                styleTexto={patternStyle.textoBotao}>
+                                    Excluir
+                            </BotaoInicio>
+                        </View>
                     </View>
                 </View>
             </View>
@@ -154,7 +185,7 @@ function CriarCategoria({}) {
     ); 
 }
 
-export default CriarCategoria;
+export default AlterarCategoria;
 
 const styles = StyleSheet.create({
     rootContainer:{
@@ -174,7 +205,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     botaoInterno: {
-        backgroundColor: Colors.verdeSecundario,
+        backgroundColor: Colors.verdePrincipal,
         paddingVertical: 10,
     },
     viewAdjacente: {

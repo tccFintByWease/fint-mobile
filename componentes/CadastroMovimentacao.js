@@ -5,6 +5,7 @@ import Colors from '../constantes/colors'
 import BotaoInicio from './BotaoInicio';
 import patternStyle from '../constantes/style';
 import CardCategoria from './CardCategoria';
+import AlterarCategoria from './AlterarCategoria';
 import Aviso from './Aviso';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -74,8 +75,9 @@ function CadastroMovimentacao({ navigation }) {
         }
     }
 
-
-    const [modalVisible, setModalVisible] = useState(false);
+ 
+    const [criarVisible, setCriarVisible] = useState(false);
+    const [alterarVisible, setAlterarVisible] = useState(false);
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -108,18 +110,31 @@ function CadastroMovimentacao({ navigation }) {
                         />
                         {errors.descricaoMovimentacao && <Text style={patternStyle.labelError}>{errors.descricaoMovimentacao?.message}</Text>}
                         <View style={{ flexDirection: 'row', paddingLeft: 10, alignItems: 'center' }}>
-                            <View>
-                                <CardCategoria backgroundColor='red'>Teste</CardCategoria>
-                            </View>
-                            <Pressable onPress={() => setModalVisible(true)} style={{ flexDirection: 'row', marginLeft: 10 }}>
+                            {/* Alterar/Excluir Categoria */}
+                            <Pressable onPress={() => setAlterarVisible(true)}>
+                                <View>
+                                    <CardCategoria backgroundColor='red'>Teste</CardCategoria>
+                                </View>
+                            </Pressable>
+                            <KeyboardAvoidingView behavior='position' enabled>
+                                <View style={patternStyle.centeredView} >
+                                    <Aviso backgroundColor={Colors.verdeSecundario} nomeIcone='close' modalVisible={alterarVisible} setModalVisible={setAlterarVisible}>
+                                        <AlterarCategoria />
+                                    </Aviso>
+                                </View>
+                            </KeyboardAvoidingView>
+                            {/* Criar Categoria */}
+                            <Pressable onPress={() => setCriarVisible(true)} style={{ flexDirection: 'row', marginLeft: 10 }}>
                                 <View style={{ backgroundColor: Colors.cinzaContorno, borderRadius: 20, padding: 5, width: 35 }}>
                                     <Ionicons style={{ alignSelf: 'center' }} name='add' color='black' size={22} />
                                 </View>
                             </Pressable>
-                            <KeyboardAvoidingView style={patternStyle.centeredView} behavior='position' enabled>
-                                <Aviso nomeIcone='close' modalVisible={modalVisible} setModalVisible={setModalVisible}>
-                                    <CriarCategoria />
-                                </Aviso>
+                            <KeyboardAvoidingView behavior='position' enabled>
+                                <View style={patternStyle.centeredView} >
+                                    <Aviso backgroundColor={Colors.vermelhoGoogle} nomeIcone='close' modalVisible={criarVisible} setModalVisible={setCriarVisible}>
+                                        <CriarCategoria />
+                                    </Aviso>
+                                </View>
                             </KeyboardAvoidingView>
                         </View>
                     </View>
@@ -209,13 +224,13 @@ function CadastroMovimentacao({ navigation }) {
                                 {errors.valorMovimentacao && <Text style={patternStyle.labelError}>{errors.valorMovimentacao?.message}</Text>}
                             </View>
                         </View>
-                        <View style={{ alignItems: 'center', display: 'flex', marginTop: 10, flexDirection: 'row' }}>
+                        <View style={{ marginTop: 10, alignItems: 'center'}}>
                             <BotaoInicio
                                 onPress={handleSubmit(adicionarMovimentacao)}
                                 styleExterno={patternStyle.botaoExterno}
                                 styleCorpo={[styles.botaoInterno, { backgroundColor: Colors.verdePrincipal }]}
                                 styleTexto={patternStyle.textoBotao}>
-                                {/* <Ionicons name='add-circle-outline' color='white' size={20} /> */}
+                                <Ionicons name='add-circle-outline' color='white' size={20} />
                                 Adicionar
                             </BotaoInicio>
                         </View>

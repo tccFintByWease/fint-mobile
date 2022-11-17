@@ -4,7 +4,7 @@ import Colors from "../constantes/colors";
 import patternStyle from "../constantes/style";
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-function Aviso({children, modalVisible, setModalVisible, nomeIcone}) {
+function Aviso({children, modalVisible, setModalVisible, nomeIcone, backgroundColor}) {
     const funcao = setModalVisible;
     return (
         <Modal
@@ -20,7 +20,7 @@ function Aviso({children, modalVisible, setModalVisible, nomeIcone}) {
                 <View style={styles.modalView}>
                     <View style={{flex: 1}}>{children}</View>
                     <Pressable
-                        style={[styles.button, styles.buttonClose]}
+                        style={[styles.button, {backgroundColor: backgroundColor}]}
                         onPress={() => funcao(!modalVisible)}
                     >
                         <Ionicons name={nomeIcone} color='white' size={30}/>
@@ -59,8 +59,5 @@ const styles = StyleSheet.create({
         paddingHorizontal: 40,
         paddingVertical: 10,
         elevation: 2,
-    },
-    buttonClose: {
-        backgroundColor: Colors.verdePrincipal,
     },
 });

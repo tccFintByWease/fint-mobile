@@ -8,6 +8,7 @@ import Colors from "../constantes/colors";
 import BotaoInicio from "../componentes/BotaoInicio";
 import Subtitulo from "../componentes/Subtitulo";
 import Aviso from '../componentes/Aviso';
+import InputSenha from '../componentes/InputSenha';
 import patternStyle from '../constantes/style';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -130,14 +131,11 @@ function TelaCadastro({ navigation }) {
                                 control={control}
                                 name="senhaUsuario"
                                 render={({ field: { onChange, onBlur, value } }) => (
-                                    <TextInput
-                                        style={patternStyle.input}
-                                        onChangeText={onChange}
+                                    <InputSenha 
+                                        onChange={onChange}
                                         onBlur={onBlur}
                                         value={value}
-                                        placeholder="Senha"
-                                        maxLength={50}
-                                        secureTextEntry={true}
+                                        placeholder='Senha'
                                     />
                                 )}
                             />
@@ -146,14 +144,11 @@ function TelaCadastro({ navigation }) {
                                 control={control}
                                 name="confirmarSenha"
                                 render={({ field: { onChange, onBlur, value } }) => (
-                                    <TextInput
-                                        style={patternStyle.input}
-                                        onChangeText={onChange}
+                                    <InputSenha 
+                                        onChange={onChange}
                                         onBlur={onBlur}
                                         value={value}
-                                        maxLength={50}
-                                        placeholder="Confirmar Senha"
-                                        secureTextEntry={true}
+                                        placeholder='Confirmar Senha'
                                     />
                                 )}
                             />
@@ -237,7 +232,7 @@ function TelaCadastro({ navigation }) {
                             Cadastrar-se
                         </BotaoInicio>
                         <View style={patternStyle.centeredView}>
-                            <Aviso nomeIcone='checkmark-circle' modalVisible={modalVisible} setModalVisible={setModalVisible}>
+                            <Aviso backgroundColor={Colors.verdePrincipal} nomeIcone='checkmark-circle' modalVisible={modalVisible} setModalVisible={setModalVisible}>
                                 <Text style={patternStyle.textStyle}>Concorde com Termos de Uso e Políticas de Privacidade para concluir seu cadastro!</Text>
                             </Aviso>
                         </View>

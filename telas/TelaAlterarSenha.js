@@ -12,6 +12,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { resetPasswordSchema } from '../store/schemas/forgot-password-schema';
 import { UPDATE_PASSWORD_USER_URL } from "../store/api-urls";
+import InputSenha from '../componentes/InputSenha';
 
 function TelaAlterarSenha({navigation}) {
     //Formulário de Alteração de Senha
@@ -49,38 +50,34 @@ function TelaAlterarSenha({navigation}) {
                     />
                 </View>
                 <View style={patternStyle.inputContainer}>
-                    <Controller
-                        name='senhaUsuario'
-                        control={control}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <TextInput
-                                style={[patternStyle.input, { width: '90%' }]}
-                                onChangeText={onChange}
-                                onBlur={onBlur}
-                                value={value}
-                                placeholder="Senha"
-                                maxLength={50}
-                                secureTextEntry={true}
-                            />
-                        )}
-                    />
-                    {errors.senhaUsuario && <Text style={patternStyle.labelError}>{errors.senhaUsuario?.message}</Text>}
-                    <Controller
-                        name='confirmarSenha'
-                        control={control}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <TextInput
-                                style={[patternStyle.input, { width: '90%' }]}
-                                onChangeText={onChange}
-                                onBlur={onBlur}
-                                value={value}
-                                placeholder="Confirmar Senha"
-                                maxLength={50}
-                                secureTextEntry={true}
-                            />
-                        )}
-                    />
-                    {errors.confirmarSenha && <Text style={patternStyle.labelError}>{errors.confirmarSenha?.message}</Text>}
+                    <View style={{width: '90%'}}>
+                        <Controller
+                            name='senhaUsuario'
+                            control={control}
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <InputSenha 
+                                    onChange={onChange}
+                                    onBlur={onBlur}
+                                    value={value}
+                                    placeholder='Senha'
+                                />
+                            )}
+                        />
+                        {errors.senhaUsuario && <Text style={patternStyle.labelError}>{errors.senhaUsuario?.message}</Text>}
+                        <Controller
+                            name='confirmarSenha'
+                            control={control}
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <InputSenha 
+                                    onChange={onChange}
+                                    onBlur={onBlur}
+                                    value={value}
+                                    placeholder='Confirmar Senha'
+                                />
+                            )}
+                        />
+                        {errors.confirmarSenha && <Text style={patternStyle.labelError}>{errors.confirmarSenha?.message}</Text>}
+                    </View>
                     <BotaoInicio
                         styleExterno={patternStyle.botaoExterno}
                         styleCorpo={patternStyle.botaoInterno}
