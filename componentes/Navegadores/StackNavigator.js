@@ -35,6 +35,7 @@ function StackNavigator() {
             <Stack.Screen name='dinheiroMoeda' component={TelaDinheiroMoeda} />
             <Stack.Screen name='notificacoes' component={TelaNotificacoes} />
             <Stack.Screen name='perfil' component={TelaUsuario} />
+            <Stack.Screen name='simulador' component={TelaSimulador} />
             <Stack.Screen name='selecionarGraficos' component={TelaSelecionarGraficos} options={{
                 presentation: 'modal'
             }} />

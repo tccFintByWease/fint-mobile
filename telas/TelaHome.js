@@ -1,4 +1,6 @@
-import { View, Image, Pressable, Text, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, TextInput, Pressable, Keyboard, KeyboardAvoidingView, ScrollView, Alert, TouchableWithoutFeedback } from 'react-native'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import Ionicons from '@expo/vector-icons/Ionicons';
 
@@ -7,60 +9,295 @@ import Header from '../componentes/Header';
 import Colors from '../constantes/colors';
 import BotaoInicio from '../componentes/BotaoInicio';
 import CaixaInvestimento from '../componentes/CaixaInvestimento';
-import React from 'react';
+import CaixaMovimentacao from '../componentes/CaixaMovimentacao';
 import CardHome from '../componentes/CardHome';
 import BottomTabNavigator from '../componentes/Navegadores/BottomTabNavigator';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { GET_SIMULATION_URL } from '../store/api-urls';
+import { GET_REVENUES_URL } from '../store/api-urls';
+import { GET_EXPENSES_URL } from '../store/api-urls';
+import * as SecureStore from 'expo-secure-store';
+import { formatDatetime, formatDate, getTodayDate } from '../utils/date-utils';
 
-function TelaHome({navigation}) {
-    function abrirPerfil(){
+
+function TelaHome({ navigation }) {
+
+
+    const dataHoje = getTodayDate();
+
+    let ano = dataHoje.split('-')[0];
+    console.log(typeof ano);
+    let mes = dataHoje.split('-')[1];
+
+    const dataInicial = ano + '-' + mes + '-' + '01';
+    console.log(dataInicial);
+
+    mes++;
+
+    if (mes > 12) {
+        ano++;
+        mes = '01';
+    }
+
+    const dataFinal = ano + '-' + mes + '-' + '01';
+
+    console.log(dataFinal)
+
+
+    const [resultsInvestimentos, setResultsInvestimentos] = useState([]); // getter / "setter"
+    const [resultsReceita, setResultsReceita] = useState([]); // getter / "setter"
+    const [resultsDespesa, setResultsDespesa] = useState([]); // getter / "setter"
+
+    async function Reset() {
+        let data = new Object();
+
+        data.dataInicial = dataInicial + 'T03:00:00.000Z';
+        data.dataFinal = dataFinal + 'T03:00:00.000Z';
+
+        BuscarReceitas(data);
+        BuscarDespesas(data);
+        BuscarInvestimentos();
+        //BuscarDespesas(data);
+    }
+
+    async function BuscarReceitas(data) {
+        console.log('---------------------')
+        try {
+            console.log(data)
+            data.idUsuario = await SecureStore.getItemAsync('id');
+
+            const responseReceita = await axios.post(GET_REVENUES_URL, data);  // pega os dados do servidor
+
+            console.log(responseReceita.data)
+
+            mes--;
+
+            let resultsReceitaHTML = [];
+
+            if (responseReceita.data.result.length >= 1) {
+                console.log('entrou')
+
+                resultsReceitaHTML.push(
+                    <CaixaMovimentacao key={[0]} dataMov={responseReceita.data.result[0].dataMovimentacao} descMov={responseReceita.data.result[0].descricaoMovimentacao} valor={responseReceita.data.result[0].valorMovimentacao} maisMenos={'+'}></CaixaMovimentacao>
+                );
+
+            } else {
+                // talvez trocar o layout daqui.
+                resultsReceitaHTML.push(
+                    <View key="-1">
+                        <View style={styles.boxTitle} >
+                            <Text style={styles.textoPequeno}>
+                                Nenhuma receita registrada esse mês.
+                            </Text>
+                        </View>
+                        <View style={{
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexDirection: 'row',
+                            paddingVertical: 10,
+                            borderColor: Colors.preto,
+                            borderBottomWidth: 1
+                        }} key='0'>
+                            <BotaoInicio onPress={abrirCG} styleExterno={{ width: '50%' }} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}> Registrar uma </BotaoInicio>
+                        </View>
+                    </View>
+                )
+            }
+
+            setResultsReceita(resultsReceitaHTML);
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    async function BuscarDespesas(data) {
+        console.log('---------------------')
+        try {
+            console.log(data)
+            data.idUsuario = await SecureStore.getItemAsync('id');
+            console.log(data.idUsuario)
+
+            const responseDespesa = await axios.post(GET_EXPENSES_URL, data);  // pega os dados do servidor
+
+            console.log(responseDespesa.data)
+
+            mes--;
+
+            let resultsDespesaHTML = [];
+
+            if (responseDespesa.data.result.length >= 1 && responseDespesa.data.result.dataFinal !== null) {
+                console.log('entrou')
+
+
+                resultsDespesaHTML.push(
+                    <CaixaMovimentacao key={[0]} dataMov={responseDespesa.data.result[0].dataMovimentacao} descMov={responseDespesa.data.result[0].descricaoMovimentacao} valor={responseDespesa.data.result[0].valorMovimentacao} maisMenos={'-'}></CaixaMovimentacao>
+                );
+
+
+            } else {
+                // talvez trocar o layout daqui.
+                resultsDespesaHTML.push(
+                    <View key="-1">
+
+                        <View style={styles.boxTitle} >
+                            <Text style={styles.textoPequeno}>
+                                Nenhuma despesa registrada esse mês.
+                            </Text>
+                        </View>
+                        <View style={{
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexDirection: 'row',
+                            paddingVertical: 10,
+                            borderColor: Colors.preto,
+                            borderBottomWidth: 1
+                        }} key='0'>
+                            <BotaoInicio onPress={abrirCG} styleExterno={{ width: '50%' }} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}> Registrar uma </BotaoInicio>
+                        </View>
+                    </View>
+                )
+            }
+            setResultsDespesa(resultsDespesaHTML);
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    async function BuscarInvestimentos() {
+        console.log('---------------------')
+        try {
+            let data = new Object();
+            let idUsuarioString = await SecureStore.getItemAsync('id');
+            data.idUsuario = Number(idUsuarioString);
+
+            const responseInvestimentos = await axios.post(GET_SIMULATION_URL, data);  // pega os dados do servidor
+
+            console.log(responseInvestimentos.data)
+
+            let resultsInvestimentosHTML = [];
+
+            if (responseInvestimentos.data.result.length >= 1 && responseInvestimentos.data.result[0].dataFinalSimulacao !== null) {
+                console.log('entrou')
+
+
+                let dateI = formatDate(responseInvestimentos.data.result[0].dataInicialSimulacao);
+                let dateF = formatDate(responseInvestimentos.data.result[0].dataFinalSimulacao);
+
+                console.log(responseInvestimentos.data.result[0].idSimulacao)
+
+                let dateIsplitYMD = dateI.split('-');
+                let dateFsplitYMD = dateF.split('-');
+
+                let meses = (dateFsplitYMD[0] - dateIsplitYMD[0]) * 12 + (dateFsplitYMD[1] - dateIsplitYMD[1]);
+                let porCento = 1 + responseInvestimentos.data.result[0].taxaCorretagemSimulacao / 100;
+                let jurosTotal = Math.pow(porCento, meses);
+                let montante = responseInvestimentos.data.result[0].valorInicialSimulacao * jurosTotal;
+                let lucro = montante - responseInvestimentos.data.result[0].valorInicialSimulacao;
+
+                resultsInvestimentosHTML.push(
+                    <CaixaInvestimento key={[responseInvestimentos.data.result[0].idSimulacao]}
+                        tempo={meses}
+                        texto={responseInvestimentos.data.result[0].descricaoSimulacao}
+                        valorI={responseInvestimentos.data.result[0].valorInicialSimulacao}
+                        lucro={lucro.toFixed(2)}
+                        idSimulacao={responseInvestimentos.data.result[0].idSimulacao}
+                        valorF={montante.toFixed(2)}>
+                    </CaixaInvestimento>
+                );
+
+
+            } else {
+                // talvez trocar o layout daqui.
+                resultsInvestimentosHTML.push(
+                    <View key="-1">
+                        <View style={styles.boxTitle} >
+                            <Text style={styles.textTitle}>
+                                Nenhum resultado encontrado
+                            </Text>
+                        </View>
+
+                    </View>
+                )
+            }
+
+            setResultsInvestimentos(resultsInvestimentosHTML);
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+    useEffect(() => {
+        let data = new Object();
+
+        data.dataInicial = dataInicial + 'T03:00:00.000Z';
+        data.dataFinal = dataFinal + 'T03:00:00.000Z';
+
+        BuscarReceitas(data);
+        BuscarDespesas(data);
+        BuscarInvestimentos();
+        //BuscarDespesas(data);
+    }, [])
+
+
+
+
+
+    function abrirPerfil() {
         navigation.navigate('perfil');
     }
-    function abrirSelecaoGraficos(){
-        navigation.navigate('selecionarGraficos');
+    function abrirSimulador() {
+        navigation.navigate('simulador');
     }
-    function abrirInvestimentos(){
+    function abrirInvestimentos() {
         navigation.navigate('investimentos');
+    }
+    function abrirCG() {
+        navigation.navigate('gastos')
     }
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <Header perfil={abrirPerfil}/>
+            <Header perfil={abrirPerfil} />
             <ScrollView style={{ marginTop: 70 }}>
-                <View style={{
-                    width: '100%', 
-                    alignSelf: 'center', 
-                    paddingVertical: 10, 
-                    marginTop: 10, 
-                    borderBottomColor: Colors.cinzaContorno, 
-                    borderBottomWidth: 1
-                }}>
-                    <Text style={[styles.textTitle, {marginLeft: 10}]}>Seus Gráficos</Text>
+                <View style={styles.boxTitle}>
+                    <Text style={styles.textTitle}>
+                        Investimento mais antigo:
+                    </Text>
                 </View>
-                <View style={[patternStyle.rootContainer2, {borderBottomColor:Colors.cinzaContorno, borderBottomWidth: 1}]}>
-                    <View style={styles.viewGrafico}>
-                        <Text style={styles.textoGrafico}> Gráfico</Text>
-                    </View>
-                    <View style={{width: '90%', borderRadius: 30, alignItems: 'flex-end'}}>
-                        <TouchableOpacity onPress={abrirSelecaoGraficos}>
-                            <Ionicons name='add-circle' size={50} color={Colors.verdePrincipal}/>
-                        </TouchableOpacity>
+                <View >
+                    {resultsInvestimentos}
+                    <View style={{
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        paddingVertical: 10,
+                        borderColor: Colors.preto,
+                        borderBottomWidth: 1
+                    }}>
+                        <BotaoInicio onPress={abrirInvestimentos} styleExterno={styles.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}> Ver Mais </BotaoInicio>
+                        <BotaoInicio onPress={abrirSimulador} styleExterno={styles.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}> Simular </BotaoInicio>
                     </View>
                 </View>
                 <View style={styles.boxTitle}>
                     <Text style={styles.textTitle}>
-                        Últimos Investimentos
+                        Receita mais antiga desse mês:
                     </Text>
                 </View>
                 <View >
-                    <CaixaInvestimento>(nome do investimento)</CaixaInvestimento>
-                    <CaixaInvestimento>(nome do investimento)</CaixaInvestimento>
-                    <CaixaInvestimento>(nome do investimento)</CaixaInvestimento>
-                    <View style={{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}>
-                        <BotaoInicio onPress={abrirInvestimentos} styleExterno={styles.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}> Ver Mais </BotaoInicio>
-                    </View>
+                    {resultsReceita}
+
+
+                </View>
+                <View style={styles.boxTitle}>
+                    <Text style={styles.textTitle}>
+                        Despesa mais antiga desse mês:
+                    </Text>
+                </View>
+                <View >
+                    {resultsDespesa}
+
+
                 </View>
             </ScrollView >
         </SafeAreaView >
@@ -70,15 +307,6 @@ function TelaHome({navigation}) {
 export default TelaHome;
 
 const styles = StyleSheet.create({
-    alertaBox: {
-        width: '90%',
-        backgroundColor: Colors.verdePrincipal,
-        borderRadius: 30,
-        marginTop: 20,
-        paddingHorizontal: 15,
-        paddingVertical: 20,
-        elevation: 5
-    },
     xButton: {
         margin: 10,
         color: Colors.branco,
@@ -125,9 +353,15 @@ const styles = StyleSheet.create({
     },
     botaoExterno: {
         width: '40%',
+        marginHorizontal: 10
     },
     botaoInterno: {
-        backgroundColor: Colors.verdeSecundario,
-        paddingVertical: 10
+        backgroundColor: Colors.verdePrincipal,
+        paddingVertical: 14
     },
+    textoPequeno: {
+        fontSize: 16,
+        color: Colors.preto,
+        fontFamily: 'roboto-regular',
+    }
 })
