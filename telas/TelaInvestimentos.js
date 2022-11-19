@@ -42,10 +42,22 @@ function TelaInvestimentos() {
                     </View>
                 </View>
 
+<<<<<<< Updated upstream
                 <View style={styles.boxTitle}>
                     <Text style={styles.textTitle}>
                         Investimentos salvos
                     </Text>
+=======
+                <View style={{ alignItems: 'center', marginTop: 10}}>
+                    <BotaoInicio
+                        onPress={handleSubmit(BuscarReceitas)}
+                        styleExterno={patternStyle.botaoExterno}
+                        styleCorpo={[styles.botaoInterno, { backgroundColor: Colors.verdePrincipal }]}
+                        styleTexto={patternStyle.textoBotao}>
+                        <Ionicons name='add-circle-outline' color='white' size={20} />
+                        Buscar
+                    </BotaoInicio>
+>>>>>>> Stashed changes
                 </View>
 
                 <CaixaInvestimento>{texto}</CaixaInvestimento>

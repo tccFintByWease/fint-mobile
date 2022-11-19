@@ -7,6 +7,7 @@ import Colors from '../constantes/colors';
 import CaixaInvestimento from '../componentes/CaixaInvestimento';
 import BotaoInicio from '../componentes/BotaoInicio';
 
+<<<<<<< Updated upstream
 function TelaControleGastos() {
     return (
         <View style={{ flex: 1 }}>
@@ -69,11 +70,113 @@ function TelaControleGastos() {
                         </View>
                     </View>
                 </View>
+=======
+    let receitaMensal = 0;
+    let despesaMensal = 0;
+
+    return (
+        <View>
+            <ScrollView>
+                <Header />
+                <View >
+                    <View style={{ flex: 1, flexDirection: 'row', display: 'flex', marginHorizontal: 5}}>
+                        <View style={styles.caixaMensal}>
+                            <Text style={styles.caixaMensalTitulo}>
+                                Receita Mensal
+                            </Text>
+                            <Text style={styles.caixaMensalValor}>
+                                R$ {receitaMensal}
+                            </Text>
+                        </View>
+                        <View style={styles.caixaMensal}>
+                            <Text style={styles.caixaMensalTitulo}>
+                                Despesa Mensal
+                            </Text>
+                            <Text style={styles.caixaMensalValor}>
+                                R$ {despesaMensal}
+                            </Text>
+                        </View>
+                    </View>
+                    <TouchableOpacity onPress={abrirCadastroMovimentacao}>
+                        <View style={styles.botaoCadastro}>
+                            <View style={{ flex: 5, alignItems: 'center', justifyContent: 'center' }}>
+                                <Text style={{ fontFamily: 'roboto-bold', fontSize: 18, color: Colors.branco }}>Adicionar movimentação</Text>
+                            </View>
+                            <View style={{ flex: 1, marginRight: 5 }}>
+                                <Ionicons style={{ alignSelf: 'center' }} name='add' color='white' size={32} />
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+                    <View style={styles.boxTitle}>
+                        <Text style={styles.textTitle}>
+                            Receitas e Despesas mensais
+                        </Text>
+                    </View>
+                    <View style={{ borderTopColor: Colors.cinzaClaro, borderTopWidth: 1, flex: 1, flexDirection: 'row' }}>
+                        <Pressable onPress={() => setSelecionado(true)} style={{ flex: 1 }}>
+                            <View style={[
+                                selecionado ?
+                                    { borderBottomColor: Colors.verdePrincipal }
+                                    :
+                                    { borderBottomColor: Colors.preto },
+                                {
+                                    borderBottomWidth: 1,
+                                    alignItems: 'center',
+                                    paddingBottom: 6,
+                                    padding: 6
+                                }]
+                            }>
+                                <Text style={
+                                    selecionado ?
+                                        { color: Colors.verdePrincipal, fontSize: 15, textAlign: 'center' }
+                                        :
+                                        { color: Colors.preto, fontSize: 15, textAlign: 'center' }
+                                }>
+                                    Receitas
+                                </Text>
+                            </View>
+                        </Pressable>
+                        <Pressable onPress={() => setSelecionado(false)} style={{ flex: 1 }}>
+                            <View style={[
+                                selecionado ?
+                                    { borderBottomColor: Colors.preto }
+                                    :
+                                    { borderBottomColor: Colors.verdePrincipal },
+                                {
+                                    borderBottomWidth: 1,
+                                    alignItems: 'center',
+                                    paddingBottom: 6,
+                                    padding: 6
+                                }]
+                            }>
+                                <Text style={
+                                    selecionado ?
+                                        { color: Colors.preto, fontSize: 15, textAlign: 'center' }
+                                        :
+                                        { color: Colors.verdePrincipal, fontSize: 15, textAlign: 'center' }
+                                }>
+                                    Despesas
+                                </Text>
+                            </View>
+                        </Pressable>
+                    </View>
+                    {selecionado ?
+                        <ScrollView style={{ maxHeight: 300 }}>
+                            {resultsReceita}
+                        </ScrollView>
+                        :
+                        <ScrollView style={{ maxHeight: 300 }}>
+                            {resultsDespesa}
+                        </ScrollView>
+                    }
+                </View>
+>>>>>>> Stashed changes
             </ScrollView >
         </View >
     );
 }
 
+<<<<<<< Updated upstream
 let texto = "(nome da receita)";
 
 export default TelaControleGastos;
@@ -107,39 +210,55 @@ const styles = StyleSheet.create({
         marginTop: 30,
         marginHorizontal: 10,
         marginBottom: 5,
+=======
+export default TelaControleGastos;
+
+const styles = StyleSheet.create({
+    boxTitle: {
+        marginVertical: 15,
+        marginHorizontal: 10,
+        paddingHorizontal: 5,
+>>>>>>> Stashed changes
     },
     textTitle: {
-        fontSize: 23,
+        fontSize: 20,
         color: Colors.preto,
-        letterSpacing: 1.8,
+        letterSpacing: 1.5,
         fontFamily: 'roboto-bold',
     },
-    botaoExterno: {
-        width: '40%',
-    },
-    botaoInterno: {
-        backgroundColor: Colors.verdeSecundario,
-        paddingVertical: 10
-    },
-    xButton: {
+    botaoCadastro:{
         height: 50,
-        width: 40,
-        marginRight: 6,
-        color: Colors.branco,
-        fontSize: 35,
-        fontFamily: 'Nunito-SemiBold',
+        alignItems: 'center',
+        marginVertical: 25,
+        display: 'flex',
+        flexDirection: 'row',
+        marginHorizontal: 20,
+        borderRadius: 50,
+        backgroundColor: Colors.verdePrincipal,
+        elevation: 3
     },
-    botaoAlerta: {
-        borderRadius: 30,
-        backgroundColor: Colors.branco,
-        width: 200,
-        height: 40,
-        marginTop: 12,
-        padding: 7
+    caixaMensal:{
+        flex: 1, 
+        alignItems: 'center', 
+        padding: 10, 
+        backgroundColor: Colors.verdeSecundario, 
+        borderTopWidth: 1,
+        borderTopColor: Colors.branco,
+        borderRadius: 15,
+        marginHorizontal: 5
     },
-    txtBotaoAlerta: {
-        fontFamily: 'roboto-regular',
-        fontSize: 20,
-        textAlign: 'center'
+    caixaMensalTitulo:{
+        fontSize: 16, 
+        fontFamily: 'roboto-bold', 
+        color: Colors.branco, 
+        letterSpacing: 1.5, 
+        textAlign: 'center' 
+    },
+    caixaMensalValor:{
+        fontSize: 18, 
+        color: Colors.branco, 
+        letterSpacing: 1.2, 
+        textAlign: 'center', 
+        marginTop: 10 
     }
 })
