@@ -27,7 +27,17 @@ const formatDatetime = (date) => {
     }
 }
 
+const formatDate = (date) => {
+    let fullDateTime = formatDatetime(date);
+    // return yyyy-mm-dd hh:mm:ss
+
+    fullDateTime = fullDateTime.split(' ');
+
+    return fullDateTime[0];
+}
+
 export {
     getTodayDate,
-    formatDatetime
+    formatDatetime,
+    formatDate
 }

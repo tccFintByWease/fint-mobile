@@ -15,7 +15,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { INSERT_SIMULATION_URL } from '../store/api-urls';
 
-import { formatDatetime, getTodayDate } from '../utils/date-utils';
+import { formatDatetime, getTodayDate, formatDate } from '../utils/date-utils';
 import { TextInputMask } from 'react-native-masked-text';
 import { simulationSchema } from '../store/schemas/simulation-schema';
 
@@ -53,21 +53,8 @@ export default function TelaSimulador() {
 
         //let dataFinalSimulacao = new Date(data.dataFinalSimulacao).toLocaleString(); //TODO -> PEGAR ESSA PORRA DE DATA, SEPARAR CERTINHO E SALVAR ELA. TOLOCALEDATESTRING NÃO TÁ FUNCIONANDO SEI LA PQ
 
-        let dataFinalSimulacao = formatDatetime(data.dataFinalSimulacao);
+        let dataFinalSimulacao = formatDate(data.dataFinalSimulacao);
         console.log('dataFinalSimulacao 1')
-        console.log(dataFinalSimulacao)
-
-        dataFinalSimulacao = dataFinalSimulacao.split('-')
-        dataFinalSimulacao[2] = dataFinalSimulacao[2].replace(' 00:00:00', '');
-        console.log('dataFinalSimulacao 2')
-        console.log(dataFinalSimulacao)
-        const ano = dataFinalSimulacao[0];
-        const mes = dataFinalSimulacao[1];
-        const dia = dataFinalSimulacao[2];
-
-
-        dataFinalSimulacao = `${ano}-${mes}-${dia}`;
-        console.log('dataFinalSimulacao 3')
         console.log(dataFinalSimulacao)
 
         let dataInicialSimulacao = data.dataInicialSimulacao;
