@@ -39,13 +39,12 @@ function TelaInvestimentos() {
 
     const [resultsInvestimentos, setResultsInvestimentos] = useState([]); // getter / "setter"
 
-    async function BuscarReceitas(data) {
+    async function BuscarInvestimentos() {
         console.log('---------------------')
         try {
-            console.log(data)
-            data.idUsuarioString = await SecureStore.getItemAsync('id');
-            data.idUsuario = Number(data.idUsuarioString);
-            delete data.idUsuarioString;
+            let data = new Object();
+            let idUsuarioString = await SecureStore.getItemAsync('id');
+            data.idUsuario = Number(idUsuarioString);
 
             const responseInvestimentos = await axios.post(GET_SIMULATION_URL, data);  // pega os dados do servidor
 
@@ -55,15 +54,6 @@ function TelaInvestimentos() {
 
             if (responseInvestimentos.data.result.length >= 1 && responseInvestimentos.data.result[0].dataFinalSimulacao !== null) {
                 console.log('entrou')
-
-                // Imprimo o header "investimentos salvos"
-                resultsInvestimentosHTML.push(
-                    <View style={styles.boxTitle} key="-1">
-                        <Text style={styles.textTitle}>
-                            Investimentos salvos
-                        </Text>
-                    </View>
-                )
 
                 for (var i = 0; i < responseInvestimentos.data.result.length; i++) {
                     let dateI = formatDate(responseInvestimentos.data.result[i].dataInicialSimulacao);
@@ -107,13 +97,7 @@ function TelaInvestimentos() {
         }
     }
     useEffect(() => {
-        console.log('uai');
-        let data = new Object();
-
-        data.dataInicial = '2022-11-01T03:00:00.000Z';
-        data.dataFinal = '2050-01-01T03:00:00.000Z';
-
-        BuscarReceitas(data);
+        BuscarInvestimentos();
         //BuscarDespesas(data);
     }, [])
 
@@ -126,67 +110,20 @@ function TelaInvestimentos() {
 
                 <View style={styles.boxTitle}>
                     <Text style={styles.textTitle}>
-                        Mostrar seus investimentos salvos:
+                        Seus investimentos salvos:
                     </Text>
-                </View>
-                <View style={styles.viewAdjacente}>
-                    <Text style={styles.textoCinza}>Data</Text>
-                    <Controller
-                        name='dataInicial'
-                        control={control}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <TextInputMask
-                                style={patternStyle.input2}
-                                onChangeText={onChange}
-                                onBlur={onBlur}
-                                value={value}
-                                placeholder="Data Inicial"
-                                maxLength={15}
-                                type='datetime'
-                                options={{
-                                    format: 'dd/MM/yyyy'
-                                }}
-                            />
-                        )}
-                    />
-                    {errors.dataInicial && <Text style={patternStyle.labelError}>{errors.dataInicial?.message}</Text>}
-                </View>
-                <View style={styles.viewAdjacente}>
-                    <Text style={styles.textoCinza}>Data</Text>
-                    <Controller
-                        name='dataFinal'
-                        control={control}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <TextInputMask
-                                style={patternStyle.input2}
-                                onChangeText={onChange}
-                                onBlur={onBlur}
-                                value={value}
-                                placeholder="Data Final"
-                                maxLength={15}
-                                type='datetime'
-                                options={{
-                                    format: 'dd/MM/yyyy'
-                                }}
-                            />
-                        )}
-                    />
-                    {errors.dataFinal && <Text style={patternStyle.labelError}>{errors.dataFinal?.message}</Text>}
-                </View>
-
-                <View style={{ alignItems: 'center', display: 'flex', marginTop: 10, flexDirection: 'row' }}>
-                    <BotaoInicio
-                        onPress={handleSubmit(BuscarReceitas)}
-                        styleExterno={patternStyle.botaoExterno}
-                        styleCorpo={[styles.botaoInterno, { backgroundColor: Colors.verdePrincipal }]}
-                        styleTexto={patternStyle.textoBotao}>
-                        <Ionicons name='add-circle-outline' color='white' size={20} />
-                        Buscar
-                    </BotaoInicio>
                 </View>
 
                 {resultsInvestimentos}
-
+                <View style={{ alignContent: 'center', paddingBottom: 15, padding: 10, alignItems: 'center' }} key="7">
+                    <BotaoInicio
+                        onPress={BuscarInvestimentos}
+                        styleExterno={patternStyle.botaoExterno}
+                        styleCorpo={patternStyle.botaoInterno}
+                        styleTexto={patternStyle.textoBotao}>
+                        Atualizar Investimentos
+                    </BotaoInicio>
+                </View>
             </ScrollView >
         </View >
     );
