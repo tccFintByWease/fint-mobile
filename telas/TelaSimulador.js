@@ -129,7 +129,7 @@ export default function TelaSimulador() {
                     />
                     {errors.descricaoSimulacao && <Text style={patternStyle.labelError}>{errors.descricaoSimulacao?.message}</Text>}
                 </View>
-                <View style={{ alignContent: 'center' }} key="7">
+                <View style={{ alignContent: 'center', paddingBottom: 15, padding: 10, alignItems: 'center' }} key="7">
                     <BotaoInicio
                         onPress={handleSubmit(criarSimulacao)}
                         styleExterno={patternStyle.botaoExterno}
@@ -155,6 +155,8 @@ export default function TelaSimulador() {
 
         const response = await axios.post(INSERT_SIMULATION_URL, data);
         console.log(response.data);
+
+        Alert.alert("Simulação salva na tela 'Simulações'")
 
     }
     return (
@@ -226,7 +228,7 @@ export default function TelaSimulador() {
                     {errors.taxaCorretagemSimulacao && <Text style={patternStyle.labelError}>{errors.taxaCorretagemSimulacao?.message}</Text>}
                 </View>
 
-                <View style={{ alignContent: 'center' }}>
+                <View style={{ alignContent: 'center', borderBottomColor: Colors.cinzaContorno, borderBottomWidth: 1, paddingBottom: 15, padding: 10, alignItems: 'center' }}>
 
                     <BotaoInicio
                         onPress={handleSubmit(Simular)}
@@ -273,7 +275,7 @@ const styles = StyleSheet.create({
         marginLeft: 20
     },
     textoPequeno: {
-        fontSize: 14,
+        fontSize: 16,
         color: Colors.preto,
     },
     textTitle: {
@@ -311,6 +313,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     viewAdjacente: {
-        marginHorizontal: 12
+        marginHorizontal: 12,
+        marginVertical: 6,
     }
 })
