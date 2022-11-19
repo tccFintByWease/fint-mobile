@@ -6,7 +6,6 @@ import BotaoInicio from './BotaoInicio';
 import patternStyle from '../constantes/style';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { INSERT_CATEGORY_URL } from '../store/api-urls';
 import axios from 'axios';
 import { INSERT_CATEGORY_URL } from '../store/api-urls';
 
@@ -30,7 +29,7 @@ function CriarCategoria({ }) {
     const [idTipoMovimentacao, setIdTipoMovimentacao] = useState('');
     const [cor, setCor] = useState('');
 
-    return(
+    return (
         <ScrollView>
             <View style={styles.rootContainer}>
                 <View style={styles.viewTopo}>
@@ -40,7 +39,7 @@ function CriarCategoria({ }) {
                     <View style={styles.viewAdjacente}>
                         <Text style={styles.textoCinza}>Nome</Text>
                         <View>
-                            <Controller 
+                            <Controller
                                 name='descricaoCategoria'
                                 control={control}
                                 render={({ field: { onChange, onBlur, value } }) => (
@@ -58,48 +57,48 @@ function CriarCategoria({ }) {
                     </View>
                     <View style={styles.viewAdjacente}>
                         <Text style={styles.textoCinza}>Cor</Text>
-                        <View style={{marginTop: 5}}>
-                            <Controller 
+                        <View style={{ marginTop: 5 }}>
+                            <Controller
                                 name='corCategoria'
                                 control={control}
                                 render={({ field: { onChange, onBlur, value } }) => (
-                                    <View style={{flexDirection: 'row', display: 'flex'}}>
-                                        <View style={{flex: 1, alignItems: 'center', backgroundColor: '#f05a4f', borderRadius: 15, marginHorizontal: 3}}>
+                                    <View style={{ flexDirection: 'row', display: 'flex' }}>
+                                        <View style={{ flex: 1, alignItems: 'center', backgroundColor: '#f05a4f', borderRadius: 15, marginHorizontal: 3 }}>
                                             <RadioButton
                                                 value="#f05a4f"
                                                 status={cor === '#f05a4f' ? 'checked' : 'unchecked'}
                                                 onPress={() => setCor('#f05a4f')}
                                             />
                                         </View>
-                                        <View style={{flex: 1, alignItems: 'center', backgroundColor: '#f5bc38', borderRadius: 15, marginHorizontal: 3}}>
+                                        <View style={{ flex: 1, alignItems: 'center', backgroundColor: '#f5bc38', borderRadius: 15, marginHorizontal: 3 }}>
                                             <RadioButton
                                                 value="#f5bc38"
                                                 status={cor === '#f5bc38' ? 'checked' : 'unchecked'}
                                                 onPress={() => setCor('#f5bc38')}
                                             />
                                         </View>
-                                        <View style={{flex: 1, alignItems: 'center', backgroundColor: '#f0ed59', borderRadius: 15, marginHorizontal: 3}}>
+                                        <View style={{ flex: 1, alignItems: 'center', backgroundColor: '#f0ed59', borderRadius: 15, marginHorizontal: 3 }}>
                                             <RadioButton
                                                 value="#f0ed59"
                                                 status={cor === '#f0ed59' ? 'checked' : 'unchecked'}
                                                 onPress={() => setCor('#f0ed59')}
                                             />
                                         </View>
-                                        <View style={{flex: 1, alignItems: 'center', backgroundColor: '#8aafde', borderRadius: 15, marginHorizontal: 3}}>
+                                        <View style={{ flex: 1, alignItems: 'center', backgroundColor: '#8aafde', borderRadius: 15, marginHorizontal: 3 }}>
                                             <RadioButton
                                                 value="#8aafde"
                                                 status={cor === '#8aafde' ? 'checked' : 'unchecked'}
                                                 onPress={() => setCor('#8aafde')}
                                             />
                                         </View>
-                                        <View style={{flex: 1, alignItems: 'center', backgroundColor: '#7da374', borderRadius: 15, marginHorizontal: 3}}>
+                                        <View style={{ flex: 1, alignItems: 'center', backgroundColor: '#7da374', borderRadius: 15, marginHorizontal: 3 }}>
                                             <RadioButton
                                                 value="#7da374"
                                                 status={cor === '#7da374' ? 'checked' : 'unchecked'}
                                                 onPress={() => setCor('#7da374')}
                                             />
                                         </View>
-                                        <View style={{flex: 1, alignItems: 'center', backgroundColor: '#f5a9e1', borderRadius: 15, marginHorizontal: 3}}>
+                                        <View style={{ flex: 1, alignItems: 'center', backgroundColor: '#f5a9e1', borderRadius: 15, marginHorizontal: 3 }}>
                                             <RadioButton
                                                 value="#f5a9e1"
                                                 status={cor === '#f5a9e1' ? 'checked' : 'unchecked'}
@@ -114,7 +113,7 @@ function CriarCategoria({ }) {
                     <View style={styles.viewAdjacente}>
                         <Text style={styles.textoCinza}>Tipo Movimentação</Text>
                         <View>
-                            <Controller 
+                            <Controller
                                 name='idTipoMovimentacao'
                                 control={control}
                                 render={({ field: { onChange, onBlur, value } }) => (
@@ -140,11 +139,11 @@ function CriarCategoria({ }) {
                             />
                         </View>
                     </View>
-                    <View style={{marginTop: 25, alignItems: 'center'}}>
-                        <BotaoInicio 
-                            onPress={handleSubmit(criarCategoria)}
-                            styleExterno={patternStyle.botaoExterno} 
-                            styleCorpo={styles.botaoInterno} 
+                    <View style={{ marginTop: 25, alignItems: 'center' }}>
+                        <BotaoInicio
+                            onPress={handleSubmit(adicionarCategoria)}
+                            styleExterno={patternStyle.botaoExterno}
+                            styleCorpo={styles.botaoInterno}
                             styleTexto={patternStyle.textoBotao}>
                             Criar
                         </BotaoInicio>

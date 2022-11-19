@@ -76,7 +76,6 @@ function TelaCadastro({ navigation }) {
 
                 const response = await axios.post(SIGN_UP_URL, data);
                 Alert.alert("conta criada!")
-                navigation.navitate('dinheiroMoeda')
                 console.log(response)
 
             }
@@ -131,7 +130,7 @@ function TelaCadastro({ navigation }) {
                                 control={control}
                                 name="senhaUsuario"
                                 render={({ field: { onChange, onBlur, value } }) => (
-                                    <InputSenha 
+                                    <InputSenha
                                         onChange={onChange}
                                         onBlur={onBlur}
                                         value={value}
@@ -144,7 +143,7 @@ function TelaCadastro({ navigation }) {
                                 control={control}
                                 name="confirmarSenha"
                                 render={({ field: { onChange, onBlur, value } }) => (
-                                    <InputSenha 
+                                    <InputSenha
                                         onChange={onChange}
                                         onBlur={onBlur}
                                         value={value}

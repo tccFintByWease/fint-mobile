@@ -5,8 +5,18 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 function CaixaInvestimento(props) {
-    function setinhaReceiver() {
-        console.log('>');
+    function setinhaReceiver(props) {
+
+        var dataInicial = props.dataInicial;
+        var dataFinal = props.dataFinal;
+
+        var data1 = new Date(dataInicial);
+        var data2 = new Date(new Date(dataFinal));
+        var total = (data2.getFullYear() - data1.getFullYear()) * 12 + (data2.getMonth() - data1.getMonth());
+
+
+
+
     };
 
 

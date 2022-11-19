@@ -4,8 +4,27 @@ import React from 'react';
 import Colors from '../constantes/colors'
 import BotaoInicio from './BotaoInicio';
 import patternStyle from '../constantes/style';
+import axios from 'axios';
+import { getTodayDate } from '../utils/date-utils';
+import { clickProps } from 'react-native-web/dist/cjs/modules/forwardedProps';
 
 function SimulacaoAlterarDados() {
+
+    async function adicionarSimulacao() {
+
+        const dataInicial = getTodayDate();
+
+        data.dataFinal = dataFinal;
+
+
+
+        var data1 = new Date(dataInicial);
+        var data2 = new Date(new Date(dataFinal));
+        var total = (data2.getFullYear() - data1.getFullYear()) * 12 + (data2.getMonth() - data1.getMonth());
+
+
+    };
+
     return <View style={{ flex: 1 }}>
         <View style={styles.viewTopo}>
             <Text style={styles.textoTopo}> Simulação </Text>
@@ -27,7 +46,7 @@ function SimulacaoAlterarDados() {
                 <TextInput style={styles.textoPretoDentro} defaultValue={'24'} keyboardType='number-pad' />
             </View>
             <View style={{ alignItems: 'center', padding: 6 }}>
-                <BotaoInicio styleExterno={patternStyle.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}>Simular</BotaoInicio>
+                <BotaoInicio onPress={handleResponse()} styleExterno={patternStyle.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}>Simular</BotaoInicio>
             </View>
         </View>
     </View >

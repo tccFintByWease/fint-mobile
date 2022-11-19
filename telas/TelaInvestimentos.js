@@ -26,7 +26,7 @@ function TelaInvestimentos() {
 
     //     var data1 = new Date(dt1); 
     //     var data2 = new Date(new Date(dt2));
-    //     var total = (data2.getFullYear() - data1.getFullYear())*12 + (data2.getMonth() - data1.getMonth());
+    // var total = (data2.getFullYear() - data1.getFullYear()) * 12 + (data2.getMonth() - data1.getMonth());
     //     document.getElementById("result").value = total;
     //     }
 
@@ -66,7 +66,7 @@ function TelaInvestimentos() {
 
                 for (var i = 0; i < responseInvestimentos.data.result.length; i++) {
                     resultsInvestimentosHTML.push(
-                        <CaixaInvestimento key={[i]} texto={responseInvestimentos.data.result[i].idUsuario} valor={responseInvestimentos.data.result[i].valorMovimentacao}></CaixaInvestimento>
+                        <CaixaInvestimento key={[i]} dataInicial={responseInvestimentos} dataFinal={responseInvestimentos} texto={responseInvestimentos.data.result[i].idUsuario} valor={responseInvestimentos.data.result[i].valorMovimentacao}></CaixaInvestimento>
                     );
                 }
 
@@ -125,7 +125,7 @@ function TelaInvestimentos() {
                                 maxLength={15}
                                 type='datetime'
                                 options={{
-                                    format: 'DD/MM/YYYY'
+                                    format: 'dd/MM/yyyy'
                                 }}
                             />
                         )}
@@ -147,7 +147,7 @@ function TelaInvestimentos() {
                                 maxLength={15}
                                 type='datetime'
                                 options={{
-                                    format: 'DD/MM/YYYY'
+                                    format: 'dd/MM/yyyy'
                                 }}
                             />
                         )}

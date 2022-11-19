@@ -66,7 +66,7 @@ function TelaControleGastos({ navigation }) {
 
                 for (var i = 0; i < responseReceita.data.result.length; i++) {
                     resultsReceitaHTML.push(
-                        <CaixaMovimentacao key={[i]} descMov={responseReceita.data.result[i].descricaoMovimentacao} valor={responseReceita.data.result[i].valorMovimentacao} maisMenos={'+'}></CaixaMovimentacao>
+                        <CaixaMovimentacao key={[i]} dataMov={responseReceita.data.result[i].dataMovimentacao} descMov={responseReceita.data.result[i].descricaoMovimentacao} valor={responseReceita.data.result[i].valorMovimentacao} maisMenos={'+'}></CaixaMovimentacao>
                     );
                 }
 
