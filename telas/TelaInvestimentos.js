@@ -48,6 +48,8 @@ function TelaInvestimentos() {
 
             const responseInvestimentos = await axios.post(GET_SIMULATION_URL, data);  // pega os dados do servidor
 
+
+
             console.log(responseInvestimentos.data)
 
             let resultsInvestimentosHTML = [];
@@ -58,6 +60,7 @@ function TelaInvestimentos() {
                 for (var i = 0; i < responseInvestimentos.data.result.length; i++) {
                     let dateI = formatDate(responseInvestimentos.data.result[i].dataInicialSimulacao);
                     let dateF = formatDate(responseInvestimentos.data.result[i].dataFinalSimulacao);
+                    console.log(responseInvestimentos.data.result[i].idSimulacao)
 
                     let dateIsplitYMD = dateI.split('-');
                     let dateFsplitYMD = dateF.split('-');
@@ -75,6 +78,7 @@ function TelaInvestimentos() {
                             texto={responseInvestimentos.data.result[i].descricaoSimulacao}
                             valorI={responseInvestimentos.data.result[i].valorInicialSimulacao}
                             lucro={lucro.toFixed(2)}
+                            idSimulacao={responseInvestimentos.data.result[i].idSimulacao}
                             valorF={montante.toFixed(2)}></CaixaInvestimento>
                     );
                 }

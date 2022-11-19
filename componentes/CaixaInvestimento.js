@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import Colors from '../constantes/colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 function CaixaInvestimento(props) {
-    function setinhaReceiver(props) {
+    let sus = props.idSimulacao
+    function setinhaReceiver() {
 
-
+        console.log(sus)
 
     };
 
