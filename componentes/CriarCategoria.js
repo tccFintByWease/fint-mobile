@@ -7,7 +7,6 @@ import patternStyle from '../constantes/style';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios';
-import { INSERT_CATEGORY_URL } from '../store/api-urls';
 
 function CriarCategoria({ }) {
     const { control, handleSubmit } = useForm();
@@ -141,7 +140,11 @@ function CriarCategoria({ }) {
                     </View>
                     <View style={{ marginTop: 25, alignItems: 'center' }}>
                         <BotaoInicio
+<<<<<<< Updated upstream
                             onPress={handleSubmit(adicionarCategoria)}
+=======
+                            onPress={handleSubmit(criarCategoria)}
+>>>>>>> Stashed changes
                             styleExterno={patternStyle.botaoExterno}
                             styleCorpo={styles.botaoInterno}
                             styleTexto={patternStyle.textoBotao}>
