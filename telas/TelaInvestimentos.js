@@ -73,7 +73,7 @@ function TelaInvestimentos() {
                     let lucro = montante - responseInvestimentos.data.result[i].valorInicialSimulacao;
 
                     resultsInvestimentosHTML.push(
-                        <CaixaInvestimento key={[i]}
+                        <CaixaInvestimento key={[responseInvestimentos.data.result[i].idSimulacao]}
                             tempo={meses}
                             texto={responseInvestimentos.data.result[i].descricaoSimulacao}
                             valorI={responseInvestimentos.data.result[i].valorInicialSimulacao}

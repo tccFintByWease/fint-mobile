@@ -1,14 +1,26 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, Pressable, StyleSheet, Alert } from 'react-native';
 import Colors from '../constantes/colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import axios from 'axios';
+import { DELETE_SIMULATION_URL } from '../store/api-urls';
 
 
 function CaixaInvestimento(props) {
-    let sus = props.idSimulacao
-    function setinhaReceiver() {
 
-        console.log(sus)
+    let idSimulacao = props.idSimulacao
+
+    async function setinhaReceiver() {
+
+        console.log(idSimulacao)
+
+        console.log(typeof idSimulacao)
+
+        const response = await axios.delete(DELETE_SIMULATION_URL, { data: idSimulacao })
+
+        console.log(response.data)
+
+        Alert.alert("Investimento excluído")
 
     };
 
@@ -25,8 +37,23 @@ function CaixaInvestimento(props) {
                 <Text style={styles.textoPequeno}>Montante: R$ {props.valorF}</Text>
             </View>
             <View style={{ position: 'absolute', right: 0 }}>
-                <Pressable onPress={setinhaReceiver}>
-                    <Ionicons name='chevron-forward-outline' size={40} style={{ margin: 15 }} />
+                <Pressable onPress={() => Alert.alert(
+                    "Confirmar",
+                    "Tem certeza que quer deletar esse investimento?",
+                    [
+                        {
+                            text: "Cancelar",
+                            onPress: () => console.log("Cancel Pressed"),
+                            style: "cancel"
+                        },
+                        {
+                            text: "Sim",
+                            onPress: setinhaReceiver,
+                        }
+                    ],
+                    { cancelable: false }
+                )}>
+                    <Ionicons name='trash-bin' size={40} style={{ margin: 15 }} />
                 </Pressable>
             </View>
         </View>
