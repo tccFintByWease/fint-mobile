@@ -44,6 +44,7 @@ function TelaLogin({ navigation }) {
                 navigation.navigate('home');
                 const sus = (response.data.result.idUsuario).toString();
                 await SecureStore.setItemAsync("id", sus);
+                await SecureStore.setItemAsync("email", data.emailUsuario)
 
                 const subla = await SecureStore.getItemAsync("id");
                 console.log(subla)
@@ -85,7 +86,7 @@ function TelaLogin({ navigation }) {
                             name='senhaUsuario'
                             control={control}
                             render={({ field: { onChange, onBlur, value } }) => (
-                                <InputSenha 
+                                <InputSenha
                                     onChange={onChange}
                                     onBlur={onBlur}
                                     value={value}

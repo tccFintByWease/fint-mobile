@@ -1,20 +1,33 @@
 import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, Pressable } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as SecureStore from 'expo-secure-store';
+import { LOOK_FOR_EMAIL_URL } from '../store/api-urls';
 
 import Colors from '../constantes/colors';
+import axios from 'axios';
 
 function Header({ }) {
-    async function perfilResponse() {
-        const sus = await SecureStore.getItemAsync("email");
-        console.log(sus);
-    };
-    function notificationResponse() {
-        console.log('notific')
-    };
 
-    const [hideSaldo, setHideSaldo] = useState(true);
+    const [userName, setUserName] = useState([]);
+
+    async function perfilResponse() {
+        console.log('oi')
+    };
+    async function nomeUser() {
+        let data = new Object();
+
+        data.emailUsuario = await SecureStore.getItemAsync("email")
+        const response = await axios.post(LOOK_FOR_EMAIL_URL, data)
+
+        console.log(response.data);
+        setUserName(response.data.result.nomeUsuario)
+    }
+
+    useEffect(() => {
+        nomeUser();
+
+    }, [])
 
     return <SafeAreaView style={{ flex: 1, position: 'relative', height: 300 }}>
         <View style={styles.container}>
@@ -25,29 +38,13 @@ function Header({ }) {
             </View>
             <View style={styles.caixaDinheiro}>
                 <Text style={styles.txtSaldo}>
-                    Saldo
+                    Olá,
                 </Text>
                 <View style={styles.caixaSaldo}>
                     <Text style={styles.txtValor}>
-                        {hideSaldo ?
-                            "R$22,50"
-                            :
-                            "Oculto"
-                        }
+                        {userName}!
                     </Text>
-                    <TouchableOpacity style={styles.icon} onPress={() => setHideSaldo(!hideSaldo)}>
-                        {hideSaldo ?
-                            <Ionicons name="eye" color='#000' size={25} />
-                            :
-                            <Ionicons name="eye-off" color='#000' size={25} />
-                        }
-                    </TouchableOpacity>
                 </View>
-            </View>
-            <View style={styles.viewNotific}>
-                <Pressable onPress={notificationResponse}>
-                    <Ionicons name='notifications' size={35} />
-                </Pressable>
             </View>
         </View >
     </SafeAreaView>
