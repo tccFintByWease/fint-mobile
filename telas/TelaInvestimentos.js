@@ -13,8 +13,9 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { TextInputMask } from 'react-native-masked-text';
 import { investimentoSchema } from '../store/schemas/investimento-schema';
-import { GET_REVENUES_URL } from '../store/api-urls'
+import { GET_SIMULATION_URL } from '../store/api-urls'
 import * as SecureStore from 'expo-secure-store';
+import { formatDatetime, formatDate } from '../utils/date-utils';
 
 
 function TelaInvestimentos() {
@@ -46,13 +47,13 @@ function TelaInvestimentos() {
             data.idUsuario = Number(data.idUsuarioString);
             delete data.idUsuarioString;
 
-            const responseInvestimentos = await axios.post(GET_REVENUES_URL, data);  // pega os dados do servidor
+            const responseInvestimentos = await axios.post(GET_SIMULATION_URL, data);  // pega os dados do servidor
 
             console.log(responseInvestimentos.data)
 
             let resultsInvestimentosHTML = [];
 
-            if (responseInvestimentos.data.result.length >= 1 && responseInvestimentos.data.result.dataFinal !== null) {
+            if (responseInvestimentos.data.result.length >= 1 && responseInvestimentos.data.result[0].dataFinalSimulacao !== null) {
                 console.log('entrou')
 
                 // Imprimo o header "investimentos salvos"
@@ -65,8 +66,26 @@ function TelaInvestimentos() {
                 )
 
                 for (var i = 0; i < responseInvestimentos.data.result.length; i++) {
+                    let dateI = formatDate(responseInvestimentos.data.result[i].dataInicialSimulacao);
+                    let dateF = formatDate(responseInvestimentos.data.result[i].dataFinalSimulacao);
+
+                    let dateIsplitYMD = dateI.split('-');
+                    let dateFsplitYMD = dateF.split('-');
+
+                    let meses = (dateFsplitYMD[0] - dateIsplitYMD[0]) * 12 + (dateFsplitYMD[1] - dateIsplitYMD[1]);
+
+                    let porCento = 1 + responseInvestimentos.data.result[i].taxaCorretagemSimulacao / 100;
+                    let jurosTotal = Math.pow(porCento, meses);
+                    let montante = responseInvestimentos.data.result[i].valorInicialSimulacao * jurosTotal;
+                    let lucro = montante - responseInvestimentos.data.result[i].valorInicialSimulacao;
+
                     resultsInvestimentosHTML.push(
-                        <CaixaInvestimento key={[i]} dataInicial={responseInvestimentos} dataFinal={responseInvestimentos} texto={responseInvestimentos.data.result[i].idUsuario} valor={responseInvestimentos.data.result[i].valorMovimentacao}></CaixaInvestimento>
+                        <CaixaInvestimento key={[i]}
+                            tempo={meses}
+                            texto={responseInvestimentos.data.result[i].descricaoSimulacao}
+                            valorI={responseInvestimentos.data.result[i].valorInicialSimulacao}
+                            lucro={lucro.toFixed(2)}
+                            valorF={montante.toFixed(2)}></CaixaInvestimento>
                     );
                 }
 
