@@ -90,22 +90,24 @@ export default function TelaSimulador() {
 
         const porCento = 1 + data.taxaCorretagemSimulacao / 100;
         const jurosTotal = Math.pow(porCento, total);
+
         const lucroSimulado = data.valorInicialSimulacao * jurosTotal;
+        const lucro = lucroSimulado - data.valorInicialSimulacao;
 
         let simulacaoFeitaHTML = []
         simulacaoFeitaHTML.push(
             <View style={{ flex: 1 }} key="0">
                 <View style={styles.viewAdjacente} key="1">
-                    <Text style={styles.textoPequeno}> O valor investido foi de {data.valorInicialSimulacao}R$</Text>
+                    <Text style={styles.textoPequeno}> O valor investido foi de R$ {data.valorInicialSimulacao.toFixed(2)}</Text>
                 </View>
                 <View style={styles.viewAdjacente} key="2">
                     <Text style={styles.textoPequeno}> O dinheiro ficará investido por {total} meses</Text>
                 </View>
                 <View style={styles.viewAdjacente} key="3">
-                    <Text style={styles.textoPequeno}> Com a taxa de corretagem de {data.taxaCorretagemSimulacao}% ao mês, você lucraria {jurosTotal} ao fim dos {total} meses!</Text>
+                    <Text style={styles.textoPequeno}> Com a taxa de corretagem de {data.taxaCorretagemSimulacao}% ao mês, você lucraria R$ {lucro.toFixed(2)} ao fim dos {total} meses!</Text>
                 </View>
                 <View style={styles.viewAdjacente} key="4">
-                    <Text style={styles.textoPequeno}> O seu dinheiro final será de {lucroSimulado}</Text>
+                    <Text style={styles.textoPequeno}> O seu dinheiro final será de R$ {lucroSimulado.toFixed(2)}</Text>
                 </View>
                 <View style={styles.viewAdjacente} key="5">
                     <Text style={styles.textoPequeno}> Se você desejar salvar a simulação, coloque um nome para ela e salve-a! Ela aparecerá na aba "investimentos"</Text>
