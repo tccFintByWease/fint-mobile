@@ -7,13 +7,18 @@ import patternStyle from '../constantes/style';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios';
+import * as SecureStore from 'expo-secure-store'; 
 
 function CriarCategoria({ }) {
     const { control, handleSubmit } = useForm();
 
     async function adicionarCategoria(data) {
         try {
-            data.idUsuario = 1;
+            data.idUsuarioString = await SecureStore.getItemAsync('id');
+
+            data.idUsuario = Number(data.idUsuarioString);
+
+            delete data.idUsuarioString;
             data.corCategoria = cor;
             data.idTipoMovimentacao = idTipoMovimentacao;
             // const response = await axios.post(INSERT_CATEGORY_URL, data);

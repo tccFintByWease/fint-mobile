@@ -11,10 +11,12 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { TextInputMask } from 'react-native-masked-text';
 import { movimentacaoSchema } from '../store/schemas/movimentacao-schema';
-import { INSERT_TRANSITION_URL } from '../store/api-urls';
+import { INSERT_TRANSITION_URL, GET_CATEGORY_URL } from '../store/api-urls';
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
-import CriarCategoria from './CriarCategoria'
+import CriarCategoria from './CriarCategoria';
+import { RadioButton } from 'react-native-paper';
+
 
 function CadastroMovimentacao({ navigation }) {
     function voltar() {
@@ -27,9 +29,7 @@ function CadastroMovimentacao({ navigation }) {
 
     // Cadastrar Movimentação
     async function adicionarMovimentacao(data) {
-        console.log('teste')
         try {
-            delete data.tipoMovimentacao;
             let dataMovimentacao = data.dataMovimentacao.toLocaleDateString();
 
             data.idUsuarioString = await SecureStore.getItemAsync('id');
@@ -61,11 +61,9 @@ function CadastroMovimentacao({ navigation }) {
 
             console.log(typeof data.valorMovimentacao)
 
-            // data.idUsuario = 2;
-
-            data.idTipoMovimentacao = 1;
-
             data.idCategoria = data.idUsuario;
+
+            data.idTipoMovimentacao = idTipoMovimentacao;
 
             data.idDetalheMovimentacao = 1;
 
@@ -84,6 +82,13 @@ function CadastroMovimentacao({ navigation }) {
  
     const [criarVisible, setCriarVisible] = useState(false);
     const [alterarVisible, setAlterarVisible] = useState(false);
+
+    const pesquisaCategoria = [
+        {idCategoria: 1, descricaoCategoria: 'Teste', corCategoria: 'red'}
+    ];
+
+    // Radio Button
+    const [idTipoMovimentacao, setIdTipoMovimentacao] = useState();
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -119,7 +124,9 @@ function CadastroMovimentacao({ navigation }) {
                             {/* Alterar/Excluir Categoria */}
                             <Pressable onPress={() => setAlterarVisible(true)}>
                                 <View>
-                                    <CardCategoria backgroundColor='red'>Teste</CardCategoria>
+                                    {pesquisaCategoria.map(
+                                        (categoria) => <CardCategoria key={categoria.idCategoria} backgroundColor={categoria.corCategoria}>{categoria.descricaoCategoria}</CardCategoria>
+                                    )}
                                 </View>
                             </Pressable>
                             <KeyboardAvoidingView behavior='position' enabled>
@@ -165,6 +172,35 @@ function CadastroMovimentacao({ navigation }) {
                             {errors.observacaoMovimentacao && <Text style={patternStyle.labelError}>{errors.observacaoMovimentacao?.message}</Text>}
                         </View>
                         <View style={styles.viewAdjacente}>
+                            <Text style={styles.textoCinza}>Tipo Movimentação</Text>
+                            <View>
+                                <Controller 
+                                    name='idTipoMovimentacao'
+                                    control={control}
+                                    render={({ field: { onChange, onBlur, value } }) => (
+                                        <View>
+                                            <View style={{ flexDirection: 'row' }}>
+                                                <RadioButton
+                                                    value={1}
+                                                    status={idTipoMovimentacao === 1 ? 'checked' : 'unchecked'}
+                                                    onPress={() => setIdTipoMovimentacao(1)}
+                                                />
+                                                <Text style={{ alignSelf: 'center' }}>Receita</Text>
+                                            </View>
+                                            <View style={{ flexDirection: 'row' }}>
+                                                <RadioButton
+                                                    value={2}
+                                                    status={idTipoMovimentacao === 2 ? 'checked' : 'unchecked'}
+                                                    onPress={() => setIdTipoMovimentacao(2)}
+                                                />
+                                                <Text style={{ alignSelf: 'center' }}>Despesa</Text>
+                                            </View>
+                                        </View>
+                                    )}
+                                />
+                            </View>
+                        </View>
+                        <View style={styles.viewAdjacente}>
                             <Text style={styles.textoCinza}>Data</Text>
                             <Controller
                                 name='dataMovimentacao'
@@ -182,14 +218,6 @@ function CadastroMovimentacao({ navigation }) {
                                             format: 'DD/MM/YYYY'
                                         }}
                                     />
-                                    // <TextInput
-                                    //     style={patternStyle.input2}
-                                    //     onChangeText={onChange}
-                                    //     onBlur={onBlur}
-                                    //     value={value}
-                                    //     placeholder="Data Movimentação"
-                                    //     maxLength={15}
-                                    // />
                                 )}
                             />
                             {errors.dataMovimentacao && <Text style={patternStyle.labelError}>{errors.dataMovimentacao?.message}</Text>}
@@ -210,21 +238,7 @@ function CadastroMovimentacao({ navigation }) {
                                             placeholder="Valor Movimentação"
                                             maxLength={12}
                                             type='only-numbers'
-                                        // options={{
-                                        //     unit: '',
-                                        //     precision: 2,
-                                        //     separator: '.',
-                                        //     delimiter: '',
-                                        // }}
                                         />
-                                        // <TextInput
-                                        //     style={patternStyle.input2}
-                                        //     onChangeText={onChange}
-                                        //     onBlur={onBlur}
-                                        //     value={value}
-                                        //     placeholder="Valor Movimentacao"
-                                        //     maxLength={15}
-                                        // />
                                     )}
                                 />
                                 {errors.valorMovimentacao && <Text style={patternStyle.labelError}>{errors.valorMovimentacao?.message}</Text>}

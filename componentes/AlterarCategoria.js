@@ -19,7 +19,6 @@ function AlterarCategoria({}) {
             data.idTipoMovimentacao = idTipoMovimentacao;
             // const response = await axios.post(UPDATE_CATEGORY_URL, data);
             console.log(data);
-            setSucessoAlterar(true);
             Alert.alert("Categoria alterada! ✅");
         } catch (error) {
             console.log(error);
@@ -33,16 +32,13 @@ function AlterarCategoria({}) {
             delete data.corCategoria;
 
             data.idCategoria = 1;
-            setSucessoExcluir(true);
             // const response = await axios.post(UPDATE_CATEGORY_URL, data);
+            Alert.alert("Categoria excluída! ✅");
             console.log(data);
         } catch (error) {
             console.log(error);
         }
     }
-
-    const [sucessoAlterar, setSucessoAlterar] = useState(false);
-    const [sucessoExcluir, setSucessoExcluir] = useState(false);
 
     // Radio Button
     const [idTipoMovimentacao, setIdTipoMovimentacao] = useState(2);
