@@ -48,17 +48,7 @@ function TelaHome({ navigation }) {
     const [resultsReceita, setResultsReceita] = useState([]); // getter / "setter"
     const [resultsDespesa, setResultsDespesa] = useState([]); // getter / "setter"
 
-    async function Reset() {
-        let data = new Object();
 
-        data.dataInicial = dataInicial + 'T03:00:00.000Z';
-        data.dataFinal = dataFinal + 'T03:00:00.000Z';
-
-        BuscarReceitas(data);
-        BuscarDespesas(data);
-        BuscarInvestimentos();
-        //BuscarDespesas(data);
-    }
 
     async function BuscarReceitas(data) {
         console.log('---------------------')
@@ -213,7 +203,7 @@ function TelaHome({ navigation }) {
                 resultsInvestimentosHTML.push(
                     <View key="-1">
                         <View style={styles.boxTitle} >
-                            <Text style={styles.textTitle}>
+                            <Text style={styles.textoPequeno}>
                                 Nenhum resultado encontrado
                             </Text>
                         </View>
@@ -227,6 +217,17 @@ function TelaHome({ navigation }) {
         catch (error) {
             console.log(error)
         }
+    }
+    async function Reset() {
+        let data = new Object();
+
+        data.dataInicial = dataInicial + 'T03:00:00.000Z';
+        data.dataFinal = dataFinal + 'T03:00:00.000Z';
+
+        BuscarReceitas(data);
+        BuscarDespesas(data);
+        BuscarInvestimentos();
+        //BuscarDespesas(data);
     }
     useEffect(() => {
         let data = new Object();
@@ -260,7 +261,7 @@ function TelaHome({ navigation }) {
         <SafeAreaView style={{ flex: 1 }}>
             <Header perfilHandler={abrirPerfil} />
             <ScrollView style={{ marginTop: 70 }}>
-                <View style={styles.boxTitle}>
+                <View style={{ marginHorizontal: 10, marginTop: 10, marginBottom: 5 }}>
                     <Text style={styles.textTitle}>
                         Investimento mais antigo:
                     </Text>
@@ -271,17 +272,13 @@ function TelaHome({ navigation }) {
                         justifyContent: 'center',
                         alignItems: 'center',
                         flexDirection: 'row',
-                        paddingVertical: 10,
-                        borderColor: Colors.preto,
-                        borderBottomWidth: 1
                     }}>
-                        <BotaoInicio onPress={abrirInvestimentos} styleExterno={styles.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}> Ver Mais </BotaoInicio>
-                        <BotaoInicio onPress={abrirSimulador} styleExterno={styles.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}> Simular </BotaoInicio>
+
                     </View>
                 </View>
                 <View style={styles.boxTitle}>
                     <Text style={styles.textTitle}>
-                        Receita mais antiga desse mês:
+                        Receita mais recente desse mês:
                     </Text>
                 </View>
                 <View >
@@ -291,13 +288,21 @@ function TelaHome({ navigation }) {
                 </View>
                 <View style={styles.boxTitle}>
                     <Text style={styles.textTitle}>
-                        Despesa mais antiga desse mês:
+                        Despesa mais recente desse mês:
                     </Text>
                 </View>
                 <View >
                     {resultsDespesa}
-
-
+                </View>
+                <View style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    paddingVertical: 10,
+                    borderColor: Colors.preto,
+                    borderBottomWidth: 1
+                }}>
+                    <BotaoInicio onPress={Reset} styleExterno={styles.botaoExterno} styleCorpo={styles.botaoReset} styleTexto={patternStyle.textoBotao}>Reset</BotaoInicio>
                 </View>
             </ScrollView >
         </SafeAreaView >
@@ -341,7 +346,7 @@ const styles = StyleSheet.create({
         marginTop: 110
     },
     boxTitle: {
-        marginTop: 30,
+        marginTop: 40,
         marginHorizontal: 10,
         marginBottom: 5,
     },
@@ -357,11 +362,16 @@ const styles = StyleSheet.create({
     },
     botaoInterno: {
         backgroundColor: Colors.verdePrincipal,
-        paddingVertical: 14
     },
     textoPequeno: {
+        color: Colors.cinzaContorno,
         fontSize: 16,
-        color: Colors.preto,
+        marginTop: 2,
+        marginLeft: 20,
+        letterSpacing: 1.2,
         fontFamily: 'roboto-regular',
-    }
+    },
+    botaoReset: {
+        backgroundColor: Colors.verdeSecundario,
+    },
 })
