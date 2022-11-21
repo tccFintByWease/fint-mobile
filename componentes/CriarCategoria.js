@@ -140,11 +140,7 @@ function CriarCategoria({ }) {
                     </View>
                     <View style={{ marginTop: 25, alignItems: 'center' }}>
                         <BotaoInicio
-<<<<<<< Updated upstream
                             onPress={handleSubmit(adicionarCategoria)}
-=======
-                            onPress={handleSubmit(criarCategoria)}
->>>>>>> Stashed changes
                             styleExterno={patternStyle.botaoExterno}
                             styleCorpo={styles.botaoInterno}
                             styleTexto={patternStyle.textoBotao}>

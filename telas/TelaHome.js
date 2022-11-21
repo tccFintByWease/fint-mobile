@@ -258,7 +258,7 @@ function TelaHome({ navigation }) {
     }
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <Header perfil={abrirPerfil} />
+            <Header perfilHandler={abrirPerfil} />
             <ScrollView style={{ marginTop: 70 }}>
                 <View style={styles.boxTitle}>
                     <Text style={styles.textTitle}>

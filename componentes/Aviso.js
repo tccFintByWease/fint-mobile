@@ -18,7 +18,7 @@ function Aviso({children, modalVisible, setModalVisible, nomeIcone, backgroundCo
         >
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                    <View style={{flex: 1}}>{children}</View>
+                    <View style={{flex: 1, justifyContent: 'center'}}>{children}</View>
                     <Pressable
                         style={[styles.button, {backgroundColor: backgroundColor}]}
                         onPress={() => funcao(!modalVisible)}

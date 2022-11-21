@@ -7,13 +7,13 @@ import { LOOK_FOR_EMAIL_URL } from '../store/api-urls';
 import Colors from '../constantes/colors';
 import axios from 'axios';
 
-function Header({ }) {
+function Header({perfilHandler}) {
 
     const [userName, setUserName] = useState([]);
 
-    async function perfilResponse() {
-        console.log('oi')
-    };
+    // async function perfilResponse() {
+    //     console.log('oi')
+    // };
     async function nomeUser() {
         let data = new Object();
 
@@ -32,7 +32,7 @@ function Header({ }) {
     return <SafeAreaView style={{ flex: 1, position: 'relative', height: 300 }}>
         <View style={styles.container}>
             <View style={styles.caixaPessoa}>
-                <Pressable onPress={perfilResponse}>
+                <Pressable onPress={perfilHandler}>
                     <Ionicons name='person' size={25} />
                 </Pressable>
             </View>
