@@ -15,6 +15,11 @@ import * as SecureStore from 'expo-secure-store';
 import axios from 'axios';
 
 function TelaControleGastos({ navigation }) {
+
+
+    let [receitaMensal, setReceitaMensal] = useState([]); // getter / "setter"
+    let [despesaMensal, setDespesaMensal] = useState([]); // getter / "setter"
+
     const [selecionado, setSelecionado] = useState(true);
 
     const [resultsReceita, setResultsReceita] = useState([]); // getter / "setter"
@@ -59,12 +64,17 @@ function TelaControleGastos({ navigation }) {
 
             mes--;
 
+            receitaMensal = 0;
+
             let resultsReceitaHTML = [];
 
             if (responseReceita.data.result.length >= 1) {
                 console.log('entrou')
 
                 for (var i = 0; i < responseReceita.data.result.length; i++) {
+
+                    receitaMensal = receitaMensal + Number(responseReceita.data.result[i].valorMovimentacao);
+
                     resultsReceitaHTML.push(
                         <CaixaMovimentacao key={[i]} dataMov={responseReceita.data.result[i].dataMovimentacao} descMov={responseReceita.data.result[i].descricaoMovimentacao} valor={responseReceita.data.result[i].valorMovimentacao} maisMenos={'+'}></CaixaMovimentacao>
                     );
@@ -82,6 +92,8 @@ function TelaControleGastos({ navigation }) {
             }
 
             setResultsReceita(resultsReceitaHTML);
+            setReceitaMensal(receitaMensal);
+
         }
         catch (error) {
             console.log(error)
@@ -99,6 +111,8 @@ function TelaControleGastos({ navigation }) {
 
             console.log(responseDespesa.data)
 
+            despesaMensal = 0;
+
             mes--;
 
             let resultsDespesaHTML = [];
@@ -106,7 +120,12 @@ function TelaControleGastos({ navigation }) {
             if (responseDespesa.data.result.length >= 1 && responseDespesa.data.result.dataFinal !== null) {
                 console.log('entrou')
 
+
+
                 for (var i = 0; i < responseDespesa.data.result.length; i++) {
+
+                    despesaMensal = despesaMensal + Number(responseDespesa.data.result[i].valorMovimentacao);
+
                     resultsDespesaHTML.push(
                         <CaixaMovimentacao key={[i]} descMov={responseDespesa.data.result[i].descricaoMovimentacao} valor={responseDespesa.data.result[i].valorMovimentacao} maisMenos={'-'}></CaixaMovimentacao>
                     );
@@ -123,15 +142,28 @@ function TelaControleGastos({ navigation }) {
                 )
             }
             setResultsDespesa(resultsDespesaHTML);
+            setDespesaMensal(despesaMensal);
         }
         catch (error) {
             console.log(error)
         }
     }
 
+    async function Reset() {
+        console.log('uai')
+        let data = new Object();
+
+        data.dataInicial = dataInicial + 'T03:00:00.000Z';
+        data.dataFinal = dataFinal + 'T03:00:00.000Z';
+
+        BuscarReceitas(data);
+        BuscarDespesas(data);
+    }
+
     useEffect(() => {
         console.log('uai')
         let data = new Object();
+
 
         data.dataInicial = dataInicial + 'T03:00:00.000Z';
         data.dataFinal = dataFinal + 'T03:00:00.000Z';
@@ -150,15 +182,15 @@ function TelaControleGastos({ navigation }) {
                             Receita Mensal
                         </Text>
                         <Text style={{ fontSize: 22, color: Colors.verdePrincipal, letterSpacing: 1.2, textAlign: 'center', marginTop: 10 }}>
-                            R$ (valor)
+                            R$ {receitaMensal}
                         </Text>
                     </View>
                     <View style={{ flex: 1, alignItems: 'center', padding: 10, backgroundColor: '#ededed' }}>
                         <Text style={{ fontSize: 16, fontFamily: 'roboto-bold', color: Colors.preto, letterSpacing: 1.5, textAlign: 'center' }}>
                             Despesa Mensal
                         </Text>
-                        <Text style={{ fontSize: 22, color: Colors.verdePrincipal, letterSpacing: 1.2, textAlign: 'center', marginTop: 10 }}>
-                            R$ (valor)
+                        <Text style={{ fontSize: 22, color: Colors.vermelhoGoogle, letterSpacing: 1.2, textAlign: 'center', marginTop: 10 }}>
+                            R$ {despesaMensal}
                         </Text>
                     </View>
                 </View>
@@ -238,10 +270,24 @@ function TelaControleGastos({ navigation }) {
                 {selecionado ?
                     <ScrollView style={{ maxHeight: 300 }}>
                         {resultsReceita}
+                        <View style={{
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexDirection: 'row',
+                        }}>
+                            <BotaoInicio onPress={Reset} styleExterno={styles.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}> Reset </BotaoInicio>
+                        </View>
                     </ScrollView>
                     :
                     <ScrollView style={{ maxHeight: 300 }}>
                         {resultsDespesa}
+                        <View style={{
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexDirection: 'row',
+                        }}>
+                            <BotaoInicio onPress={Reset} styleExterno={styles.botaoExterno} styleCorpo={styles.botaoInterno} styleTexto={patternStyle.textoBotao}> Reset </BotaoInicio>
+                        </View>
                     </ScrollView>
                 }
             </ScrollView >

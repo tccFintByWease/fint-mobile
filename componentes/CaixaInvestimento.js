@@ -16,7 +16,11 @@ function CaixaInvestimento(props) {
 
         console.log(typeof idSimulacao)
 
-        const response = await axios.delete(DELETE_SIMULATION_URL, { data: idSimulacao })
+
+
+        const response = await axios.delete(DELETE_SIMULATION_URL, { data: { idSimulacao: idSimulacao } })
+
+        console.log(response)
 
         console.log(response.data)
 
