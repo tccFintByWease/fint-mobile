@@ -5,6 +5,7 @@ import TelaHome from '../../telas/TelaHome';
 import TelaControleGastos from '../../telas/TelaControleGastos';
 import TelaInvestimentos from '../../telas/TelaInvestimentos';
 import TelaSimulador from '../../telas/TelaSimulador';
+import TelaGlossario from '../../telas/TelaGlossario';
 
 import Colors from '../../constantes/colors';
 
@@ -42,6 +43,12 @@ function BottomTabNavigator() {
                     <Ionicons name="analytics" color={color} size={size} />
                 ),
                 tabBarLabel: 'Investimentos'
+            }} />
+            <BottomTab.Screen name='glossario' component={TelaGlossario} options={{
+                tabBarIcon: ({ color, size }) => (
+                    <Ionicons name="book" color={color} size={size} />
+                ),
+                tabBarLabel: 'Glossário'
             }} />
         </BottomTab.Navigator>
     );
