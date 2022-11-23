@@ -4,21 +4,19 @@ import TelaLogin from '../../telas/TelaLogin';
 import TelaCadastro from '../../telas/TelaCadastro';
 import TelaRecuperacaoLink from '../../telas/TelaRecuperacaoLink';
 import TelaAlterarSenha from '../../telas/TelaAlterarSenha';
-import TelaDinheiroMoeda from '../../telas/TelaDinheiroMoeda';
 import TelaHome from '../../telas/TelaHome';
 import TelaCodigoRecuperacao from '../../telas/TelaCodigoRecuperacao';
 import TelaSimulador from '../../telas/TelaSimulador';
-import TelaNotificacao from '../../telas/TelaNotificacoes';
 import BottomTabNavigator from './BottomTabNavigator';
-import TelaNotificacoes from '../../telas/TelaNotificacoes';
 import TelaUsuario from '../../telas/TelaUsuario';
 import TelaSelecionarGraficos from '../../telas/TelaSelecionarGraficos';
 import DetalhesMovimentacao from '../DetalhesMovimentacao';
 import TelaUsuarioAlterarDados from '../../telas/TelaUsuarioAlterarDados';
+import CadastroMovimentacao from '../CadastroMovimentacao';
+import TelaGlossario from '../../telas/TelaGlossario';
 
 // Navigation
 import { createStackNavigator } from '@react-navigation/stack';
-import CadastroMovimentacao from '../CadastroMovimentacao';
 const Stack = createStackNavigator();
 
 function StackNavigator() {
@@ -33,8 +31,6 @@ function StackNavigator() {
             <Stack.Screen name='recuperacaoLink' component={TelaRecuperacaoLink} />
             <Stack.Screen name='recuperacaoCodigo' component={TelaCodigoRecuperacao} />
             <Stack.Screen name='mudarSenha' component={TelaAlterarSenha} />
-            <Stack.Screen name='dinheiroMoeda' component={TelaDinheiroMoeda} />
-            <Stack.Screen name='notificacoes' component={TelaNotificacoes} />
             <Stack.Screen name='perfil' component={TelaUsuario} options={{
                 presentation: 'modal'
             }}/>
@@ -49,6 +45,9 @@ function StackNavigator() {
                 presentation: 'modal'
             }} />
             <Stack.Screen name='cadastroMovimentacao' component={CadastroMovimentacao} options={{
+                presentation: 'modal'
+            }} />
+            <Stack.Screen name='glossario' component={TelaGlossario} options={{
                 presentation: 'modal'
             }} />
             <Stack.Screen name='home' component={BottomTabNavigator} />

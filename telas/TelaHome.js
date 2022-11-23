@@ -248,12 +248,6 @@ function TelaHome({ navigation }) {
     function abrirPerfil() {
         navigation.navigate('perfil');
     }
-    function abrirSimulador() {
-        navigation.navigate('simulador');
-    }
-    function abrirInvestimentos() {
-        navigation.navigate('investimentos');
-    }
     function abrirCG() {
         navigation.navigate('gastos')
     }
@@ -266,32 +260,23 @@ function TelaHome({ navigation }) {
                         Investimento mais antigo:
                     </Text>
                 </View>
-                <View >
+                <View style={{borderColor: Colors.cinzaContorno, borderWidth: 1, padding: 10, marginHorizontal: 10, borderRadius: 10}}>
                     {resultsInvestimentos}
-                    <View style={{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        flexDirection: 'row',
-                    }}>
-
-                    </View>
                 </View>
                 <View style={styles.boxTitle}>
                     <Text style={styles.textTitle}>
                         Receita mais recente desse mês:
                     </Text>
                 </View>
-                <View >
+                <View style={{borderColor: Colors.cinzaContorno, borderWidth: 1, padding: 10, marginHorizontal: 10, borderRadius: 10}}>
                     {resultsReceita}
-
-
                 </View>
                 <View style={styles.boxTitle}>
                     <Text style={styles.textTitle}>
                         Despesa mais recente desse mês:
                     </Text>
                 </View>
-                <View >
+                <View style={{borderColor: Colors.cinzaContorno, borderWidth: 1, padding: 10, marginHorizontal: 10, borderRadius: 10}}>
                     {resultsDespesa}
                 </View>
                 <View style={{
@@ -299,10 +284,14 @@ function TelaHome({ navigation }) {
                     alignItems: 'center',
                     flexDirection: 'row',
                     paddingVertical: 10,
-                    borderColor: Colors.preto,
-                    borderBottomWidth: 1
                 }}>
-                    <BotaoInicio onPress={Reset} styleExterno={styles.botaoExterno} styleCorpo={styles.botaoReset} styleTexto={patternStyle.textoBotao}>Reset</BotaoInicio>
+                    <BotaoInicio 
+                        onPress={Reset} 
+                        styleExterno={styles.botaoExterno} 
+                        styleCorpo={styles.botaoReset} 
+                        styleTexto={patternStyle.textoBotao}>
+                        Reset
+                    </BotaoInicio>
                 </View>
             </ScrollView >
         </SafeAreaView >
@@ -312,39 +301,6 @@ function TelaHome({ navigation }) {
 export default TelaHome;
 
 const styles = StyleSheet.create({
-    xButton: {
-        margin: 10,
-        color: Colors.branco,
-        fontSize: 20,
-        fontFamily: 'Nunito-SemiBold',
-    },
-    botaoAlerta: {
-        width: '40%',
-        borderRadius: 30,
-        backgroundColor: Colors.branco,
-        paddingVertical: 10,
-        marginTop: 15,
-        backgroundColor: Colors.verdeSecundario,
-    },
-    txtBotaoAlerta: {
-        fontFamily: 'roboto-bold',
-        fontSize: 15,
-        color: Colors.branco,
-        textAlign: 'center'
-    },
-    viewGrafico: {
-        backgroundColor: '#e3e1e1',
-        height: 260,
-        width: '100%',
-        alignContent: 'center',
-    },
-    textoGrafico: {
-        color: '#c0c0c0',
-        fontSize: 30,
-        fontFamily: 'roboto-italic',
-        textAlign: 'center',
-        marginTop: 110
-    },
     boxTitle: {
         marginTop: 40,
         marginHorizontal: 10,
@@ -357,7 +313,7 @@ const styles = StyleSheet.create({
         fontFamily: 'roboto-bold',
     },
     botaoExterno: {
-        width: '40%',
+        width: '60%',
         marginHorizontal: 10
     },
     botaoInterno: {

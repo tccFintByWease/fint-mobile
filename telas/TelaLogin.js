@@ -47,7 +47,7 @@ function TelaLogin({ navigation }) {
                 await SecureStore.setItemAsync("email", data.emailUsuario)
 
                 const subla = await SecureStore.getItemAsync("id");
-                console.log(subla)
+                console.log(subla);
             } else {
                 Alert.alert("Email ou senha inválido");
             }
@@ -106,18 +106,6 @@ function TelaLogin({ navigation }) {
                     <Text onPress={abreLinkRecuperacao} style={patternStyle.texto}>Esqueceu a senha?</Text>
                 </View>
                 <View style={[patternStyle.inputContainer, styles.inputContainer2]}>
-                    {/* <BotaoInicio
-                        styleExterno={patternStyle.botaoExterno}
-                        styleCorpo={styles.botaoInternoG}
-                        styleTexto={styles.textoBotao2}>
-                        <Ionicons name="logo-google" size={20} />  Entrar com sua conta Google
-                    </BotaoInicio>
-                    <BotaoInicio
-                        styleExterno={patternStyle.botaoExterno}
-                        styleCorpo={styles.botaoInternoF}
-                        styleTexto={styles.textoBotao2}>
-                        <Ionicons name="logo-facebook" size={20} />   Entrar com sua conta Facebook
-                    </BotaoInicio> */}
                     <Text onPress={abreCadastro} style={patternStyle.texto}>Crie uma nova conta</Text>
                 </View>
                 <View style={[patternStyle.rodapeLogin, { marginTop: 220 }]}>
@@ -138,29 +126,4 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
         width: '90%'
     },
-    botaoInternoG: {
-        backgroundColor: Colors.vermelhoGoogle,
-        paddingVertical: 10
-    },
-    botaoInternoF: {
-        backgroundColor: Colors.azulFacebook,
-        paddingVertical: 10
-    },
-    textoBotao2: {
-        fontSize: 16,
-        margin: 2
-    },
 });
-
-// state.userToken == null ? (
-//   <>
-//     <Stack.Screen name="SignIn" component={SignInScreen} />
-//     <Stack.Screen name="SignUp" component={SignUpScreen} />
-//     <Stack.Screen name="ResetPassword" component={ResetPassword} />
-//   </>
-// ) : (
-//   <>
-//     <Stack.Screen name="Home" component={HomeScreen} />
-//     <Stack.Screen name="Profile" component={ProfileScreen} />
-//   </>
-// )

@@ -20,18 +20,6 @@ import { formatDatetime, formatDate } from '../utils/date-utils';
 
 function TelaInvestimentos() {
 
-
-    // function calcular(){ -----------------------------TODO
-    //     var dt1 = document.getElementById("dt1").value; 
-    //     var dt2 = document.getElementById("dt2").value; 
-
-    //     var data1 = new Date(dt1); 
-    //     var data2 = new Date(new Date(dt2));
-    // var total = (data2.getFullYear() - data1.getFullYear()) * 12 + (data2.getMonth() - data1.getMonth());
-    //     document.getElementById("result").value = total;
-    //     }
-
-
     const { control, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(investimentoSchema)
     });
@@ -122,7 +110,7 @@ function TelaInvestimentos() {
                 <View style={{ alignContent: 'center', paddingBottom: 15, padding: 10, alignItems: 'center' }} key="7">
                     <BotaoInicio
                         onPress={BuscarInvestimentos}
-                        styleExterno={patternStyle.botaoExterno}
+                        styleExterno={[patternStyle.botaoExterno, {borderWidth: 0}]}
                         styleCorpo={patternStyle.botaoInterno}
                         styleTexto={patternStyle.textoBotao}>
                         Atualizar Investimentos
@@ -136,30 +124,6 @@ function TelaInvestimentos() {
 export default TelaInvestimentos;
 
 const styles = StyleSheet.create({
-    alertaBox: {
-        width: '92%',
-        backgroundColor: Colors.verdePrincipal,
-        borderRadius: 20,
-        marginTop: 20,
-        paddingHorizontal: 12,
-        paddingVertical: 20,
-        elevation: 5
-    },
-    viewGrafico: {
-        backgroundColor: '#e3e1e1',
-        height: 260,
-        width: '92%',
-        marginTop: 15,
-        alignContent: 'center',
-        borderRadius: 30
-    },
-    textoGrafico: {
-        color: '#c0c0c0',
-        fontSize: 30,
-        fontFamily: 'roboto-italic',
-        textAlign: 'center',
-        marginTop: 110
-    },
     boxTitle: {
         marginTop: 20,
         marginHorizontal: 10,
@@ -177,38 +141,5 @@ const styles = StyleSheet.create({
     botaoInterno: {
         backgroundColor: Colors.verdeSecundario,
         paddingVertical: 10
-    },
-    xButton: {
-        height: 50,
-        width: 40,
-        marginRight: 6,
-        color: Colors.branco,
-        fontSize: 35,
-        fontFamily: 'Nunito-SemiBold',
-    },
-    botaoAlerta: {
-        borderRadius: 30,
-        backgroundColor: Colors.branco,
-        width: 200,
-        height: 40,
-        marginTop: 12,
-        padding: 7
-    },
-    txtBotaoAlerta: {
-        fontFamily: 'roboto-regular',
-        fontSize: 20,
-        textAlign: 'center'
-    },
-    viewAdjacente: {
-        paddingHorizontal: 10,
-        paddingVertical: 5,
-        borderBottomColor: Colors.cinzaContorno,
-        borderBottomWidth: 1,
-    },
-    textoCinza: {
-        fontSize: 15,
-        fontFamily: 'roboto-regular',
-        color: Colors.cinzaContorno,
-        letterSpacing: 1.2,
     },
 })

@@ -57,7 +57,7 @@ function CaixaInvestimento(props) {
                     ],
                     { cancelable: false }
                 )}>
-                    <Ionicons name='trash-bin' size={40} style={{ margin: 15 }} />
+                    <Ionicons name='trash-bin' size={30} style={{ margin: 15 }} />
                 </Pressable>
             </View>
         </View>

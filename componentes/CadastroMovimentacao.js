@@ -4,9 +4,6 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import Colors from '../constantes/colors'
 import BotaoInicio from './BotaoInicio';
 import patternStyle from '../constantes/style';
-import CardCategoria from './CardCategoria';
-import AlterarCategoria from './AlterarCategoria';
-import Aviso from './Aviso';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { TextInputMask } from 'react-native-masked-text';
@@ -14,7 +11,6 @@ import { movimentacaoSchema } from '../store/schemas/movimentacao-schema';
 import { INSERT_TRANSITION_URL, GET_CATEGORY_URL } from '../store/api-urls';
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
-import CriarCategoria from './CriarCategoria';
 import { RadioButton } from 'react-native-paper';
 
 
@@ -67,25 +63,19 @@ function CadastroMovimentacao({ navigation }) {
 
             data.idDetalheMovimentacao = 1;
 
+            data.idCategoria = 1;
+
             const response = await axios.post(INSERT_TRANSITION_URL, data)
 
             console.log(response);
 
-            Alert.alert("deu")
+            Alert.alert("Movimentação Cadastrada! ✅")
             console.log(Number(data.valorMovimentacao));
             console.log(data);
         } catch (error) {
             console.log(error);
         }
     }
-
- 
-    const [criarVisible, setCriarVisible] = useState(false);
-    const [alterarVisible, setAlterarVisible] = useState(false);
-
-    const pesquisaCategoria = [
-        {idCategoria: 1, descricaoCategoria: 'Teste', corCategoria: 'red'}
-    ];
 
     // Radio Button
     const [idTipoMovimentacao, setIdTipoMovimentacao] = useState();
@@ -120,36 +110,6 @@ function CadastroMovimentacao({ navigation }) {
                             )}
                         />
                         {errors.descricaoMovimentacao && <Text style={patternStyle.labelError}>{errors.descricaoMovimentacao?.message}</Text>}
-                        <View style={{ flexDirection: 'row', paddingLeft: 10, alignItems: 'center' }}>
-                            {/* Alterar/Excluir Categoria */}
-                            <Pressable onPress={() => setAlterarVisible(true)}>
-                                <View>
-                                    {pesquisaCategoria.map(
-                                        (categoria) => <CardCategoria key={categoria.idCategoria} backgroundColor={categoria.corCategoria}>{categoria.descricaoCategoria}</CardCategoria>
-                                    )}
-                                </View>
-                            </Pressable>
-                            <KeyboardAvoidingView behavior='position' enabled>
-                                <View style={patternStyle.centeredView} >
-                                    <Aviso backgroundColor={Colors.verdeSecundario} nomeIcone='close' modalVisible={alterarVisible} setModalVisible={setAlterarVisible}>
-                                        <AlterarCategoria />
-                                    </Aviso>
-                                </View>
-                            </KeyboardAvoidingView>
-                            {/* Criar Categoria */}
-                            <Pressable onPress={() => setCriarVisible(true)} style={{ flexDirection: 'row', marginLeft: 10 }}>
-                                <View style={{ backgroundColor: Colors.cinzaContorno, borderRadius: 20, padding: 5, width: 35 }}>
-                                    <Ionicons style={{ alignSelf: 'center' }} name='add' color='black' size={22} />
-                                </View>
-                            </Pressable>
-                            <KeyboardAvoidingView behavior='position' enabled>
-                                <View style={patternStyle.centeredView} >
-                                    <Aviso backgroundColor={Colors.vermelhoGoogle} nomeIcone='close' modalVisible={criarVisible} setModalVisible={setCriarVisible}>
-                                        <CriarCategoria />
-                                    </Aviso>
-                                </View>
-                            </KeyboardAvoidingView>
-                        </View>
                     </View>
                     <View style={{ flex: 1 }}>
                         <View style={styles.viewAdjacente}>
@@ -273,20 +233,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 6,
         alignContent: 'center'
     },
-    textoTopo: {
-        fontFamily: 'roboto-regular',
-        fontSize: 26,
-        color: Colors.preto,
-        letterSpacing: 1.4
-    },
-    textoXTopo: {
-        fontSize: 40,
-        color: '#707070',
-    },
-    textoTracoCat: {
-        fontSize: 40,
-        color: Colors.preto,
-    },
     viewAdjacente: {
         paddingHorizontal: 10,
         paddingVertical: 5,
@@ -298,21 +244,6 @@ const styles = StyleSheet.create({
         fontFamily: 'roboto-regular',
         color: Colors.cinzaContorno,
         letterSpacing: 1.2,
-    },
-    textoPretoDentro: {
-        fontSize: 22,
-        letterSpacing: 1.3,
-        fontFamily: 'roboto-regular',
-        color: Colors.preto,
-        marginTop: 4
-    },
-    textoPretoDentroInput: {
-        width: '70%',
-        fontSize: 25,
-        letterSpacing: 1.5,
-        fontFamily: 'roboto-regular',
-        color: Colors.preto,
-        marginTop: 4
     },
     botaoInterno: {
         backgroundColor: Colors.vermelhoGoogle,

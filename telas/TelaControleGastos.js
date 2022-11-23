@@ -176,20 +176,20 @@ function TelaControleGastos({ navigation }) {
         <View style={{ flex: 1 }}>
             <Header />
             <ScrollView style={{ marginTop: 70 }}>
-                <View style={{ flex: 1, flexDirection: 'row', borderBottomColor: Colors.cinzaContorno, borderBottomWidth: 1 }}>
-                    <View style={{ flex: 1, alignItems: 'center', padding: 10, backgroundColor: '#ededed', borderRightColor: Colors.cinzaContorno, borderRightWidth: 1 }}>
-                        <Text style={{ fontSize: 16, fontFamily: 'roboto-bold', color: Colors.preto, letterSpacing: 1.5, textAlign: 'center' }}>
+                <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center'}}>
+                    <View style={{ flex: 1, alignItems: 'center', padding: 10, backgroundColor: Colors.verdeSecundario, width: '80%', borderRadius: 20, marginVertical: 10}}>
+                        <Text style={{ fontSize: 18, fontFamily: 'roboto-bold', color: Colors.branco, letterSpacing: 1.5, textAlign: 'center' }}>
                             Receita Mensal
                         </Text>
-                        <Text style={{ fontSize: 22, color: Colors.verdePrincipal, letterSpacing: 1.2, textAlign: 'center', marginTop: 10 }}>
+                        <Text style={{ fontSize: 22, color: Colors.branco, letterSpacing: 1.2, textAlign: 'center', marginTop: 10 }}>
                             R$ {receitaMensal}
                         </Text>
                     </View>
-                    <View style={{ flex: 1, alignItems: 'center', padding: 10, backgroundColor: '#ededed' }}>
-                        <Text style={{ fontSize: 16, fontFamily: 'roboto-bold', color: Colors.preto, letterSpacing: 1.5, textAlign: 'center' }}>
+                    <View style={{ flex: 1, alignItems: 'center', padding: 10, width: '80%', borderRadius: 20, borderColor: Colors.verdeSecundario, borderWidth: 1, marginVertical: 10}}>
+                        <Text style={{ fontSize: 18, fontFamily: 'roboto-bold', color: Colors.verdeSecundario, letterSpacing: 1.5, textAlign: 'center' }}>
                             Despesa Mensal
                         </Text>
-                        <Text style={{ fontSize: 22, color: Colors.vermelhoGoogle, letterSpacing: 1.2, textAlign: 'center', marginTop: 10 }}>
+                        <Text style={{ fontSize: 22, color: Colors.verdeSecundario, letterSpacing: 1.2, textAlign: 'center', marginTop: 10 }}>
                             R$ {despesaMensal}
                         </Text>
                     </View>
@@ -198,7 +198,7 @@ function TelaControleGastos({ navigation }) {
                     <View style={{
                         height: 50,
                         alignItems: 'center',
-                        marginVertical: 10,
+                        marginVertical: 20,
                         display: 'flex',
                         flexDirection: 'row',
                         marginHorizontal: 20,
@@ -295,70 +295,26 @@ function TelaControleGastos({ navigation }) {
     );
 }
 
-let texto1 = "(nome da receita)";
-let texto2 = "(nome da despesa)";
-
 export default TelaControleGastos;
 
 const styles = StyleSheet.create({
-    alertaBox: {
-        width: '92%',
-        backgroundColor: Colors.verdePrincipal,
-        borderRadius: 20,
-        marginTop: 20,
-        paddingHorizontal: 12,
-        paddingVertical: 20,
-        elevation: 5
-    },
-    viewGrafico: {
-        backgroundColor: '#e3e1e1',
-        height: 260,
-        width: '100%',
-        alignContent: 'center',
-    },
-    textoGrafico: {
-        color: '#c0c0c0',
-        fontSize: 30,
-        fontFamily: 'roboto-italic',
-        textAlign: 'center',
-        marginTop: 110
-    },
     boxTitle: {
-        marginTop: 5,
+        marginTop: 10,
+        marginBottom: 15,
         marginHorizontal: 10,
     },
     textTitle: {
-        fontSize: 23,
+        fontSize: 21,
         color: Colors.preto,
         letterSpacing: 1.8,
         fontFamily: 'roboto-bold',
     },
     botaoExterno: {
-        width: '40%',
+        width: '60%',
+        marginTop: 10
     },
     botaoInterno: {
         backgroundColor: Colors.verdeSecundario,
         paddingVertical: 10
     },
-    xButton: {
-        height: 50,
-        width: 40,
-        marginRight: 6,
-        color: Colors.branco,
-        fontSize: 35,
-        fontFamily: 'Nunito-SemiBold',
-    },
-    botaoAlerta: {
-        borderRadius: 30,
-        backgroundColor: Colors.branco,
-        width: 200,
-        height: 40,
-        marginTop: 12,
-        padding: 7
-    },
-    txtBotaoAlerta: {
-        fontFamily: 'roboto-regular',
-        fontSize: 20,
-        textAlign: 'center'
-    }
 })

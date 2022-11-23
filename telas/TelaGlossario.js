@@ -10,6 +10,28 @@ function TelaGlossario({navigation}){
         navigation.goBack();
     }
 
+    const [search, setSearch] = useState(''); 
+    const [filteredData, setFilteredData] = useState(Termos); 
+    const [masterData, setMasterData] = useState(Termos);
+
+    function searchFilter(text){
+        if (text) {
+            const newData = masterData.filter(
+                function (item) {
+                    if (item.titulo) {
+                    const itemData = item.titulo.toUpperCase();
+                    const textData = text.toUpperCase();
+                    return itemData.indexOf(textData) > -1;
+                }
+            });
+            setFilteredData(newData);
+            setSearch(text);
+        } else {
+            setFilteredData(masterData);
+            setSearch(text);
+        }
+    };
+
     return(
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{flex: 1}}>
@@ -27,10 +49,12 @@ function TelaGlossario({navigation}){
                     <TextInput 
                         style={[patternStyle.input, {borderRadius: 5, width: '90%'}]} 
                         placeholder='Pesquise um termo'
+                        onChangeText={(text) => searchFilter(text)}
+                        value={search}
                     />
                 </View>
                 <FlatList 
-                    data={Termos}
+                    data={filteredData}
                     renderItem={(itemData) => {
                         return <CardTermo titulo={itemData.item.titulo} significado={itemData.item.significado}/>
                     }}

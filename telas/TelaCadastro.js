@@ -75,9 +75,9 @@ function TelaCadastro({ navigation }) {
             if (data.emailUsuario !== response1.data.result.emailUsuario) {
 
                 const response = await axios.post(SIGN_UP_URL, data);
-                Alert.alert("conta criada!")
-                console.log(response)
-
+                Alert.alert("Bem Vindo a Fint! ✅");
+                console.log(response);
+                navigation.navigate('login');
             }
         } catch (error) {
             console.log(error);

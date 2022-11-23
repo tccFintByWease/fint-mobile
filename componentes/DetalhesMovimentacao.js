@@ -6,7 +6,6 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import Colors from '../constantes/colors'
 import BotaoInicio from './BotaoInicio';
 import patternStyle from '../constantes/style';
-import CardCategoria from './CardCategoria';
 import axios from 'axios';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -116,16 +115,6 @@ function DetalhesMovimentacao({ navigation }) {
                                 )}
                             />
                             {errors.descricaoMovimentacao && <Text style={patternStyle.labelError}>{errors.descricaoMovimentacao?.message}</Text>}
-                            <View style={{ flexDirection: 'row', paddingLeft: 10, alignItems: 'center' }}>
-                                <View>
-                                    <CardCategoria backgroundColor='red'>Teste</CardCategoria>
-                                </View>
-                                <Pressable style={{ flexDirection: 'row', marginLeft: 10 }}>
-                                    <View style={{ backgroundColor: Colors.cinzaContorno, borderRadius: 20, padding: 5, width: 35 }}>
-                                        <Ionicons style={{ alignSelf: 'center' }} name='add' color='black' size={22} />
-                                    </View>
-                                </Pressable>
-                            </View>
                         </View>
                         <View>
                             <View style={styles.viewAdjacente}>

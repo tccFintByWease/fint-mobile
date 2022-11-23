@@ -4,9 +4,6 @@ import Colors from '../constantes/colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 function CaixaMovimentacao(props) {
-    function setinhaReceiver() {
-        console.log('>');
-    };
     return (
         <View style={styles.boxList}>
             <Ionicons style={{ marginVertical: 4 }} name="trending-up" color="#000" size={40} />
@@ -15,7 +12,7 @@ function CaixaMovimentacao(props) {
                 <Text style={styles.textoPequeno}>{props.maisMenos} R$ {props.valor}</Text>
             </View>
             <View style={{ position: 'absolute', right: 0 }}>
-                <Pressable onPress={setinhaReceiver}>
+                <Pressable>
                     <Ionicons name='chevron-forward-outline' size={40} style={{ margin: 15 }} />
                 </Pressable>
             </View>

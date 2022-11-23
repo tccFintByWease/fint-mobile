@@ -4,12 +4,9 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import TelaHome from '../../telas/TelaHome';
 import TelaControleGastos from '../../telas/TelaControleGastos';
 import TelaInvestimentos from '../../telas/TelaInvestimentos';
-import TelaEmDesenvolvimento from '../../telas/TelaEmDesenvolvimento';
+import TelaSimulador from '../../telas/TelaSimulador';
 
 import Colors from '../../constantes/colors';
-import TelaSimulador from '../../telas/TelaSimulador';
-import TelaDinheiroMoeda from '../../telas/TelaDinheiroMoeda';
-import DetalhesMovimentacao from '../DetalhesMovimentacao';
 
 const BottomTab = createBottomTabNavigator();
 
